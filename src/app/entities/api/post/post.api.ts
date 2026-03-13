@@ -17,3 +17,14 @@ export const getPosts = async (
 
   return { data, total }
 }
+
+export const getPostById = async (id: string) => {
+  const res = await fetch(`${BASE_URL}/posts/${id}`, {
+    cache: 'no-store',
+  })
+
+  if (res.status === 404) return null
+  if (!res.ok) throw new Error('Failed to fetch post')
+
+  return res.json()
+}
