@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BackButton, Separator } from '@/shared/ui'
-import { getPostById } from '@/entities/api/post/post.api'
+import { getPostById } from '@/entities/api'
 
 interface IProps {
   params: Promise<{ id: string; locale: string }>
