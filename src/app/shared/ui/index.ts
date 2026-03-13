@@ -1,4 +1,5 @@
 export { Button, buttonVariants } from './button'
+export { BackButton } from './back-button'
 export {
   Card,
   CardHeader,
@@ -8,3 +9,4 @@ export {
   CardDescription,
   CardContent,
 } from './card'
+export { Separator } from './separator'
