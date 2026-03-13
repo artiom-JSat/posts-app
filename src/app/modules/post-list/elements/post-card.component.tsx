@@ -17,7 +17,7 @@ export const PostCard = ({ post }: { post: IPost }) => (
     <CardFooter>
       <Button asChild variant="outline" className="w-full">
         <Link href={`/posts/${post.id}`}>
-          Подробнее
+          Details
         </Link>
       </Button>
     </CardFooter>
