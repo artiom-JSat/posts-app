@@ -1,8 +1,8 @@
 import * as z from "zod";
 
 export const authSchema = z.object({
-  email: z.string().email("Неверный формат email"),
-  password: z.string().min(6, "Пароль должен быть не менее 6 символов"),
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
 export type AuthFormValues = z.infer<typeof authSchema>;
