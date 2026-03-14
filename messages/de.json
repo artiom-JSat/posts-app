@@ -38,5 +38,10 @@
       "title": "Über den Autor",
       "description": "Dieser Beitrag wurde von Benutzer Nummer {id} veröffentlicht. In einer realen Anwendung würden hier Profildetails von /users/{id} stehen."
     }
+  },
+  "Pagination": {
+    "back": "Zurück",
+    "next": "Weiter",
+    "info": "Seite {current} von {total}"
   }
 }
