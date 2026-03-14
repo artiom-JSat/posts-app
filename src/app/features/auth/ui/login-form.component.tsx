@@ -3,11 +3,13 @@
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { Button, Input, Label } from '@/shared/ui'
 import { useAuthStore } from '@/shared/store/auth.store'
-import { loginSchema, type LoginFormValues } from '../auth.schema'
+import { getLoginSchema, type LoginFormValues } from '../auth.schema'
 
 export function LoginForm() {
+  const t = useTranslations('Auth')
   const login = useAuthStore((state) => state.login)
   const router = useRouter()
 
@@ -16,7 +18,7 @@ export function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(getLoginSchema(t)),
   })
 
   const onSubmit = (values: LoginFormValues) => {
@@ -27,10 +29,10 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
       <div className="space-y-2">
-        <Label htmlFor="login-email">Email</Label>
+        <Label htmlFor="login-email">{t('email')}</Label>
         <Input
           id="login-email"
-          placeholder="Enter your email address"
+          placeholder={t('placeholders.email')}
           type="email"
           {...register('email')}
           className={errors.email ? 'border-destructive' : ''}
@@ -40,10 +42,10 @@ export function LoginForm() {
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="login-password">Password</Label>
+        <Label htmlFor="login-password">{t('password')}</Label>
         <Input
           id="login-password"
-          placeholder="********"
+          placeholder={t('placeholders.password')}
           type="password"
           {...register('password')}
           className={errors.password ? 'border-destructive' : ''}
@@ -53,7 +55,7 @@ export function LoginForm() {
         )}
       </div>
       <Button type="submit" className="w-full">
-        Login
+        {t('submitLogin')}
       </Button>
     </form>
   )

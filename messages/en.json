@@ -1,15 +1,25 @@
 {
   "Auth": {
-    "login": "Login",
-    "register": "Registration",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "submit": "Continue",
+    "loginTab": "Login",
+    "registerTab": "Register",
+    "name": "Name*",
+    "email": "Email*",
+    "password": "Password*",
+    "confirmPassword": "Confirm password*",
+    "submitLogin": "Login",
+    "submitRegister": "Register",
+    "placeholders": {
+      "name": "Enter your name",
+      "email": "Enter your email address",
+      "password": "********"
+    },
     "errors": {
-      "email": "Invalid email",
-      "password": "Min 6 characters",
-      "match": "Passwords do not match"
+      "invalidEmail": "Invalid email format",
+      "emailRequired": "Email is required",
+      "shortPassword": "Min 8 characters",
+      "match": "Passwords do not match",
+      "nameRequired": "Name is too short",
+      "confirmPasswordRequired": "Please confirm your password"
     }
   }
 }
