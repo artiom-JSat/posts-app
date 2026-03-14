@@ -1,2 +1,2 @@
-export { authSchema, type AuthFormValues } from "./auth.schema";
-export { AuthForm } from "./auth-form.component";
+export { LoginForm } from './ui/login-form.component'
+export { RegisterForm } from './ui/register-form.component'
