@@ -21,7 +21,7 @@ export function LoginForm() {
 
   const onSubmit = (values: LoginFormValues) => {
     login(values.email)
-    router.push('/')
+    router.push('/posts')
   }
 
   return (

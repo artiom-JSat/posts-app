@@ -1,0 +1,15 @@
+{
+  "Auth": {
+    "login": "Login",
+    "register": "Registration",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Continue",
+    "errors": {
+      "email": "Invalid email",
+      "password": "Min 6 characters",
+      "match": "Passwords do not match"
+    }
+  }
+}

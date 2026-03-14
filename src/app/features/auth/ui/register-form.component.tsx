@@ -22,7 +22,7 @@ export function RegisterForm() {
 
   const onSubmit = (values: RegisterFormValues) => {
     login(values.email)
-    router.push('/')
+    router.push('/posts')
   }
 
   return (

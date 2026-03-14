@@ -1,0 +1,15 @@
+{
+  "Auth": {
+    "login": "Anmelden",
+    "register": "Registrierung",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "submit": "Weiter",
+    "errors": {
+      "email": "Ungültige E-Mail",
+      "password": "Mindestens 6 Zeichen",
+      "match": "Passwörter stimmen nicht überein"
+    }
+  }
+}
