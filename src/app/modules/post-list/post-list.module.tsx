@@ -1,6 +1,7 @@
 'use client';
 
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '../../../i18n/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '@/entities/api/post/post.api';
 import { Button } from '@/shared/ui';
