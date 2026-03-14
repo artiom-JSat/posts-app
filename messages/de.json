@@ -21,5 +21,22 @@
       "nameRequired": "Der Name ist zu kurz",
       "confirmPasswordRequired": "Bitte bestätigen Sie Ihr Passwort"
     }
+  },
+  "Posts": {
+    "title": "Publikationen",
+    "details": "Mehr erfahren",
+    "meta": {
+      "title": "Alle Beiträge | Blog",
+      "description": "Lesen Sie unsere letzten Publikationen"
+    }
+  },
+  "PostDetail": {
+    "postId": "Beitrags-ID",
+    "notFound": "Beitrag nicht gefunden",
+    "back": "Zurück zur Liste",
+    "author": {
+      "title": "Über den Autor",
+      "description": "Dieser Beitrag wurde von Benutzer Nummer {id} veröffentlicht. In einer realen Anwendung würden hier Profildetails von /users/{id} stehen."
+    }
   }
 }

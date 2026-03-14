@@ -1,4 +1,5 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { getTranslations } from 'next-intl/server';
 import { getPosts } from '@/entities/api/post/post.api';
 import PostListModule from '@/modules/post-list/post-list.module';
 
@@ -7,6 +8,7 @@ interface IProps {
 }
 
 export default async function PostsPage({ searchParams }: IProps) {
+  const t = await getTranslations('Posts')
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
   
@@ -19,7 +21,7 @@ export default async function PostsPage({ searchParams }: IProps) {
 
   return (
     <main className="container mx-auto py-10 px-4">
-      <h1 className="text-4xl font-bold mb-10">Publications</h1>
+      <h1 className="text-4xl font-bold mb-10">{t('title')}</h1>
       
       <HydrationBoundary state={dehydrate(queryClient)}>
         <PostListModule />

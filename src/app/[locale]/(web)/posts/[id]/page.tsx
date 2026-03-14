@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
 import { BackButton, Separator } from '@/shared/ui'
 import { getPostById } from '@/entities/api'
 
@@ -10,8 +11,9 @@ interface IProps {
 export async function generateMetadata({ params }: IProps): Promise<Metadata> {
   const { id } = await params
   const post = await getPostById(id)
+  const t = await getTranslations('PostDetail')
 
-  if (!post) return { title: 'Post Not Found' }
+  if (!post) return { title: t('notFound') }
 
   return {
     title: `${post.title} | Blog`,
@@ -22,6 +24,7 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
 export default async function PostDetailPage({ params }: IProps) {
   const { id } = await params
   const post = await getPostById(id)
+  const t = await getTranslations('PostDetail')
 
   if (!post) {
     notFound()
@@ -29,12 +32,14 @@ export default async function PostDetailPage({ params }: IProps) {
 
   return (
     <main className="container mx-auto max-w-3xl py-10 px-4">
-      <BackButton />
+      <BackButton>
+        {t('back')}
+      </BackButton>
 
       <article className="space-y-6">
         <div className="space-y-2">
           <span className="text-sm text-muted-foreground uppercase tracking-wider font-medium">
-            Post ID: {post.id}
+            {t('postId')}: {post.id}
           </span>
           <h1 className="text-4xl font-extrabold lg:text-5xl capitalize leading-tight">
             {post.title}
@@ -54,11 +59,9 @@ export default async function PostDetailPage({ params }: IProps) {
 
         <div className="pt-10">
           <div className="rounded-lg border bg-card p-6 shadow-sm">
-            <h3 className="font-semibold mb-2">About the author</h3>
+            <h3 className="font-semibold mb-2">{t('author.title')}</h3>
             <p className="text-sm text-muted-foreground">
-              This post was published by user number {post.userId}. In a real
-              application, there would be profile details from /users/
-              {post.userId}.
+              {t('author.description', { id: post.userId })}
             </p>
           </div>
         </div>

@@ -21,5 +21,22 @@
       "nameRequired": "Name is too short",
       "confirmPasswordRequired": "Please confirm your password"
     }
+  },
+  "Posts": {
+    "title": "Publications",
+    "details": "Details",
+    "meta": {
+      "title": "All Posts | Blog",
+      "description": "Read our latest publications"
+    }
+  },
+  "PostDetail": {
+    "postId": "Post ID",
+    "notFound": "Post Not Found",
+    "back": "Back to list",
+    "author": {
+      "title": "About the author",
+      "description": "This post was published by user number {id}. In a real application, there would be profile details from /users/{id}."
+    }
   }
 }
