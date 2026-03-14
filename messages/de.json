@@ -1,0 +1,47 @@
+{
+  "Auth": {
+    "loginTab": "Anmelden",
+    "registerTab": "Registrieren",
+    "name": "Name*",
+    "email": "E-Mail*",
+    "password": "Passwort*",
+    "confirmPassword": "Passwort bestätigen*",
+    "submitLogin": "Anmelden",
+    "submitRegister": "Konto erstellen",
+    "placeholders": {
+      "name": "Geben Sie Ihren Namen ein",
+      "email": "E-Mail-Adresse eingeben",
+      "password": "********"
+    },
+    "errors": {
+      "invalidEmail": "Ungültiges E-Mail-Format",
+      "emailRequired": "E-Mail ist erforderlich",
+      "shortPassword": "Mindestens 8 Zeichen",
+      "match": "Passwörter stimmen nicht überein",
+      "nameRequired": "Der Name ist zu kurz",
+      "confirmPasswordRequired": "Bitte bestätigen Sie Ihr Passwort"
+    }
+  },
+  "Posts": {
+    "title": "Publikationen",
+    "details": "Mehr erfahren",
+    "meta": {
+      "title": "Alle Beiträge | Blog",
+      "description": "Lesen Sie unsere letzten Publikationen"
+    }
+  },
+  "PostDetail": {
+    "postId": "Beitrags-ID",
+    "notFound": "Beitrag nicht gefunden",
+    "back": "Zurück zur Liste",
+    "author": {
+      "title": "Über den Autor",
+      "description": "Dieser Beitrag wurde von Benutzer Nummer {id} veröffentlicht. In einer realen Anwendung würden hier Profildetails von /users/{id} stehen."
+    }
+  },
+  "Pagination": {
+    "back": "Zurück",
+    "next": "Weiter",
+    "info": "Seite {current} von {total}"
+  }
+}

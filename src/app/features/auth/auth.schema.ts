@@ -1,21 +1,25 @@
-import * as z from 'zod'
+import * as z from "zod";
 
-export const loginSchema = z.object({
-  email: z.string().email('Invalid email format'),
-  password: z.string().min(8, 'Password minimum 8 characters'),
-})
+type TFunction = (key: string) => string;
 
-export const registerSchema = z
-  .object({
-    name: z.string().min(2, 'Name minimum 2 characters'),
-    email: z.string().email('Invalid email format'),
-    password: z.string().min(8, 'Password minimum 8 characters'),
-    confirmPassword: z.string().min(8, 'Confirm password'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
+export const getLoginSchema = (t: TFunction) => z.object({
+  email: z.string()
+    .min(1, t('errors.emailRequired'))
+    .email(t('errors.invalidEmail')),
+  password: z.string()
+    .min(8, t('errors.shortPassword')),
+});
 
-export type LoginFormValues = z.infer<typeof loginSchema>
-export type RegisterFormValues = z.infer<typeof registerSchema>
+export const getRegisterSchema = (t: TFunction) => 
+  getLoginSchema(t).extend({
+    name: z.string()
+      .min(2, t('errors.nameRequired')),
+    confirmPassword: z.string()
+      .min(1, t('errors.confirmPasswordRequired')),
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: t('errors.match'),
+    path: ["confirmPassword"],
+  });
+
+export interface LoginFormValues extends z.infer<ReturnType<typeof getLoginSchema>> {}
+export interface RegisterFormValues extends z.infer<ReturnType<typeof getRegisterSchema>> {}

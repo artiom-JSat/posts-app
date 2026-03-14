@@ -1,13 +1,15 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from '../../../../i18n/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { Button, Input, Label } from '@/shared/ui'
 import { useAuthStore } from '@/shared/store/auth.store'
-import { registerSchema, type RegisterFormValues } from '../auth.schema'
+import { getRegisterSchema, type RegisterFormValues } from '../auth.schema'
 
 export function RegisterForm() {
+  const t = useTranslations('Auth')
   const login = useAuthStore((state) => state.login)
   const router = useRouter()
 
@@ -16,22 +18,22 @@ export function RegisterForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(getRegisterSchema(t)),
     mode: 'onChange',
   })
 
   const onSubmit = (values: RegisterFormValues) => {
     login(values.email)
-    router.push('/')
+    router.push('/posts')
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
       <div className="space-y-2">
-        <Label htmlFor="reg-name">Name*</Label>
+        <Label htmlFor="reg-name">{t('name')}</Label>
         <Input
           id="reg-name"
-          placeholder="Enter your name"
+          placeholder={t('placeholders.name')}
           {...register('name')}
           className={errors.name ? 'border-destructive' : ''}
         />
@@ -40,10 +42,10 @@ export function RegisterForm() {
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="reg-email">Email*</Label>
+        <Label htmlFor="reg-email">{t('email')}</Label>
         <Input
           id="reg-email"
-          placeholder="Enter your email address"
+          placeholder={t('placeholders.email')}
           type="email"
           {...register('email')}
           className={errors.email ? 'border-destructive' : ''}
@@ -66,7 +68,7 @@ export function RegisterForm() {
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="reg-confirm">Confirm password*</Label>
+        <Label htmlFor="reg-confirm">{t('confirmPassword')}</Label>
         <Input
           id="reg-confirm"
           placeholder="********"
@@ -81,7 +83,7 @@ export function RegisterForm() {
         )}
       </div>
       <Button type="submit" className="w-full">
-        Register
+        {t('submitRegister')}
       </Button>
     </form>
   )
