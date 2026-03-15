@@ -1,4 +1,11 @@
 {
+  "Home": {
+    "title": "Sommerliche Genüsse",
+    "subtitle": "Mühelose",
+    "titleEnd": "Rezepte für Partys!",
+    "description": "Tauchen Sie diesen Sommer in eine Welt voller Aromen ein mit unserer Kollektion sommerlicher Genüsse! Von erfrischenden Vorspeisen bis hin zu köstlichen Desserts",
+    "button": "Jetzt ausprobieren"
+  },
   "Auth": {
     "loginTab": "Anmelden",
     "registerTab": "Registrieren",
