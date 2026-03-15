@@ -3,12 +3,12 @@
 import { useSearchParams } from 'next/navigation'
 import { usePathname, useRouter } from '../../../i18n/navigation'
 import { useQuery } from '@tanstack/react-query'
-import { getPosts } from '@/entities/api/post/post.api'
+import { getPosts } from '@/entities/api/posts/posts.api'
 import { PostCard } from './elements/post-card.component'
 import { Pagination } from '@/shared/ui/pagination'
 import { useTranslations } from 'next-intl'
 
-export default function PostListModule() {
+export default function PostsListModule() {
   const t = useTranslations('Posts')
   const searchParams = useSearchParams()
   const router = useRouter()
