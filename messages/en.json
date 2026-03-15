@@ -1,10 +1,9 @@
 {
   "Home": {
-    "title": "Sizzling Summer Delights",
-    "subtitle": "Effortless",
-    "titleEnd": "Recipes for Parties!",
-    "description": "Dive into a world of flavor this summer with our collection of Sizzling Summer Delights! From refreshing appetizers to delightful desserts",
-    "button": "Try It Now"
+    "title": "Explore the Unexplored",
+    "subtitle": "Thoughts, ideas in one place.",
+    "description": "A curated collection of thoughts, ideas, and deep insights captured in one place. From technical deep-dives to creative storytelling—dive into our latest stories and discover something new today.",
+    "button": "Start reading"
   },
   "Auth": {
     "loginTab": "Login",

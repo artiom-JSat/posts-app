@@ -15,7 +15,6 @@ export default function HomePage() {
           {t('title')}
           <br />
           <span className="relative">{t('subtitle')}</span>
-          {t('titleEnd')}
         </h1>
 
         <p className="text-muted-foreground max-w-2xl">{t('description')}</p>

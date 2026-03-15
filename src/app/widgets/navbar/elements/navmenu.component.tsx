@@ -39,7 +39,7 @@ export const NavMenu = ({
   return (
     <nav className="text-muted-foreground flex flex-1 items-center gap-8 font-medium md:justify-center lg:gap-16">
       {/* Десктопные ссылки */}
-      <div className="flex flex-1 items-center gap-8 md:justify-center lg:gap-16">
+      <div className="flex flex-1 items-center gap-8 lg:gap-16">
         {visibleNavigation.map((item, index) => (
           <div key={index} className="hover:text-primary max-md:hidden">
             <Link href={item.href}>{t(item.titleKey)}</Link>
