@@ -1,4 +1,11 @@
 {
+  "Home": {
+    "title": "Sizzling Summer Delights",
+    "subtitle": "Effortless",
+    "titleEnd": "Recipes for Parties!",
+    "description": "Dive into a world of flavor this summer with our collection of Sizzling Summer Delights! From refreshing appetizers to delightful desserts",
+    "button": "Try It Now"
+  },
   "Auth": {
     "loginTab": "Login",
     "registerTab": "Register",
