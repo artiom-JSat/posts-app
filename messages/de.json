@@ -1,10 +1,9 @@
 {
-  "Home": {
-    "title": "Sommerliche Genüsse",
-    "subtitle": "Mühelose",
-    "titleEnd": "Rezepte für Partys!",
-    "description": "Tauchen Sie diesen Sommer in eine Welt voller Aromen ein mit unserer Kollektion sommerlicher Genüsse! Von erfrischenden Vorspeisen bis hin zu köstlichen Desserts",
-    "button": "Jetzt ausprobieren"
+  "Hero": {
+    "title": "Entdecke das Unbekannte",
+    "subtitle": "Gedanken und Ideen an einem Ort.",
+    "description": "Eine kuratierte Sammlung von Gedanken, Ideen und tiefen Einblicken. Von technischen Analysen bis hin zu kreativen Geschichten – tauche ein in unsere neuesten Beiträge und entdecke heute etwas Neues.",
+    "button": "Jetzt lesen"
   },
   "Auth": {
     "loginTab": "Anmelden",

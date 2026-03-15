@@ -1,1 +1,1 @@
-export { getPosts, getPostById } from './post/post.api'
+export { getPosts, getPostById } from './posts/posts.api'
