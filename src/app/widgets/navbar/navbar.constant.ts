@@ -1,6 +1,7 @@
 export type NavigationItem = {
   titleKey: string
   href: string
+  isPrivate?: boolean
 }
 
 export const navigationData: NavigationItem[] = [
@@ -10,6 +11,7 @@ export const navigationData: NavigationItem[] = [
   },
   {
     titleKey: 'posts',
-    href: '/posts'
+    href: '/posts',
+    isPrivate: true
   }
 ]

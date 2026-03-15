@@ -16,14 +16,28 @@ export function LoginForm() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(getLoginSchema(t)),
   })
 
   const onSubmit = (values: LoginFormValues) => {
-    login(values.email)
-    router.push('/posts')
+    const result = login(values.email, values.password)
+
+    if (result.success) {
+      router.push('/posts')
+    } else {
+      setError('email', {
+        type: 'manual',
+        message: t(`errors.${result.message}`),
+      })
+
+      setError('password', {
+        type: 'manual',
+        message: t(`errors.${result.message}`),
+      })
+    }
   }
 
   return (
