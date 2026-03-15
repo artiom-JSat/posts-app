@@ -26,7 +26,9 @@
       "shortPassword": "Mindestens 8 Zeichen",
       "match": "Passwörter stimmen nicht überein",
       "nameRequired": "Der Name ist zu kurz",
-      "confirmPasswordRequired": "Bitte bestätigen Sie Ihr Passwort"
+      "confirmPasswordRequired": "Bitte bestätigen Sie Ihr Passwort",
+      "userExists": "Benutzer mit dieser E-Mail existiert bereits",
+      "invalidCredentials": "Ungültige E-Mail oder Passwort"
     }
   },
   "Posts": {

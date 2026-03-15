@@ -7,6 +7,7 @@ import { routing } from '../../i18n/routing'
 import QueryProvider from '@/shared/providers/query-provider'
 import '../../config/styles/globals.css'
 import { Navbar } from '@/widgets/navbar'
+import { AuthProvider } from '@/shared/providers/auth-provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -42,8 +43,10 @@ export default async function RootLayout({ children, params }: Props) {
       >
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
-            <Navbar />
-            {children}
+            <AuthProvider>
+              <Navbar />
+              {children}
+            </AuthProvider>
           </QueryProvider>
         </NextIntlClientProvider>
       </body>

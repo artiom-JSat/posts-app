@@ -10,21 +10,35 @@ import { getRegisterSchema, type RegisterFormValues } from '../auth.schema'
 
 export function RegisterForm() {
   const t = useTranslations('Auth')
-  const login = useAuthStore((state) => state.login)
   const router = useRouter()
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(getRegisterSchema(t)),
     mode: 'onChange',
   })
 
-  const onSubmit = (values: RegisterFormValues) => {
-    login(values.email)
-    router.push('/posts')
+  const registerUser = useAuthStore((state) => state.register)
+
+  const onSubmit = (values: any) => {
+    const result = registerUser({
+      email: values.email,
+      password: values.password,
+      name: values.name,
+    })
+
+    if (result.success) {
+      router.push('/posts')
+    } else {
+      setError('email', { 
+      type: 'manual', 
+      message: t(`errors.${result.message}`)
+    })
+    }
   }
 
   return (
