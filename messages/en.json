@@ -39,6 +39,13 @@
       "description": "This post was published by user number {id}. In a real application, there would be profile details from /users/{id}."
     }
   },
+  "Navigation": {
+    "home": "Home",
+    "posts": "Posts",
+    "login": "Login",
+    "logout": "Logout",
+    "menu": "Open menu"
+  },
   "Pagination": {
     "back": "Back",
     "next": "Next",

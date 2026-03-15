@@ -6,6 +6,7 @@ import { getMessages } from 'next-intl/server'
 import { routing } from '../../i18n/routing'
 import QueryProvider from '@/shared/providers/query-provider'
 import '../../config/styles/globals.css'
+import { Navbar } from '@/widgets/navbar'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -40,7 +41,10 @@ export default async function RootLayout({ children, params }: Props) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <Navbar />
+            {children}
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

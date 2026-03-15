@@ -39,6 +39,13 @@
       "description": "Dieser Beitrag wurde von Benutzer Nummer {id} veröffentlicht. In einer realen Anwendung würden hier Profildetails von /users/{id} stehen."
     }
   },
+  "Navigation": {
+    "home": "Startseite",
+    "posts": "Beiträge",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "menu": "Menü öffnen"
+  },
   "Pagination": {
     "back": "Zurück",
     "next": "Weiter",
