@@ -15,12 +15,12 @@ import {
 import { ArrowRightIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-export const PostCard = ({ post }: { post: IPost }) => {
+export const PostCard = ({ post, ...props }: { post: IPost }) => {
   const imageUrl = `https://picsum.photos/seed/${post.id}/600/400`
   const t = useTranslations('Posts')
 
   return (
-    <Card className="pt-0 shadow-none flex flex-col h-full" key={post.id}>
+    <Card className="pt-0 shadow-none flex flex-col h-full" key={post.id} {...props}>
       <CardContent className="px-0 relative aspect-video w-full overflow-hidden">
         <Image
           src={imageUrl}
