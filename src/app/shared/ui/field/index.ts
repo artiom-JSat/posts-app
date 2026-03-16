@@ -9,5 +9,5 @@ export {
   FieldSet,
   FieldContent,
   FieldTitle,
-} from "./field"
+} from "./field.component"
 

@@ -24,7 +24,7 @@ export function RegisterForm() {
 
   const registerUser = useRegisterAction()
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: RegisterFormValues) => {
     const result = registerUser({
       email: values.email,
       password: values.password,
@@ -34,10 +34,10 @@ export function RegisterForm() {
     if (result.success) {
       router.push('/posts')
     } else {
-      setError('email', { 
-      type: 'manual', 
-      message: t(`errors.${result.message}`)
-    })
+      setError('email', {
+        type: 'manual',
+        message: t(`errors.${result.message}`),
+      })
     }
   }
 

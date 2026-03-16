@@ -2,7 +2,7 @@
 
 A modern, high-performance web application for viewing posts, built with the latest frontend best practices. This project features full authentication, dynamic routing, pagination, and internationalization.
 
-[![Deploy Status](https://img.shields.io/badge/deploy-live-brightgreen)](YOUR_DEPLOY_LINK_HERE)
+[![Deploy Status](https://img.shields.io/badge/deploy-live-brightgreen)](https://rl-posts-app.vercel.app)
 
 ## 🚀 Live Demo
 **Url:** [Visit Live Demo](https://rl-posts-app.vercel.app/en)
@@ -30,8 +30,9 @@ Follow these instructions to run the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/artiom-JSat/posts-app.git](https://github.com/artiom-JSat/posts-app.git)
+   git clone https://github.com/artiom-JSat/posts-app.git
    cd posts-app
+   ```
 
 2. **Install dependencies:**
    ```bash
