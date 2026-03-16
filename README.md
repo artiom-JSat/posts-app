@@ -5,7 +5,7 @@ A modern, high-performance web application for viewing posts, built with the lat
 [![Deploy Status](https://img.shields.io/badge/deploy-live-brightgreen)](YOUR_DEPLOY_LINK_HERE)
 
 ## 🚀 Live Demo
-**Url:** [Visit Live Demo](YOUR_DEPLOY_LINK_HERE)
+**Url:** [Visit Live Demo](https://rl-posts-app.vercel.app/en)
 
 ---
 
@@ -64,3 +64,10 @@ Follow these instructions to run the project locally:
 
 ### 📄 License
 This project is open-source and available under the MIT License (https://opensource.org/license/mit/).
+
+<img width="1547" height="848" alt="Screenshot 2026-03-16 at 13 33 36" src="https://github.com/user-attachments/assets/1af62ce7-e2d7-44f0-a387-8c918f1d4f0f" />
+<img width="1547" height="848" alt="Screenshot 2026-03-16 at 13 34 28" src="https://github.com/user-attachments/assets/5e7e6fb0-7025-4882-bff2-3677685ea49b" />
+<img width="1547" height="848" alt="Screenshot 2026-03-16 at 13 34 54" src="https://github.com/user-attachments/assets/90233228-0272-4533-b8a4-792b05562097" />
+<img width="1547" height="848" alt="Screenshot 2026-03-16 at 13 34 09" src="https://github.com/user-attachments/assets/4464d4f9-4e76-4b29-8712-d0f2653a1897" />
+
+
