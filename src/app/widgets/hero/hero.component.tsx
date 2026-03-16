@@ -5,9 +5,12 @@ import { Link } from '../../../i18n/navigation'
 import { ArrowRightIcon } from 'lucide-react'
 import { Button } from '@/shared/ui'
 import { HeroGallery } from '@/widgets/hero/elements'
+import { useIsAuth } from '@/shared/store'
 
 export const Hero = () => {
   const t = useTranslations('Hero')
+  const isAuth = useIsAuth()
+  const destination = isAuth ? '/posts' : '/login'
 
   return (
     <section className="flex min-h-[calc(100dvh-4rem)] flex-1 flex-col justify-between gap-12 overflow-x-hidden pt-8 sm:gap-16 sm:pt-16 lg:gap-24 lg:pt-24">
@@ -21,7 +24,7 @@ export const Hero = () => {
         <p className="text-muted-foreground max-w-2xl">{t('description')}</p>
 
         <Button size="lg" asChild className="group text-lg has-[>svg]:px-6">
-          <Link href="/posts">
+          <Link href={destination}>
             {t('button')}
             <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
