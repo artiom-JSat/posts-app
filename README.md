@@ -51,7 +51,7 @@ Follow these instructions to run the project locally:
 
 ---
 
-### Key Features
+### ✨ Key Features
 
 * Authentication Flow: Secure registration and login tabs with automated redirects.
 * Dynamic Content: Fetches posts from a REST API with loading states and error handling.
@@ -62,5 +62,5 @@ Follow these instructions to run the project locally:
 
 ---
 
-### License
-This project is open-source and available under the MIT License.
+### 📄 License
+This project is open-source and available under the MIT License (https://opensource.org/license/mit/).
