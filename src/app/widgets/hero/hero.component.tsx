@@ -20,7 +20,7 @@ export const Hero = () => {
 
         <p className="text-muted-foreground max-w-2xl">{t('description')}</p>
 
-        <Button size="lg" asChild className="group">
+        <Button size="lg" asChild className="group text-lg has-[>svg]:px-6">
           <Link href="/posts">
             {t('button')}
             <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-0.5" />

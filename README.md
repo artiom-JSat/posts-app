@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# myBLOG — Posts Application
 
-## Getting Started
+A modern, high-performance web application for viewing posts, built with the latest frontend best practices. This project features full authentication, dynamic routing, pagination, and internationalization.
 
-First, run the development server:
+[![Deploy Status](https://img.shields.io/badge/deploy-live-brightgreen)](YOUR_DEPLOY_LINK_HERE)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Live Demo
+**Url:** [Visit Live Demo](YOUR_DEPLOY_LINK_HERE)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project is built with a focus on type safety, scalability, and performance:
 
-## Learn More
+* **Framework:** [Next.js 16+](https://nextjs.org/) (App Router)
+* **Language:** [TypeScript](https://www.typescriptlang.org/)
+* **State Management:** [Zustand](https://docs.pmnd.rs/zustand/) (Client-side state)
+* **Data Fetching:** [TanStack Query](https://tanstack.com/query/latest) (Server-side state)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/) + [Shadcn/UI](https://ui.shadcn.com/)
+* **Internationalization:** [next-intl](https://next-intl-docs.vercel.app/) (i18n support)
+* **E2E Testing:** [Playwright](https://playwright.dev/)
+* **Form Management:** [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) validation
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💻 Getting Started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Follow these instructions to run the project locally:
 
-## Deploy on Vercel
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/artiom-JSat/posts-app.git](https://github.com/artiom-JSat/posts-app.git)
+   cd posts-app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+4. **Run End-to-End tests:**
+   ```bash
+   npx playwright test
+   ```
+
+---
+
+### Key Features
+
+* Authentication Flow: Secure registration and login tabs with automated redirects.
+* Dynamic Content: Fetches posts from a REST API with loading states and error handling.
+* Pagination: Efficient client-side pagination integrated with URL search parameters.
+* i18n Routing: Automatic language detection and localized routing (e.g., /en/posts, /de/posts).
+* Responsive Design: Mobile-first approach ensuring a seamless experience across all devices.
+* E2E Test Coverage: Critical user paths (Registration -> List -> Details -> Logout) are fully tested.
+
+---
+
+### License
+This project is open-source and available under the MIT License.
