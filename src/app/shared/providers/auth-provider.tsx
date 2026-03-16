@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from '../../../i18n/navigation'
-import { useAuthStore } from '@/shared/store/auth.store'
+import { useIsAuth } from '@/shared/store'
 
 const PUBLIC_ROUTES = ['/', '/login']
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const isAuth = useAuthStore((state) => state.isAuth)
+  const isAuth = useIsAuth()
   const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {

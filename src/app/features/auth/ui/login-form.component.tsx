@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { Button, Input, Label } from '@/shared/ui'
-import { useAuthStore } from '@/shared/store/auth.store'
+import { useLoginAction } from '@/shared/store'
 import { getLoginSchema, type LoginFormValues } from '../auth.schema'
 
 export function LoginForm() {
   const t = useTranslations('Auth')
-  const login = useAuthStore((state) => state.login)
+  const login = useLoginAction()
   const router = useRouter()
 
   const {

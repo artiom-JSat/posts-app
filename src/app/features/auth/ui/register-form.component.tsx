@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { Button, Input, Label } from '@/shared/ui'
-import { useAuthStore } from '@/shared/store/auth.store'
+import { useRegisterAction } from '@/shared/store'
 import { getRegisterSchema, type RegisterFormValues } from '../auth.schema'
 
 export function RegisterForm() {
@@ -22,7 +22,7 @@ export function RegisterForm() {
     mode: 'onChange',
   })
 
-  const registerUser = useAuthStore((state) => state.register)
+  const registerUser = useRegisterAction()
 
   const onSubmit = (values: any) => {
     const result = registerUser({

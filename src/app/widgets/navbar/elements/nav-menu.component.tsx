@@ -1,13 +1,14 @@
 'use client'
 
 import { LanguagesIcon, LogOut } from 'lucide-react'
-import { Link, useRouter } from '../../../../i18n/navigation'
+import { Link } from '../../../../i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/shared/ui'
 import { NavigationItem } from '../navbar.constant'
-import { useAuthStore } from '@/shared/store/auth.store'
+import { useIsAuth, useUser } from '@/shared/store'
 import { LanguageDropdown } from './language-dropdown.component'
 import { NavMobileMenu } from './nav-mobile-menu.component'
+import { useLogout } from '@/shared/hooks'
 
 export const NavMenu = ({
   navigationData,
@@ -15,19 +16,16 @@ export const NavMenu = ({
   navigationData: NavigationItem[]
 }) => {
   const t = useTranslations('Navigation')
-  const router = useRouter()
 
-  const { isAuth, logout, user } = useAuthStore()
+  const isAuth = useIsAuth()
+  const user = useUser()
 
   const visibleNavigation = navigationData.filter((item) => {
     if (item.isPrivate && !isAuth) return false
     return true
   })
 
-  const handleLogout = () => {
-    logout()
-    router.push('/')
-  }
+  const { handleLogout } = useLogout()
 
   return (
     <nav className="text-muted-foreground flex flex-1 items-center gap-8 font-medium md:justify-center lg:gap-16">

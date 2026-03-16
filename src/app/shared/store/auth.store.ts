@@ -77,3 +77,9 @@ export const useAuthStore = create<IAuthState>()(
     },
   ),
 )
+
+export const useUser = () => useAuthStore((state) => state.user)
+export const useIsAuth = () => useAuthStore((state) => state.isAuth)
+export const useLoginAction = () => useAuthStore((state) => state.login)
+export const useRegisterAction = () => useAuthStore((state) => state.register)
+export const useLogoutAction = () => useAuthStore((state) => state.logout)
