@@ -1,8 +1,8 @@
 'use client'
 
 import { useRouter } from '../../../../i18n/navigation'
+import { ArrowLeftIcon } from 'lucide-react'
 import { Button } from '@/shared/ui'
-import { ChevronLeft } from 'lucide-react'
 
 export const BackButton = ({
   children,
@@ -18,8 +18,8 @@ export const BackButton = ({
   }
 
   return (
-    <Button variant="ghost" onClick={handleBack} className="mb-8 -ml-4">
-      <ChevronLeft className="mr-2 h-4 w-4" />
+    <Button variant="ghost" className="group mb-8 -ml-4" onClick={handleBack}>
+      <ArrowLeftIcon className="transition-transform duration-200 group-hover:-translate-x-0.5" />
       {children}
     </Button>
   )
