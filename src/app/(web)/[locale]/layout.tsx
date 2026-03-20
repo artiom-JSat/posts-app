@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import '@/config/styles/globals.css'
 import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
@@ -8,6 +7,8 @@ import { routing } from '@/i18n/routing'
 import QueryProvider from '@/shared/providers/query-provider'
 import { AuthProvider } from '@/shared/providers/auth-provider'
 import { Navbar } from '@/widgets/navbar'
+
+import '@/config/styles/globals.css'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
