@@ -1,7 +1,7 @@
 'use client'
 
 import { LanguagesIcon, LogOut } from 'lucide-react'
-import { Link } from '../../../../i18n/navigation'
+import { Link } from '@/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/shared/ui'
 import { NavigationItem } from '../navbar.constant'

@@ -2,7 +2,7 @@
 
 import { MenuIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Link } from '../../../../i18n/navigation'
+import { Link } from '@/i18n/navigation'
 import {
   Button,
   DropdownMenu,

@@ -1,14 +1,15 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { usePathname, useRouter } from '../../../i18n/navigation'
 import { useQuery } from '@tanstack/react-query'
+import { redirect, usePathname, useRouter } from '@/i18n/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
 import { PostCard } from './elements/post-card.component'
 import { Pagination } from '@/shared/ui/pagination'
-import { useTranslations } from 'next-intl'
 
 export default function PostsListModule() {
+  const locale = useLocale()
   const t = useTranslations('Posts')
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -28,6 +29,26 @@ export default function PostsListModule() {
     const params = new URLSearchParams(searchParams)
     params.set('page', newPage.toString())
     router.push(`${pathname}?${params.toString()}`)
+  }
+
+  if (totalPages > 0 && currentPage > totalPages) {
+    redirect({
+      href: {
+        pathname: '/posts',
+        query: { page: totalPages },
+      },
+      locale: locale,
+    })
+  }
+
+  if (currentPage < 1) {
+    redirect({
+      href: {
+        pathname: '/posts',
+        query: { page: 1 },
+      },
+      locale: locale,
+    })
   }
 
   if (isLoading)

@@ -41,7 +41,7 @@ export const HeroGallery = () => {
                   key={imageIndex}
                   src={image.src}
                   alt={image.alt}
-                  className="rounded-lg object-cover"
+                  className="rounded-lg object-cover w-full h-full"
                 />
               ))}
             </div>
