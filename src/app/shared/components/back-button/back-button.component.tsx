@@ -1,8 +1,8 @@
 'use client'
 
-import { useRouter } from 'pkg/locale'
 import { ArrowLeftIcon } from 'lucide-react'
-import { Button } from 'pkg/theme/ui/button'
+import { useRouter } from '@/pkg/locale'
+import { Button } from '@/pkg/theme/ui/button'
 
 export const BackButton = ({
   children,

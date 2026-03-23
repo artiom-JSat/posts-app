@@ -1,14 +1,14 @@
 'use client'
 
 import { LanguagesIcon, LogOut } from 'lucide-react'
-import { Link } from 'pkg/locale'
 import { useTranslations } from 'next-intl'
-import { Button } from 'pkg/theme/ui/button'
-import { NavigationItem } from '../navbar.constant'
+import { Link } from '@/pkg/locale'
+import { Button } from '@/pkg/theme/ui/button'
 import { useIsAuth, useUser } from '@/shared/store'
+import { useLogout } from '@/shared/hooks'
+import { NavigationItem } from '../navbar.constant'
 import { LanguageDropdown } from './language-dropdown.component'
 import { NavMobileMenu } from './nav-mobile-menu.component'
-import { useLogout } from '@/shared/hooks'
 
 export const NavMenu = ({
   navigationData,

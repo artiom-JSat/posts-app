@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Button } from 'pkg/theme/ui/button'
+import { Button } from '@/pkg/theme/ui/button'
 
 interface IPaginationProps {
   currentPage: number

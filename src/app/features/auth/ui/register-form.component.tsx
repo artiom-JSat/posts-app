@@ -3,12 +3,12 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'pkg/locale'
+import { useRouter } from '@/pkg/locale'
 import { useRegisterAction } from '@/shared/store'
 import { getRegisterSchema, type RegisterFormValues } from '../auth.schema'
-import { Button } from 'pkg/theme/ui/button'
-import { Input } from 'pkg/theme/ui/input'
-import { Label } from 'pkg/theme/ui/label'
+import { Button } from '@/pkg/theme/ui/button'
+import { Input } from '@/pkg/theme/ui/input'
+import { Label } from '@/pkg/theme/ui/label'
 
 export function RegisterForm() {
   const t = useTranslations('Auth')

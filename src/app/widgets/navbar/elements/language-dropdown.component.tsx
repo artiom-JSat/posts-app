@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { usePathname, useRouter } from 'pkg/locale'
 import { useLocale } from 'next-intl'
+import { usePathname, useRouter } from '@/pkg/locale'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from 'pkg/theme/ui/dropdown-menu'
+} from '@/pkg/theme/ui/dropdown-menu'
 
 type LanguageDropdownProps = {
   trigger: React.ReactNode

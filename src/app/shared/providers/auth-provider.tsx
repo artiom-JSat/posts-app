@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'pkg/locale'
+import { usePathname, useRouter } from '@/pkg/locale'
 import { useIsAuth } from '@/shared/store'
 
 const PUBLIC_ROUTES = ['/', '/login']

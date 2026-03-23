@@ -1,4 +1,4 @@
-import { useRouter } from 'pkg/locale'
+import { useRouter } from '@/pkg/locale'
 import { useLogoutAction } from '@/shared/store'
 
 export const useLogout = () => {

@@ -1,4 +1,4 @@
-import { cn } from 'pkg/theme/lib/utils'
+import { cn } from '@/pkg/theme/lib/utils'
 
 const gallerySections = [
   {

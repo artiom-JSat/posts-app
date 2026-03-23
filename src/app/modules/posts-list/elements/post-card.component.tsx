@@ -1,12 +1,12 @@
 'use client'
 
 import Image from 'next/image'
-import { Link } from 'pkg/locale'
+import { Link } from '@/pkg/locale'
 import { IPost } from '@/entities/models'
 import { ArrowRightIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'pkg/theme/ui/card'
-import { Button } from 'pkg/theme/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/pkg/theme/ui/card'
+import { Button } from '@/pkg/theme/ui/button'
 
 export const PostCard = ({ post, ...props }: { post: IPost }) => {
   const imageUrl = `https://picsum.photos/seed/${post.id}/600/400`
