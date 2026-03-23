@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
-import { redirect, usePathname, useRouter } from '@/i18n/navigation'
+import { redirect, usePathname, useRouter } from 'pkg/locale'
 import { useLocale, useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
 import { PostCard } from './elements/post-card.component'

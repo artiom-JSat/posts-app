@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useRouter } from '@/i18n/navigation'
+import { useRouter } from 'pkg/locale'
 import { Button, Input, Label } from '@/shared/ui'
 import { useRegisterAction } from '@/shared/store'
 import { getRegisterSchema, type RegisterFormValues } from '../auth.schema'

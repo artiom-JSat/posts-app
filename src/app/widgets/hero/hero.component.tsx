@@ -2,7 +2,7 @@
 
 import { ArrowRightIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/navigation'
+import { Link } from 'pkg/locale'
 import { Button } from '@/shared/ui'
 import { HeroGallery } from '@/widgets/hero/elements'
 import { useIsAuth } from '@/shared/store'

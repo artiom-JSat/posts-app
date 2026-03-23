@@ -21,7 +21,6 @@
     "baseUrl": "src/",
     "paths": {
       "@/*": ["app/*"],
-      "@/i18n/*": ["i18n/*"],
       "@/config/*": ["config/*"],
     }
   },

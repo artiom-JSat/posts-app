@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Link } from '@/i18n/navigation'
+import { Link } from 'pkg/locale'
 import { IPost } from '@/entities/models'
 import {
   Button,
@@ -20,7 +20,11 @@ export const PostCard = ({ post, ...props }: { post: IPost }) => {
   const t = useTranslations('Posts')
 
   return (
-    <Card className="pt-0 shadow-none flex flex-col h-full" key={post.id} {...props}>
+    <Card
+      className="pt-0 shadow-none flex flex-col h-full"
+      key={post.id}
+      {...props}
+    >
       <CardContent className="px-0 relative aspect-video w-full overflow-hidden">
         <Image
           src={imageUrl}

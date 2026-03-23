@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { usePathname, useRouter } from '@/i18n/navigation'
+import { usePathname, useRouter } from 'pkg/locale'
 import { useLocale } from 'next-intl'
 import {
   DropdownMenu,

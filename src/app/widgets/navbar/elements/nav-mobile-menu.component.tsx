@@ -2,7 +2,7 @@
 
 import { MenuIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/navigation'
+import { Link } from 'pkg/locale'
 import {
   Button,
   DropdownMenu,
@@ -20,7 +20,11 @@ interface NavMobileMenuProps {
   onLogout: () => void
 }
 
-export const NavMobileMenu = ({ items, isAuth, onLogout }: NavMobileMenuProps) => {
+export const NavMobileMenu = ({
+  items,
+  isAuth,
+  onLogout,
+}: NavMobileMenuProps) => {
   const t = useTranslations('Navigation')
 
   return (
@@ -39,12 +43,12 @@ export const NavMobileMenu = ({ items, isAuth, onLogout }: NavMobileMenuProps) =
               </Link>
             </DropdownMenuItem>
           ))}
-          
+
           <DropdownMenuSeparator />
-          
+
           {isAuth ? (
-            <DropdownMenuItem 
-              onClick={onLogout} 
+            <DropdownMenuItem
+              onClick={onLogout}
               className="text-destructive cursor-pointer"
             >
               <LogOut className="mr-2 h-4 w-4" />
