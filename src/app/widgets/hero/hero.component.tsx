@@ -3,9 +3,9 @@
 import { ArrowRightIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from 'pkg/locale'
-import { Button } from '@/shared/ui'
-import { HeroGallery } from '@/widgets/hero/elements'
 import { useIsAuth } from '@/shared/store'
+import { HeroGallery } from '@/widgets/hero/elements'
+import { Button } from 'pkg/theme/ui/button'
 
 export const Hero = () => {
   const t = useTranslations('Hero')

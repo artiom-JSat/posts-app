@@ -1,16 +1,20 @@
-'use client';
+'use client'
 
-import { useTranslations } from 'next-intl';
-import { Button } from '../button';
+import { useTranslations } from 'next-intl'
+import { Button } from 'pkg/theme/ui/button'
 
 interface IPaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
 }
 
-export function Pagination({ currentPage, totalPages, onPageChange }: IPaginationProps) {
-  const t = useTranslations('Pagination');
+export function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: IPaginationProps) {
+  const t = useTranslations('Pagination')
 
   return (
     <div className="flex items-center justify-center space-x-2 py-4">
@@ -21,7 +25,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: IPaginatio
       >
         {t('back')}
       </Button>
-      
+
       <div className="text-sm font-medium">
         {t('info', { current: currentPage, total: totalPages })}
       </div>
@@ -34,5 +38,5 @@ export function Pagination({ currentPage, totalPages, onPageChange }: IPaginatio
         {t('next')}
       </Button>
     </div>
-  );
+  )
 }

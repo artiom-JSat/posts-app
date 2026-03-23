@@ -2,7 +2,7 @@
 
 import { useRouter } from 'pkg/locale'
 import { ArrowLeftIcon } from 'lucide-react'
-import { Button } from '@/shared/ui'
+import { Button } from 'pkg/theme/ui/button'
 
 export const BackButton = ({
   children,

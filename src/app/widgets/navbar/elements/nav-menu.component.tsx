@@ -3,7 +3,7 @@
 import { LanguagesIcon, LogOut } from 'lucide-react'
 import { Link } from 'pkg/locale'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/shared/ui'
+import { Button } from 'pkg/theme/ui/button'
 import { NavigationItem } from '../navbar.constant'
 import { useIsAuth, useUser } from '@/shared/store'
 import { LanguageDropdown } from './language-dropdown.component'

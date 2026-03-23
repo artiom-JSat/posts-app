@@ -1,4 +1,4 @@
-import { cn } from '@/shared/lib/utils'
+import { cn } from 'pkg/theme/lib/utils'
 
 const gallerySections = [
   {
@@ -19,9 +19,9 @@ const gallerySections = [
       {
         src: 'https://picsum.photos/seed/gallery-2/600/800',
         alt: 'Digital Journey',
-      }
+      },
     ],
-  }
+  },
 ]
 
 export const HeroGallery = () => {

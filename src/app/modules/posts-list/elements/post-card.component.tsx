@@ -3,17 +3,10 @@
 import Image from 'next/image'
 import { Link } from 'pkg/locale'
 import { IPost } from '@/entities/models'
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/shared/ui'
 import { ArrowRightIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 'pkg/theme/ui/card'
+import { Button } from 'pkg/theme/ui/button'
 
 export const PostCard = ({ post, ...props }: { post: IPost }) => {
   const imageUrl = `https://picsum.photos/seed/${post.id}/600/400`

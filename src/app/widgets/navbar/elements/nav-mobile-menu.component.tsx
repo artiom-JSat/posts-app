@@ -3,16 +3,16 @@
 import { MenuIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from 'pkg/locale'
+import { NavigationItem } from '../navbar.constant'
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuSeparator,
-} from '@/shared/ui'
-import { NavigationItem } from '../navbar.constant'
+  DropdownMenuTrigger,
+} from 'pkg/theme/ui/dropdown-menu'
+import { Button } from 'pkg/theme/ui/button'
 
 interface NavMobileMenuProps {
   items: NavigationItem[]

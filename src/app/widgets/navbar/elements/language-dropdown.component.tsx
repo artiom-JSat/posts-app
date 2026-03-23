@@ -9,7 +9,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '@/shared/ui'
+} from 'pkg/theme/ui/dropdown-menu'
 
 type LanguageDropdownProps = {
   trigger: React.ReactNode

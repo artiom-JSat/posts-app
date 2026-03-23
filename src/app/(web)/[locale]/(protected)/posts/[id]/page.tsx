@@ -2,8 +2,8 @@ import Image from 'next/image'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
-import { BackButton } from '@/shared/ui'
 import { getPostById } from '@/entities/api'
+import { BackButton } from 'pkg/theme/components/back-button'
 
 interface IProps {
   params: Promise<{ id: string; locale: string }>

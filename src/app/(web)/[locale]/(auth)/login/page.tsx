@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
-import { Card, Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui'
+import { Card } from 'pkg/theme/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from 'pkg/theme/ui/tabs'
 import { LoginForm, RegisterForm } from '@/features/auth'
 
 export default function LoginPage() {
