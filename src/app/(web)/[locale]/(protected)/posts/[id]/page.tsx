@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { getPostById } from '@/entities/api'
-import { BackButton } from '@/shared/components/back-button'
+import { BackButtonComponent } from '@/shared/components/back-button'
 
 interface IProps {
   params: Promise<{ id: string; locale: string }>
@@ -35,7 +35,7 @@ export default async function PostDetailPage({ params }: IProps) {
 
   return (
     <main className="container mx-auto max-w-3xl py-10 px-4">
-      <BackButton>{t('back')}</BackButton>
+      <BackButtonComponent>{t('back')}</BackButtonComponent>
       <article className="space-y-6">
         <div className="space-y-2">
           <span className="text-sm text-muted-foreground uppercase tracking-wider font-medium">

@@ -9,7 +9,7 @@ interface IPaginationProps {
   onPageChange: (page: number) => void
 }
 
-const Pagination = ({
+const PaginationComponent = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -41,4 +41,4 @@ const Pagination = ({
   )
 }
 
-export default Pagination
+export default PaginationComponent

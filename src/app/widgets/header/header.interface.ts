@@ -3,3 +3,9 @@ export type NavigationItem = {
   href: string
   isPrivate?: boolean
 }
+
+export interface IMobileNavigationMenu {
+  items: NavigationItem[]
+  isAuth: boolean
+  onLogout: () => void
+}

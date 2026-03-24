@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { useIsAuth } from '@/shared/store'
-import { Gallery } from '@/shared/components/gallery'
+import { GalleryComponent } from '@/shared/components/gallery'
 import { WrapperComponent } from '@/shared/components/wrapper'
 
 const MainComponent = () => {
@@ -33,7 +33,7 @@ const MainComponent = () => {
           </Button>
         </div>
 
-        <Gallery />
+        <GalleryComponent />
       </section>
     </WrapperComponent>
   )

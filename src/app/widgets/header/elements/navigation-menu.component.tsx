@@ -7,10 +7,10 @@ import { Button } from '@/pkg/theme/ui/button'
 import { useIsAuth, useUser } from '@/shared/store'
 import { useLogout } from '@/shared/hooks'
 import { type NavigationItem } from '../header.interface'
-import { LanguageDropdown } from '@/shared/components/language-dropdown'
-import { NavMobileMenu } from './nav-mobile-menu.component'
+import { LanguageDropdownComponent } from '@/shared/components/language-dropdown'
+import { MobileNavigationMenuComponent } from './mobile-navigation-menu.component'
 
-export const NavMenu = ({
+export const NavigationMenuComponent = ({
   navigationData,
 }: {
   navigationData: NavigationItem[]
@@ -38,7 +38,7 @@ export const NavMenu = ({
       </div>
 
       <div className="flex items-center gap-4 lg:gap-6">
-        <LanguageDropdown
+        <LanguageDropdownComponent
           trigger={
             <Button variant="ghost" size="icon">
               <LanguagesIcon className="h-5 w-5" />
@@ -46,7 +46,7 @@ export const NavMenu = ({
           }
         />
 
-        <NavMobileMenu
+        <MobileNavigationMenuComponent
           items={visibleNavigation}
           isAuth={isAuth}
           onLogout={handleLogout}

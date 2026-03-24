@@ -1,1 +1,1 @@
-export { NavMenu } from "./nav-menu.component";
+export { NavigationMenuComponent } from './navigation-menu.component'

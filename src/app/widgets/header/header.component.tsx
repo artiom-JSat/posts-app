@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 
-import { NavMenu } from './elements'
+import { NavigationMenuComponent } from './elements'
 import { navigationData } from './header.constant'
 import { LogoComponent } from '@/shared/components/logo'
 import { WrapperComponent } from '@/shared/components/wrapper'
@@ -15,7 +15,7 @@ const HeaderComponent: FC<Readonly<IProps>> = () => {
         className="container mx-auto flex items-center justify-between gap-16 px-4 sm:px-6 lg:px-8 py-7 "
       >
         <LogoComponent />
-        <NavMenu navigationData={navigationData} />
+        <NavigationMenuComponent navigationData={navigationData} />
       </WrapperComponent>
     </header>
   )

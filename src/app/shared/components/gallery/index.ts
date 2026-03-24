@@ -1,1 +1,1 @@
-export { default as Gallery } from "./gallery.component";
+export { default as GalleryComponent } from './gallery.component'

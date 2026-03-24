@@ -3,7 +3,7 @@
 import { MenuIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/pkg/locale'
-import { type NavigationItem } from '../header.interface'
+import { IMobileNavigationMenu } from '../header.interface'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,17 +14,11 @@ import {
 } from '@/pkg/theme/ui/dropdown-menu'
 import { Button } from '@/pkg/theme/ui/button'
 
-interface NavMobileMenuProps {
-  items: NavigationItem[]
-  isAuth: boolean
-  onLogout: () => void
-}
-
-export const NavMobileMenu = ({
+export const MobileNavigationMenuComponent = ({
   items,
   isAuth,
   onLogout,
-}: NavMobileMenuProps) => {
+}: IMobileNavigationMenu) => {
   const t = useTranslations('Navigation')
 
   return (
