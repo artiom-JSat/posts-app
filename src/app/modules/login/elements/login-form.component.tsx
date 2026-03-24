@@ -10,7 +10,7 @@ import { Label } from '@/pkg/theme/ui/label'
 import { Input } from '@/pkg/theme/ui/input'
 import { Button } from '@/pkg/theme/ui/button'
 
-export function LoginForm() {
+const LoginFormComponent = () => {
   const t = useTranslations('Auth')
   const login = useLoginAction()
   const router = useRouter()
@@ -76,3 +76,5 @@ export function LoginForm() {
     </form>
   )
 }
+
+export default LoginFormComponent

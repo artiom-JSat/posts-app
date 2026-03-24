@@ -10,7 +10,7 @@ import { Button } from '@/pkg/theme/ui/button'
 import { Input } from '@/pkg/theme/ui/input'
 import { Label } from '@/pkg/theme/ui/label'
 
-export function RegisterForm() {
+const RegisterFormComponent = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
 
@@ -104,3 +104,5 @@ export function RegisterForm() {
     </form>
   )
 }
+
+export default RegisterFormComponent
