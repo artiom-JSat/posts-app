@@ -1,30 +1,38 @@
 import { IPost } from '@/entities/models'
-
-const BASE_URL = 'https://jsonplaceholder.typicode.com'
+import { restApiFetcher } from '@/pkg/rest-api/fetcher'
 
 export const getPosts = async (
   page: number = 1,
   limit: number = 10,
 ): Promise<{ data: IPost[]; total: number }> => {
-  const res = await fetch(`${BASE_URL}/posts?_page=${page}&_limit=${limit}`, {
+  const response = await restApiFetcher.get('posts', {
+    searchParams: {
+      _page: page,
+      _limit: limit,
+    },
     next: { revalidate: 3600 },
   })
 
-  if (!res.ok) throw new Error('Failed to fetch posts')
+  if (!response.ok) {
+    throw new Error('Failed to fetch posts')
+  }
 
-  const total = Number(res.headers.get('x-total-count')) || 100
-  const data = await res.json()
+  const total = Number(response.headers.get('x-total-count')) || 100
+  const data = await response.json<IPost[]>()
 
   return { data, total }
 }
 
-export const getPostById = async (id: string) => {
-  const res = await fetch(`${BASE_URL}/posts/${id}`, {
+export const getPostById = async (id: string): Promise<IPost | null> => {
+  const response = await restApiFetcher.get(`posts/${id}`, {
     cache: 'no-store',
   })
 
-  if (res.status === 404) return null
-  if (!res.ok) throw new Error('Failed to fetch post')
+  if (response.status === 404) return null
 
-  return res.json()
+  if (!response.ok) {
+    throw new Error('Failed to fetch post')
+  }
+
+  return response.json<IPost>()
 }

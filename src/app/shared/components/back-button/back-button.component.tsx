@@ -14,7 +14,11 @@ const BackButtonComponent = ({
   const router = useRouter()
 
   const handleBack = () => {
-    router.push(fallbackHref)
+    if (window.history.length > 1) {
+      router.back()
+    } else {
+      router.push(fallbackHref)
+    }
   }
 
   return (

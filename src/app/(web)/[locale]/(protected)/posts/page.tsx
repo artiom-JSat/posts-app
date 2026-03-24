@@ -1,8 +1,8 @@
 import {
   dehydrate,
   HydrationBoundary,
-  QueryClient,
 } from '@tanstack/react-query'
+import { getQueryClient } from '@/pkg/rest-api'
 import { getPosts } from '@/entities/api/posts/posts.api'
 import PostsListModule from '@/modules/posts-list/posts-list.module'
 
@@ -14,7 +14,7 @@ export default async function PostsPage({ searchParams }: IProps) {
   const { page } = await searchParams
   const currentPage = Number(page) || 1
 
-  const queryClient = new QueryClient()
+  const queryClient = getQueryClient()
 
   await queryClient.prefetchQuery({
     queryKey: ['posts', currentPage],

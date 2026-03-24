@@ -6,7 +6,7 @@ import { type FC, type ReactNode } from 'react'
 
 import { Geist, Geist_Mono } from 'next/font/google'
 import { routing } from '@/pkg/locale'
-import QueryProvider from '@/shared/providers/query-provider'
+import { RestApiProvider } from '@/pkg/rest-api'
 import { AuthProvider } from '@/shared/providers/auth-provider'
 import { HeaderComponent } from '@/widgets/header'
 
@@ -56,12 +56,12 @@ const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
         suppressHydrationWarning
       >
         <NextIntlClientProvider>
-          <QueryProvider>
-            <AuthProvider>
-              <HeaderComponent />
-              {children}
-            </AuthProvider>
-          </QueryProvider>
+            <RestApiProvider>
+              <AuthProvider>
+                <HeaderComponent />
+                {children}
+              </AuthProvider>
+            </RestApiProvider>
         </NextIntlClientProvider>
       </body>
     </html>
