@@ -24,7 +24,7 @@ const gallerySections = [
   },
 ]
 
-export const Gallery = () => {
+const Gallery = () => {
   return (
     <section className="py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -51,3 +51,5 @@ export const Gallery = () => {
     </section>
   )
 }
+
+export default Gallery

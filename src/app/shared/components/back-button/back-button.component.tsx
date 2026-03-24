@@ -4,7 +4,7 @@ import { ArrowLeftIcon } from 'lucide-react'
 import { useRouter } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 
-export const BackButton = ({
+const BackButton = ({
   children,
   fallbackHref = '/posts',
 }: {
@@ -24,3 +24,5 @@ export const BackButton = ({
     </Button>
   )
 }
+
+export default BackButton

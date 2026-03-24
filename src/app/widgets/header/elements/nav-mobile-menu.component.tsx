@@ -3,7 +3,7 @@
 import { MenuIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/pkg/locale'
-import { NavigationItem } from '../navbar.constant'
+import { type NavigationItem } from '../header.interface'
 import {
   DropdownMenu,
   DropdownMenuContent,

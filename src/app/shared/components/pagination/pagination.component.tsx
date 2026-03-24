@@ -9,11 +9,11 @@ interface IPaginationProps {
   onPageChange: (page: number) => void
 }
 
-export function Pagination({
+const Pagination = ({
   currentPage,
   totalPages,
   onPageChange,
-}: IPaginationProps) {
+}: IPaginationProps) => {
   const t = useTranslations('Pagination')
 
   return (
@@ -40,3 +40,5 @@ export function Pagination({
     </div>
   )
 }
+
+export default Pagination

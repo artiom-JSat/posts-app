@@ -8,7 +8,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { routing } from '@/pkg/locale'
 import QueryProvider from '@/shared/providers/query-provider'
 import { AuthProvider } from '@/shared/providers/auth-provider'
-import { Navbar } from '@/widgets/navbar'
+import { HeaderComponent } from '@/widgets/header'
 
 import '@/config/styles/globals.css'
 
@@ -58,7 +58,7 @@ const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
         <NextIntlClientProvider>
           <QueryProvider>
             <AuthProvider>
-              <Navbar />
+              <HeaderComponent />
               {children}
             </AuthProvider>
           </QueryProvider>

@@ -17,11 +17,7 @@ type LanguageDropdownProps = {
   align?: 'start' | 'center' | 'end'
 }
 
-export const LanguageDropdown = ({
-  defaultOpen,
-  align,
-  trigger,
-}: LanguageDropdownProps) => {
+const LanguageDropdown = ({ defaultOpen, align, trigger }: LanguageDropdownProps) => {
   const locale = useLocale()
   const pathname = usePathname()
   const router = useRouter()
@@ -54,3 +50,5 @@ export const LanguageDropdown = ({
     </DropdownMenu>
   )
 }
+
+export default LanguageDropdown

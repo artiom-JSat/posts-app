@@ -1,8 +1,4 @@
-export type NavigationItem = {
-  titleKey: string
-  href: string
-  isPrivate?: boolean
-}
+import { type NavigationItem } from './header.interface'
 
 export const navigationData: NavigationItem[] = [
   {

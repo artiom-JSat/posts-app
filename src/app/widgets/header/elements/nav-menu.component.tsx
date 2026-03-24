@@ -6,8 +6,8 @@ import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { useIsAuth, useUser } from '@/shared/store'
 import { useLogout } from '@/shared/hooks'
-import { NavigationItem } from '../navbar.constant'
-import { LanguageDropdown } from './language-dropdown.component'
+import { type NavigationItem } from '../header.interface'
+import { LanguageDropdown } from '@/shared/components/language-dropdown'
 import { NavMobileMenu } from './nav-mobile-menu.component'
 
 export const NavMenu = ({

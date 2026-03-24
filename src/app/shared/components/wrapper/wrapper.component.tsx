@@ -2,18 +2,15 @@ import { type FC, type ReactNode } from 'react'
 
 import { cn } from '@/pkg/theme/lib/utils'
 
-// interface
 interface IProps {
   children: ReactNode
   type?: 'main' | 'section'
   className?: string
 }
 
-// component
 const WrapperComponent: FC<Readonly<IProps>> = (props) => {
   const { children, type = 'main', className } = props
 
-  // render
   return (
     <>
       {type === 'main' ? (
