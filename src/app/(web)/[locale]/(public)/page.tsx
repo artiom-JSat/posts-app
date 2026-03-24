@@ -1,9 +1,18 @@
-import { Hero } from '@/widgets/hero/hero.component'
+import { type NextPage } from 'next'
+import { setRequestLocale } from 'next-intl/server'
+import { MainComponent } from '@/modules/main'
 
-export default function HomePage() {
-  return (
-    <main className="container mx-auto">
-      <Hero />
-    </main>
-  )
+interface IProps {
+  params: Promise<{ locale: string }>
 }
+
+const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
+  const { params } = props
+
+  const { locale } = await params
+  setRequestLocale(locale)
+
+  return <MainComponent />
+}
+
+export default Page

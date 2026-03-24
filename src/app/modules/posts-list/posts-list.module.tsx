@@ -6,7 +6,7 @@ import { redirect, usePathname, useRouter } from '@/pkg/locale'
 import { useLocale, useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
 import { PostCard } from './elements/post-card.component'
-import { Pagination } from '@/shared/components'
+import { Pagination } from '@/shared/components/pagination'
 
 export default function PostsListModule() {
   const locale = useLocale()

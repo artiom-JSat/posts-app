@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { getPostById } from '@/entities/api'
-import { BackButton } from '@/shared/components'
+import { BackButton } from '@/shared/components/back-button'
 
 interface IProps {
   params: Promise<{ id: string; locale: string }>

@@ -1,1 +1,0 @@
-export { HeroGallery } from './hero-gallery.component'
