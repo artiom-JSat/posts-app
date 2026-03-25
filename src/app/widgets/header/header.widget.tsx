@@ -7,7 +7,7 @@ import { WrapperComponent } from '@/shared/components/wrapper'
 
 interface IProps {}
 
-const HeaderComponent: FC<Readonly<IProps>> = () => {
+const HeaderWidget: FC<Readonly<IProps>> = () => {
   return (
     <header className="bg-background sticky top-0 z-50 border-b">
       <WrapperComponent
@@ -21,4 +21,4 @@ const HeaderComponent: FC<Readonly<IProps>> = () => {
   )
 }
 
-export default HeaderComponent
+export default HeaderWidget

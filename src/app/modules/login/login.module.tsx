@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/pkg/theme/ui/tabs'
 import { WrapperComponent } from "@/shared/components/wrapper"
 import { LoginFormComponent, RegisterFormComponent } from './elements'
 
-const LoginComponent = () => {
+const LoginModule = () => {
   const t = useTranslations('Auth')
 
   return (
@@ -29,4 +29,4 @@ const LoginComponent = () => {
   )
 }
 
-export default LoginComponent
+export default LoginModule

@@ -1,6 +1,6 @@
-import { type NavigationItem } from './header.interface'
+import { type INavigationItem } from './header.interface'
 
-export const navigationData: NavigationItem[] = [
+export const navigationData: INavigationItem[] = [
   {
     titleKey: 'home',
     href: '/'

@@ -1,1 +1,1 @@
-export { default as HeaderComponent } from './header.component'
+export { default as HeaderWidget } from './header.widget'

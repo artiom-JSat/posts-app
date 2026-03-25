@@ -14,11 +14,8 @@ import {
 } from '@/pkg/theme/ui/dropdown-menu'
 import { Button } from '@/pkg/theme/ui/button'
 
-export const MobileNavigationMenuComponent = ({
-  items,
-  isAuth,
-  onLogout,
-}: IMobileNavigationMenu) => {
+const MobileNavigationMenuComponent = (props: IMobileNavigationMenu) => {
+  const { items, isAuth, onLogout } = props
   const t = useTranslations('Navigation')
 
   return (
@@ -60,3 +57,5 @@ export const MobileNavigationMenuComponent = ({
     </DropdownMenu>
   )
 }
+
+export default MobileNavigationMenuComponent

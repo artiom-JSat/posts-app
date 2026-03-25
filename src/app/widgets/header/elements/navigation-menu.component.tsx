@@ -6,14 +6,14 @@ import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { useIsAuth, useUser } from '@/shared/store'
 import { useLogout } from '@/shared/hooks'
-import { type NavigationItem } from '../header.interface'
+import { type INavigationItem } from '../header.interface'
 import { LanguageDropdownComponent } from '@/shared/components/language-dropdown'
-import { MobileNavigationMenuComponent } from './mobile-navigation-menu.component'
+import MobileNavigationMenuComponent from './mobile-navigation-menu.component'
 
-export const NavigationMenuComponent = ({
+const NavigationMenuComponent = ({
   navigationData,
 }: {
-  navigationData: NavigationItem[]
+  navigationData: INavigationItem[]
 }) => {
   const t = useTranslations('Navigation')
 
@@ -71,3 +71,5 @@ export const NavigationMenuComponent = ({
     </nav>
   )
 }
+
+export default NavigationMenuComponent

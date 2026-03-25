@@ -8,7 +8,7 @@ import { useIsAuth } from '@/shared/store'
 import { GalleryComponent } from '@/shared/components/gallery'
 import { WrapperComponent } from '@/shared/components/wrapper'
 
-const MainComponent = () => {
+const MainModule = () => {
   const t = useTranslations('Hero')
   const isAuth = useIsAuth()
   const destination = isAuth ? '/posts' : '/login'
@@ -39,4 +39,4 @@ const MainComponent = () => {
   )
 }
 
-export default MainComponent
+export default MainModule

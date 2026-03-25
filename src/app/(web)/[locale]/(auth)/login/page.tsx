@@ -1,6 +1,6 @@
 import { type NextPage } from 'next'
 import { setRequestLocale } from 'next-intl/server'
-import { LoginComponent } from '@/modules/login'
+import { LoginModule } from '@/modules/login'
 
 export const metadata = {
   title: 'Login | Register',
@@ -16,7 +16,7 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const { locale } = await params
   setRequestLocale(locale)
 
-  return <LoginComponent />
+  return <LoginModule />
 }
 
 export default Page
