@@ -1,1 +1,1 @@
-export { PostCard } from './elements'
+export { default as PostsListModule } from './posts-list.module'

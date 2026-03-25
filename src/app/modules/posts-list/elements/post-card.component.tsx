@@ -1,14 +1,22 @@
 'use client'
 
 import Image from 'next/image'
-import { Link } from '@/pkg/locale'
-import { IPost } from '@/entities/models'
 import { ArrowRightIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/pkg/theme/ui/card'
+import { Link } from '@/pkg/locale'
+import type { IPost } from '@/entities/models'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/pkg/theme/ui/card'
 import { Button } from '@/pkg/theme/ui/button'
 
-export const PostCard = ({ post, ...props }: { post: IPost }) => {
+const PostCardComponent = (props: { post: IPost; fromPage: number }) => {
+  const { post, fromPage, ...rest } = props
   const imageUrl = `https://picsum.photos/seed/${post.id}/600/400`
   const t = useTranslations('Posts')
 
@@ -16,7 +24,7 @@ export const PostCard = ({ post, ...props }: { post: IPost }) => {
     <Card
       className="pt-0 shadow-none flex flex-col h-full"
       key={post.id}
-      {...props}
+      {...rest}
     >
       <CardContent className="px-0 relative aspect-video w-full overflow-hidden">
         <Image
@@ -39,7 +47,7 @@ export const PostCard = ({ post, ...props }: { post: IPost }) => {
           size="lg"
           asChild
         >
-          <Link href={`/posts/${post.id}`}>
+          <Link href={`/posts/${post.id}?page=${fromPage}`}>
             {t('details')}
             <ArrowRightIcon className="transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
@@ -48,3 +56,5 @@ export const PostCard = ({ post, ...props }: { post: IPost }) => {
     </Card>
   )
 }
+
+export default PostCardComponent

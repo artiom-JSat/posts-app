@@ -2,14 +2,13 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
-import { redirect, usePathname, useRouter } from '@/pkg/locale'
-import { useLocale, useTranslations } from 'next-intl'
+import { usePathname, useRouter } from '@/pkg/locale'
+import { useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
-import { PostCard } from './elements/post-card.component'
 import { PaginationComponent } from '@/shared/components/pagination'
+import { PostCardComponent } from './elements'
 
-export default function PostsListModule() {
-  const locale = useLocale()
+const PostsListModule = () => {
   const t = useTranslations('Posts')
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -18,7 +17,7 @@ export default function PostsListModule() {
   const currentPage = Number(searchParams.get('page')) || 1
   const limit = 6
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['posts', currentPage],
     queryFn: () => getPosts(currentPage, limit),
   })
@@ -27,36 +26,9 @@ export default function PostsListModule() {
 
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams(searchParams)
-    params.set('page', newPage.toString())
+    params.set('page', String(newPage))
     router.push(`${pathname}?${params.toString()}`)
   }
-
-  if (totalPages > 0 && currentPage > totalPages) {
-    redirect({
-      href: {
-        pathname: '/posts',
-        query: { page: totalPages },
-      },
-      locale: locale,
-    })
-  }
-
-  if (currentPage < 1) {
-    redirect({
-      href: {
-        pathname: '/posts',
-        query: { page: 1 },
-      },
-      locale: locale,
-    })
-  }
-
-  if (isLoading)
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
-        Loading...
-      </div>
-    )
 
   return (
     <section className="py-8 sm:py-16">
@@ -64,11 +36,18 @@ export default function PostsListModule() {
         <h1 className="text-primary text-2xl font-medium uppercase">
           {t('title')}
         </h1>
+
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {data?.data.map((post) => (
-            <PostCard key={post.id} post={post} data-testid="post-card" />
+            <PostCardComponent
+              key={post.id}
+              post={post}
+              fromPage={currentPage}
+              data-testid="post-card"
+            />
           ))}
         </div>
+
         <PaginationComponent
           currentPage={currentPage}
           totalPages={totalPages}
@@ -78,3 +57,5 @@ export default function PostsListModule() {
     </section>
   )
 }
+
+export default PostsListModule

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type ReactNode } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { usePathname, useRouter } from '@/pkg/locale'
 import {
@@ -11,21 +12,19 @@ import {
   DropdownMenuTrigger,
 } from '@/pkg/theme/ui/dropdown-menu'
 
-type LanguageDropdownProps = {
-  trigger: React.ReactNode
+interface ILanguageDropdownProps {
+  trigger: ReactNode
   defaultOpen?: boolean
   align?: 'start' | 'center' | 'end'
 }
 
-const LanguageDropdownComponent = ({
-  defaultOpen,
-  align,
-  trigger,
-}: LanguageDropdownProps) => {
+const LanguageDropdownComponent = (props: ILanguageDropdownProps) => {
+  const { defaultOpen, align, trigger } = props
+
   const locale = useLocale()
+  const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-
   const [language, setLanguage] = useState(locale)
 
   useEffect(() => {
@@ -33,9 +32,8 @@ const LanguageDropdownComponent = ({
   }, [locale])
 
   const switchLanguage = (newLocale: string) => {
-    const nextLocale = newLocale as 'en' | 'de'
-    setLanguage(nextLocale)
-    router.replace(pathname, { locale: nextLocale })
+    const params = new URLSearchParams(searchParams.toString())
+    router.replace(`${pathname}?${params.toString()}`, { locale: newLocale })
   }
 
   return (
