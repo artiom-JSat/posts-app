@@ -18,9 +18,11 @@
         "name": "next"
       }
     ],
-    "baseUrl": "./src/app",
+    "baseUrl": "src/",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["app/*"],
+      "@/config/*": ["config/*"],
+      "@/pkg/*": ["pkg/*"],
     }
   },
   "include": [

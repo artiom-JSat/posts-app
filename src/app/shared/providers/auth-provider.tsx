@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from '../../../i18n/navigation'
+import { useEffect, useState, type ReactNode } from 'react'
+import { usePathname, useRouter } from '@/pkg/locale'
 import { useIsAuth } from '@/shared/store'
 
 const PUBLIC_ROUTES = ['/', '/login']
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname()
   const router = useRouter()
 

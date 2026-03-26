@@ -1,6 +1,15 @@
 import { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 
+// i18n
+const withNextIntl = createNextIntlPlugin({
+  requestConfig: './src/pkg/locale/request.ts',
+  experimental: {
+    createMessagesDeclaration: './translations/en.json',
+  },
+})
+
+// config
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -12,5 +21,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-const withNextIntl = createNextIntlPlugin()
 export default withNextIntl(nextConfig)

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import { safePersistStorage } from './persist-storage'
 
 interface IAuthUser {
   email: string
@@ -73,7 +74,7 @@ export const useAuthStore = create<IAuthState>()(
     }),
     {
       name: 'auth-storage',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => safePersistStorage),
     },
   ),
 )
