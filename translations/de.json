@@ -58,5 +58,11 @@
     "back": "Zurück",
     "next": "Weiter",
     "info": "Seite {current} von {total}"
+  },
+  "NotFound": {
+    "title": "Hoppla!",
+    "subtitle": "Etwas ist schief gelaufen",
+    "description": "Die von Ihnen gesuchte Seite wurde nicht gefunden. Wir empfehlen Ihnen, zur Startseite zurückzukehren.",
+    "button": "Zurück zur Startseite"
   }
 }

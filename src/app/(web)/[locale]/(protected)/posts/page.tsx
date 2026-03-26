@@ -1,3 +1,4 @@
+import { type NextPage } from 'next'
 import {
   dehydrate,
   HydrationBoundary,
@@ -12,7 +13,7 @@ interface IProps {
   searchParams: Promise<{ page?: string }>
 }
 
-const Page = async (props: IProps) => {
+const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const { params, searchParams } = props
 
   const { locale } = await params

@@ -61,6 +61,12 @@ declare const messages: {
     "back": "Back",
     "next": "Next",
     "info": "Page {current} of {total}"
+  },
+  "NotFound": {
+    "title": "Whoops!",
+    "subtitle": "Something went wrong",
+    "description": "The page you're looking for isn't found, we suggest you back to home.",
+    "button": "Back to home page"
   }
 };
 export default messages;

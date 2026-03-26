@@ -20,6 +20,7 @@ interface IProps {
 export const generateStaticParams = async () => {
   return routing.locales.map((locale) => ({ locale }))
 }
+
 export const metadata: Metadata = {
   title: 'myBLOG',
   description: 'myBLOG - posts application',
