@@ -1,4 +1,4 @@
-import { useRouter } from '../../../i18n/navigation'
+import { useRouter } from '@/pkg/locale'
 import { useLogoutAction } from '@/shared/store'
 
 export const useLogout = () => {

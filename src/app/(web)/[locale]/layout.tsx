@@ -1,0 +1,76 @@
+import type { FC, ReactNode } from 'react'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+
+import { envClient } from '@/config/env'
+import { fontPrimary, fontSecondary } from '@/config/fronts'
+import { routing } from '@/pkg/locale'
+import { RestApiProvider } from '@/pkg/rest-api'
+import { AuthProvider } from '@/shared/providers/auth-provider'
+import { HeaderWidget } from '@/widgets/header'
+
+import '@/config/styles/globals.css'
+
+interface IProps {
+  children: ReactNode
+  params: Promise<{ locale: string }>
+}
+
+export const generateStaticParams = async () => {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Metadata' })
+
+  const title = t('site_name')
+  const description = t('description')
+
+  return {
+    metadataBase: new URL(envClient.NEXT_PUBLIC_CLIENT_WEB_URL),
+    
+    title: {
+      default: title,
+      template: `%s | ${title}`,
+    },
+    description: description,
+    
+    icons: {
+      icon: '/favicon.ico',
+    },
+  }
+}
+
+const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
+  const { children, params } = props
+
+  const { locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+  setRequestLocale(locale)
+
+  return (
+    <html lang={locale} suppressHydrationWarning>
+      <body
+        className={`${fontPrimary.variable} ${fontSecondary.variable} antialiased`}
+        suppressHydrationWarning
+      >
+        <NextIntlClientProvider>
+            <RestApiProvider>
+              <AuthProvider>
+                <HeaderWidget />
+                {children}
+              </AuthProvider>
+            </RestApiProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  )
+}
+
+export default LocaleLayout

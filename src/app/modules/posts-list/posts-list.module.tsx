@@ -1,59 +1,61 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
-import { usePathname, useRouter } from '../../../i18n/navigation'
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useLocale, useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
-import { PostCard } from './elements/post-card.component'
-import { Pagination } from '@/shared/ui/pagination'
-import { useTranslations } from 'next-intl'
+import { usePostsListPagination } from '@/shared/hooks'
+import { WrapperComponent } from '@/shared/components/wrapper'
+import { PaginationComponent } from '@/shared/components/pagination'
+import { PostCardComponent } from './elements'
 
-export default function PostsListModule() {
+const PostsListModule = () => {
   const t = useTranslations('Posts')
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const locale = useLocale()
 
-  const currentPage = Number(searchParams.get('page')) || 1
-  const limit = 6
+  const { currentPage, limit, setPage } = usePostsListPagination()
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['posts', currentPage],
-    queryFn: () => getPosts(currentPage, limit),
+  const { data: postsData } = useQuery({
+    queryKey: ['posts', { page: currentPage, limit, locale }],
+    queryFn: () => getPosts({ page: currentPage, limit }),
+    placeholderData: keepPreviousData,
+    select: (result) => ({
+      posts: result.data,
+      total: result.total,
+    }),
   })
 
-  const totalPages = Math.ceil((data?.total || 0) / limit)
+  const { posts = [], total = 0 } = postsData || {}
 
-  const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams)
-    params.set('page', newPage.toString())
-    router.push(`${pathname}?${params.toString()}`)
-  }
+  const totalPages = Math.ceil(total / limit)
 
-  if (isLoading)
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
-        Loading...
-      </div>
-    )
+  usePostsListPagination({ totalPages })
 
   return (
-    <section className="py-8 sm:py-16">
+    <WrapperComponent type="main">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
         <h1 className="text-primary text-2xl font-medium uppercase">
           {t('title')}
         </h1>
+
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data?.data.map((post) => (
-            <PostCard key={post.id} post={post} data-testid="post-card" />
+          {posts.map((post) => (
+            <PostCardComponent
+              key={post.id}
+              post={post}
+              fromPage={currentPage}
+              data-testid="post-card"
+            />
           ))}
         </div>
-        <Pagination
+
+        <PaginationComponent
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          onPageChange={setPage}
         />
       </div>
-    </section>
+    </WrapperComponent>
   )
 }
+
+export default PostsListModule
