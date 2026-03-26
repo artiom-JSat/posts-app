@@ -1,9 +1,10 @@
-import type { Metadata } from 'next'
+import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { type FC, type ReactNode } from 'react'
 
+import { envClient } from '@/config/env'
 import { fontPrimary, fontSecondary } from '@/config/fronts'
 import { routing } from '@/pkg/locale'
 import { RestApiProvider } from '@/pkg/rest-api'
@@ -21,9 +22,26 @@ export const generateStaticParams = async () => {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-export const metadata: Metadata = {
-  title: 'myBLOG',
-  description: 'myBLOG - posts application',
+export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Metadata' })
+
+  const title = t('site_name')
+  const description = t('description')
+
+  return {
+    metadataBase: new URL(envClient.NEXT_PUBLIC_CLIENT_WEB_URL),
+    
+    title: {
+      default: title,
+      template: `%s | ${title}`,
+    },
+    description: description,
+    
+    icons: {
+      icon: '/favicon.ico',
+    },
+  }
 }
 
 const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {

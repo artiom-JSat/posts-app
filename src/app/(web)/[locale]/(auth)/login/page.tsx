@@ -1,13 +1,18 @@
-import { type NextPage } from 'next'
-import { setRequestLocale } from 'next-intl/server'
+import { type Metadata, type NextPage } from 'next'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { LoginModule } from '@/modules/login'
-
-export const metadata = {
-  title: 'Login | Register',
-}
 
 interface IProps {
   params: Promise<{ locale: string }>
+}
+
+export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Auth' })
+
+  return {
+    title: `${t('loginTab')} & ${t('registerTab')}`,
+  }
 }
 
 const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {

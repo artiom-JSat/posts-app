@@ -1,14 +1,24 @@
-import { type NextPage } from 'next'
+import { type Metadata, type NextPage } from 'next'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getQueryClient } from '@/pkg/rest-api'
 import { getPosts } from '@/entities/api/posts/posts.api'
 import PostsListModule from '@/modules/posts/posts-list.module'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { POSTS_LIST_PAGINATION } from '@/modules/posts'
 
 interface IProps {
   params: Promise<{ locale: string }>
   searchParams: Promise<{ page?: string }>
+}
+
+export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Posts' })
+
+  return {
+    title: t('meta.title'),
+    description: t('meta.description'),
+  }
 }
 
 const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {

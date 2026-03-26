@@ -1,4 +1,4 @@
-import { Metadata, type NextPage } from 'next'
+import { type Metadata, type NextPage } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getPostById } from '@/entities/api'
@@ -8,7 +8,7 @@ interface IProps {
   params: Promise<{ id: string; locale: string }>
 }
 
-export async function generateMetadata({ params }: IProps): Promise<Metadata> {
+export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
   const { id } = await params
   const post = await getPostById(id)
   const t = await getTranslations('PostDetail')
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: IProps): Promise<Metadata> {
   if (!post) return { title: t('notFound') }
 
   return {
-    title: `${post.title} | Blog`,
+    title: `${post.title}`,
     description: post.body,
   }
 }

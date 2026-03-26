@@ -9,7 +9,7 @@ import { GalleryComponent } from '@/shared/components/gallery'
 import { WrapperComponent } from '@/shared/components/wrapper'
 
 const MainModule = () => {
-  const t = useTranslations('Hero')
+  const t = useTranslations('Main')
   const isAuth = useIsAuth()
   const destination = isAuth ? '/posts' : '/login'
 

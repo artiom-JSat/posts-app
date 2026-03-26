@@ -2,7 +2,11 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-  "Hero": {
+  "Metadata": {
+    "site_name": "myBLOG",
+    "description": "myBLOG - posts application"
+  },
+  "Main": {
     "title": "Explore the Unexplored",
     "subtitle": "Thoughts, ideas in one place.",
     "description": "A curated collection of thoughts, ideas, and deep insights captured in one place. From technical deep-dives to creative storytelling—dive into our latest stories and discover something new today.",
@@ -37,7 +41,7 @@ declare const messages: {
     "title": "Publications",
     "details": "Details",
     "meta": {
-      "title": "All Posts | Blog",
+      "title": "All Posts",
       "description": "Read our latest publications"
     }
   },
