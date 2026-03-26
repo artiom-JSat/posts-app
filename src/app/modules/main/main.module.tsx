@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { useIsAuth } from '@/shared/store'
-import { GalleryComponent } from '@/shared/components/gallery'
 import { WrapperComponent } from '@/shared/components/wrapper'
+import { GalleryComponent } from '@/shared/components/gallery'
 
 const MainModule = () => {
   const t = useTranslations('Main')
@@ -16,7 +16,7 @@ const MainModule = () => {
   return (
     <WrapperComponent type="main">
       <section className="flex flex-1 flex-col justify-between gap-12 overflow-x-hidden pt-8 sm:gap-16 sm:pt-16 lg:gap-24 lg:pt-24">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4 text-center sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center text-center gap-8 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl leading-[1.29167] font-bold text-balance sm:text-4xl lg:text-5xl">
             {t('title')}
             <br />

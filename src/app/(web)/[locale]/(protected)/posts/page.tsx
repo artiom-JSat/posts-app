@@ -32,18 +32,16 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const limit = POSTS_LIST_PAGINATION.DEFAULT_LIMIT
 
   const queryClient = getQueryClient()
-  
+
   await queryClient.prefetchQuery({
     queryKey: ['posts', { page: currentPage, limit, locale }],
     queryFn: () => getPosts({ page: currentPage, limit }),
   })
 
   return (
-    <main className="container mx-auto">
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <PostsListModule />
-      </HydrationBoundary>
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <PostsListModule />
+    </HydrationBoundary>
   )
 }
 

@@ -3,6 +3,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useLocale, useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
+import { WrapperComponent } from '@/shared/components/wrapper'
 import { PaginationComponent } from '@/shared/components/pagination'
 import { PostCardComponent } from './elements'
 import { usePostsListPagination } from './hooks'
@@ -30,7 +31,7 @@ const PostsListModule = () => {
   usePostsListPagination({ totalPages })
 
   return (
-    <section className="py-8 sm:py-16">
+    <WrapperComponent type="main">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
         <h1 className="text-primary text-2xl font-medium uppercase">
           {t('title')}
@@ -53,7 +54,7 @@ const PostsListModule = () => {
           onPageChange={setPage}
         />
       </div>
-    </section>
+    </WrapperComponent>
   )
 }
 

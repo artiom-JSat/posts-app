@@ -14,7 +14,7 @@ const WrapperComponent: FC<Readonly<IProps>> = (props) => {
   return (
     <>
       {type === 'main' ? (
-        <main className={cn('mx-auto w-full max-w-[1500px] px-4 pt-[88px] pb-20 container', className)}>{children}</main>
+        <main className={cn('mx-auto w-full max-w-[1500px] px-4 py-10 sm:pt-[88px] pb-20 container', className)}>{children}</main>
       ) : (
         <section className={cn('mx-auto w-full max-w-[1500px] px-4', className)}>{children}</section>
       )}
