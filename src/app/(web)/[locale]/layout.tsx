@@ -1,8 +1,8 @@
-import { type Metadata } from 'next'
+import type { FC, ReactNode } from 'react'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { type FC, type ReactNode } from 'react'
 
 import { envClient } from '@/config/env'
 import { fontPrimary, fontSecondary } from '@/config/fronts'

@@ -1,4 +1,4 @@
-import { type Metadata, type NextPage } from 'next'
+import type { Metadata, NextPage } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { LoginModule } from '@/modules/login'
 

@@ -1,1 +1,0 @@
-export { usePostsListPagination } from './use-posts-pagination.hook'

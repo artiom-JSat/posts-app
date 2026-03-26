@@ -1,4 +1,4 @@
-import { type NextPage } from 'next'
+import type { NextPage } from 'next'
 import { NotFoundModule } from '@/modules/not-found'
 
 const NotFound: NextPage = () => {

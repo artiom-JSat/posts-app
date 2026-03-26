@@ -3,10 +3,10 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useLocale, useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
+import { usePostsListPagination } from '@/shared/hooks'
 import { WrapperComponent } from '@/shared/components/wrapper'
 import { PaginationComponent } from '@/shared/components/pagination'
 import { PostCardComponent } from './elements'
-import { usePostsListPagination } from './hooks'
 
 const PostsListModule = () => {
   const t = useTranslations('Posts')

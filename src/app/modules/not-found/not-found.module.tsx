@@ -1,6 +1,6 @@
 'use client'
 
-import { type FC } from 'react'
+import type { FC } from 'react'
 import { Link } from '@/pkg/locale'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/pkg/theme/ui/button'

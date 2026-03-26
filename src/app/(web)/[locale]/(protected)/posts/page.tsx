@@ -1,4 +1,4 @@
-import { type Metadata, type NextPage } from 'next'
+import type { Metadata, NextPage } from 'next'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getQueryClient } from '@/pkg/rest-api'

@@ -1,4 +1,4 @@
-import { type NextPage } from 'next'
+import type { NextPage } from 'next'
 import { setRequestLocale } from 'next-intl/server'
 import { MainModule } from '@/modules/main'
 
