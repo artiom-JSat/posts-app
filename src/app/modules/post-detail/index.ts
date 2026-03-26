@@ -1,1 +1,1 @@
-export { default as PostDetailModule } from './post-detail.component'
+export { default as PostDetailModule } from './post-detail.module'

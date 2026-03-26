@@ -1,1 +1,0 @@
-export { default as PostsListModule } from './posts-list.module'

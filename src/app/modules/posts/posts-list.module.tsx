@@ -1,25 +1,21 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { usePathname, useRouter } from '@/pkg/locale'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
 import { PaginationComponent } from '@/shared/components/pagination'
 import { PostCardComponent } from './elements'
+import { usePostsListPagination } from './hooks'
 
 const PostsListModule = () => {
   const t = useTranslations('Posts')
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const locale = useLocale()
 
-  const currentPage = Number(searchParams.get('page')) || 1
-  const limit = 6
+  const { currentPage, limit, setPage } = usePostsListPagination()
 
   const { data: postsData } = useQuery({
-    queryKey: ['posts', currentPage],
-    queryFn: () => getPosts(currentPage, limit),
+    queryKey: ['posts', { page: currentPage, limit, locale }],
+    queryFn: () => getPosts({ page: currentPage, limit }),
     placeholderData: keepPreviousData,
     select: (result) => ({
       posts: result.data,
@@ -29,13 +25,9 @@ const PostsListModule = () => {
 
   const { posts = [], total = 0 } = postsData || {}
 
-  const totalPages = Math.ceil((total || 0) / limit)
+  const totalPages = Math.ceil(total / limit)
 
-  const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams)
-    params.set('page', String(newPage))
-    router.push(`${pathname}?${params.toString()}`)
-  }
+  usePostsListPagination({ totalPages })
 
   return (
     <section className="py-8 sm:py-16">
@@ -58,7 +50,7 @@ const PostsListModule = () => {
         <PaginationComponent
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          onPageChange={setPage}
         />
       </div>
     </section>

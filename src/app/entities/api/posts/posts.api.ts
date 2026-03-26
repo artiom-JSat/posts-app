@@ -1,10 +1,16 @@
+import { POSTS_LIST_PAGINATION } from '@/modules/posts'
 import { IPost } from '@/entities/models'
 import { restApiFetcher } from '@/pkg/rest-api/fetcher'
 
-export const getPosts = async (
-  page: number = 1,
-  limit: number = 10,
-): Promise<{ data: IPost[]; total: number }> => {
+export interface IGetPostsParams {
+  page?: number
+  limit?: number
+}
+
+export const getPosts = async ({
+  page = POSTS_LIST_PAGINATION.DEFAULT_PAGE,
+  limit = POSTS_LIST_PAGINATION.DEFAULT_LIMIT,
+}: IGetPostsParams): Promise<{ data: IPost[]; total: number }> => {
   const response = await restApiFetcher.get('posts', {
     searchParams: {
       _page: page,
@@ -17,7 +23,7 @@ export const getPosts = async (
     throw new Error('Failed to fetch posts')
   }
 
-  const total = Number(response.headers.get('x-total-count')) || 100
+  const total = Number(response.headers.get('x-total-count')) || 100 // 100 | 0 ?
   const data = await response.json<IPost[]>()
 
   return { data, total }
