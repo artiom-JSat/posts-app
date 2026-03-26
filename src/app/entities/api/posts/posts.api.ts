@@ -24,9 +24,7 @@ export const getPosts = async (
 }
 
 export const getPostById = async (id: string): Promise<IPost | null> => {
-  const response = await restApiFetcher.get(`posts/${id}`, {
-    cache: 'no-store',
-  })
+  const response = await restApiFetcher.get(`posts/${id}`)
 
   if (response.status === 404) return null
 

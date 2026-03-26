@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from '@/pkg/locale'
 import { useTranslations } from 'next-intl'
 import { getPosts } from '@/entities/api/posts/posts.api'
@@ -17,12 +17,19 @@ const PostsListModule = () => {
   const currentPage = Number(searchParams.get('page')) || 1
   const limit = 6
 
-  const { data } = useQuery({
+  const { data: postsData } = useQuery({
     queryKey: ['posts', currentPage],
     queryFn: () => getPosts(currentPage, limit),
+    placeholderData: keepPreviousData,
+    select: (result) => ({
+      posts: result.data,
+      total: result.total,
+    }),
   })
 
-  const totalPages = Math.ceil((data?.total || 0) / limit)
+  const { posts = [], total = 0 } = postsData || {}
+
+  const totalPages = Math.ceil((total || 0) / limit)
 
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams(searchParams)
@@ -38,7 +45,7 @@ const PostsListModule = () => {
         </h1>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data?.data.map((post) => (
+          {posts.map((post) => (
             <PostCardComponent
               key={post.id}
               post={post}

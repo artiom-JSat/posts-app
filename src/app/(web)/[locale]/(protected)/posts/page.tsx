@@ -5,12 +5,19 @@ import {
 import { getQueryClient } from '@/pkg/rest-api'
 import { getPosts } from '@/entities/api/posts/posts.api'
 import PostsListModule from '@/modules/posts-list/posts-list.module'
+import { setRequestLocale } from 'next-intl/server'
 
 interface IProps {
+  params: Promise<{ locale: string }>
   searchParams: Promise<{ page?: string }>
 }
 
-export default async function PostsPage({ searchParams }: IProps) {
+const Page = async (props: IProps) => {
+  const { params, searchParams } = props
+
+  const { locale } = await params
+  setRequestLocale(locale)
+
   const { page } = await searchParams
   const currentPage = Number(page) || 1
 
@@ -29,3 +36,5 @@ export default async function PostsPage({ searchParams }: IProps) {
     </main>
   )
 }
+
+export default Page
