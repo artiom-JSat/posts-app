@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { usePathname, useRouter } from '@/pkg/locale'
-import { POSTS_LIST_PAGINATION } from '@/modules/posts'
+import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
 
 interface IUsePostsPaginationProps {
   totalPages?: number

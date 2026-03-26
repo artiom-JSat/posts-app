@@ -1,10 +1,10 @@
 import { type Metadata, type NextPage } from 'next'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getQueryClient } from '@/pkg/rest-api'
 import { getPosts } from '@/entities/api/posts/posts.api'
-import PostsListModule from '@/modules/posts/posts-list.module'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { POSTS_LIST_PAGINATION } from '@/modules/posts'
+import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
+import PostsListModule from '@/modules/posts-list/posts-list.module'
 
 interface IProps {
   params: Promise<{ locale: string }>
@@ -30,8 +30,9 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const { page } = await searchParams
   const currentPage = Number(page) || POSTS_LIST_PAGINATION.DEFAULT_PAGE
   const limit = POSTS_LIST_PAGINATION.DEFAULT_LIMIT
-  const queryClient = getQueryClient()
 
+  const queryClient = getQueryClient()
+  
   await queryClient.prefetchQuery({
     queryKey: ['posts', { page: currentPage, limit, locale }],
     queryFn: () => getPosts({ page: currentPage, limit }),

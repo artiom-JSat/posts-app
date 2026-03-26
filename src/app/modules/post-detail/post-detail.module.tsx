@@ -1,7 +1,7 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import type { IPost } from '@/entities/models'
 import { BackButtonComponent } from '@/shared/components/back-button'
-import { useTranslations } from 'next-intl'
 
 const PostDetailModule = (post: IPost) => {
   const { id, title, body, userId } = post
@@ -10,7 +10,7 @@ const PostDetailModule = (post: IPost) => {
 
   return (
     <main className="container mx-auto max-w-3xl py-10 px-4">
-      <BackButtonComponent>{t('back')}</BackButtonComponent>
+      <BackButtonComponent baseUrl="/posts">{t('back')}</BackButtonComponent>
       <article className="space-y-6">
         <div className="space-y-2">
           <span className="text-sm text-muted-foreground uppercase tracking-wider font-medium">

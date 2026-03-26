@@ -1,4 +1,4 @@
-import { POSTS_LIST_PAGINATION } from '@/modules/posts'
+import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
 import { IPost } from '@/entities/models'
 import { restApiFetcher } from '@/pkg/rest-api/fetcher'
 
