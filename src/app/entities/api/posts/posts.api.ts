@@ -1,12 +1,14 @@
-import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
 import { IPost } from '@/entities/models'
+import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
 import { restApiFetcher } from '@/pkg/rest-api/fetcher'
 
+// interface
 export interface IGetPostsParams {
   page?: number
   limit?: number
 }
 
+// api
 export const getPosts = async ({
   page = POSTS_LIST_PAGINATION.DEFAULT_PAGE,
   limit = POSTS_LIST_PAGINATION.DEFAULT_LIMIT,
@@ -29,6 +31,7 @@ export const getPosts = async ({
   return { data, total }
 }
 
+// api
 export const getPostById = async (id: string): Promise<IPost | null> => {
   const response = await restApiFetcher.get(`posts/${id}`)
 

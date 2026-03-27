@@ -1,17 +1,18 @@
 'use client'
 
-import { useCallback, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { usePathname, useRouter } from '@/pkg/locale'
-import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
+import { useCallback, useEffect, useMemo } from 'react'
 
-interface IUsePostsPaginationProps {
+import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
+import { usePathname, useRouter } from '@/pkg/locale'
+
+// interface
+interface IProps {
   totalPages?: number
 }
 
-export const usePostsListPagination = ({
-  totalPages = 0,
-}: IUsePostsPaginationProps = {}) => {
+// hook
+export const usePostsListPagination = ({ totalPages = 0 }: IProps = {}) => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -47,6 +48,7 @@ export const usePostsListPagination = ({
     }
   }, [currentPage, totalPages, setPage])
 
+  // return
   return {
     currentPage,
     limit,

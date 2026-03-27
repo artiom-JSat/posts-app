@@ -1,7 +1,9 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
+
 import { safePersistStorage } from './persist-storage'
 
+// interface
 interface IAuthUser {
   email: string
   password?: string
@@ -15,13 +17,11 @@ interface IAuthState {
   registeredUsers: IAuthUser[]
 
   register: (user: IAuthUser) => { success: boolean; message?: string }
-  login: (
-    email: string,
-    password: string,
-  ) => { success: boolean; message?: string }
+  login: (email: string, password: string) => { success: boolean; message?: string }
   logout: () => void
 }
 
+// store
 export const useAuthStore = create<IAuthState>()(
   persist(
     (set, get) => ({
@@ -53,9 +53,7 @@ export const useAuthStore = create<IAuthState>()(
       login: (email, password) => {
         const users = get().registeredUsers || []
 
-        const foundUser = users.find(
-          (u) => u.email === email && u.password === password,
-        )
+        const foundUser = users.find((u) => u.email === email && u.password === password)
 
         if (!foundUser) {
           return { success: false, message: 'invalidCredentials' }
@@ -79,6 +77,7 @@ export const useAuthStore = create<IAuthState>()(
   ),
 )
 
+// selectors
 export const useUser = () => useAuthStore((state) => state.user)
 export const useIsAuth = () => useAuthStore((state) => state.isAuth)
 export const useLoginAction = () => useAuthStore((state) => state.login)

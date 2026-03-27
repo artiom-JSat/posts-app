@@ -7,14 +7,18 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { getQueryClient } from './service'
 
+// interface
 interface IProps {
   children: ReactNode
 }
 
-const RestApiProvider: FC<Readonly<IProps>> = (props) => {
+// component
+const RestApiProvider: FC<Readonly<IProps>> = (props: IProps) => {
   const { children } = props
+
   const queryClient = getQueryClient()
 
+  // return
   return (
     <QueryClientProvider client={queryClient}>
       {children}

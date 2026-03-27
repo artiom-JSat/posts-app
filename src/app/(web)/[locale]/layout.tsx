@@ -1,8 +1,8 @@
-import type { FC, ReactNode } from 'react'
-import type { Metadata } from 'next'
+import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { type FC, type ReactNode } from 'react'
 
 import { envClient } from '@/config/env'
 import { fontPrimary, fontSecondary } from '@/config/fronts'
@@ -13,37 +13,42 @@ import { HeaderWidget } from '@/widgets/header'
 
 import '@/config/styles/globals.css'
 
+// interface
 interface IProps {
   children: ReactNode
   params: Promise<{ locale: string }>
 }
 
+// static params
 export const generateStaticParams = async () => {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+// metadata
+export const generateMetadata = async (props: IProps): Promise<Metadata> => {
+  const { params } = props
+
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'Metadata' })
-
   const title = t('site_name')
   const description = t('description')
 
   return {
     metadataBase: new URL(envClient.NEXT_PUBLIC_CLIENT_WEB_URL),
-    
+
     title: {
       default: title,
       template: `%s | ${title}`,
     },
     description: description,
-    
+
     icons: {
       icon: '/favicon.ico',
     },
   }
 }
 
+// component
 const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
   const { children, params } = props
 
@@ -54,19 +59,17 @@ const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
   }
   setRequestLocale(locale)
 
+  // return
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body
-        className={`${fontPrimary.variable} ${fontSecondary.variable} antialiased`}
-        suppressHydrationWarning
-      >
+      <body className={`${fontPrimary.variable} ${fontSecondary.variable} antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider>
-            <RestApiProvider>
-              <AuthProvider>
-                <HeaderWidget />
-                {children}
-              </AuthProvider>
-            </RestApiProvider>
+          <RestApiProvider>
+            <AuthProvider>
+              <HeaderWidget />
+              {children}
+            </AuthProvider>
+          </RestApiProvider>
         </NextIntlClientProvider>
       </body>
     </html>

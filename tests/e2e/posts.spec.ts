@@ -1,7 +1,9 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
+// base locale
 const BASE_LOCALE = '/en'
 
+// test
 test.describe('Posts Functionality (via Register Tab)', () => {
   test.beforeEach(async ({ page }) => {
     // Intercept registration API call and mock a successful response
@@ -34,9 +36,7 @@ test.describe('Posts Functionality (via Register Tab)', () => {
     await expect(page).toHaveURL(`${BASE_LOCALE}/posts`, { timeout: 10000 })
   })
 
-  test('should display posts list after successful registration', async ({
-    page,
-  }) => {
+  test('should display posts list after successful registration', async ({ page }) => {
     // Check if at least one post card is rendered in the feed
     const postCards = page.locator('article, [data-testid="post-card"]')
     await expect(postCards.first()).toBeVisible()
@@ -45,10 +45,7 @@ test.describe('Posts Functionality (via Register Tab)', () => {
   test('should navigate to post details page', async ({ page }) => {
     // Get the first post card and extract its title for later verification
     const firstPost = page.locator('article, [data-testid="post-card"]').first()
-    const postTitle = await firstPost
-      .locator('h3, h2, .text-xl')
-      .first()
-      .innerText()
+    const postTitle = await firstPost.locator('h3, h2, .text-xl').first().innerText()
 
     // Click on the details link and verify the dynamic URL structure
     await firstPost.getByRole('link', { name: /Details/i }).click()

@@ -1,1 +1,1 @@
-export type { IPost } from './post.model';
+export type { IPost } from './post.model'
