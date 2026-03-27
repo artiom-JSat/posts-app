@@ -1,6 +1,6 @@
 import type { Metadata, NextPage } from 'next'
-import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 import { getPostById } from '@/entities/api'
 import { PostDetailModule } from '@/modules/post-detail'
 
