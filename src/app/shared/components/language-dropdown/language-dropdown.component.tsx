@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect, type ReactNode } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { type FC, type ReactNode, useEffect, useState } from 'react'
+
 import { usePathname, useRouter } from '@/pkg/locale'
 import {
   DropdownMenu,
@@ -12,20 +13,23 @@ import {
   DropdownMenuTrigger,
 } from '@/pkg/theme/ui/dropdown-menu'
 
-interface ILanguageDropdownProps {
+// interface
+interface IProps {
   trigger: ReactNode
   defaultOpen?: boolean
   align?: 'start' | 'center' | 'end'
 }
 
-const LanguageDropdownComponent = (props: ILanguageDropdownProps) => {
+// component
+const LanguageDropdownComponent: FC<Readonly<IProps>> = (props: IProps) => {
   const { defaultOpen, align, trigger } = props
 
   const locale = useLocale()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const router = useRouter()
   const [language, setLanguage] = useState(locale)
+
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     setLanguage(locale)
@@ -36,15 +40,16 @@ const LanguageDropdownComponent = (props: ILanguageDropdownProps) => {
     router.replace(`${pathname}?${params.toString()}`, { locale: newLocale })
   }
 
+  // return
   return (
     <DropdownMenu defaultOpen={defaultOpen}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align={align || 'end'}>
+      <DropdownMenuContent className='w-40' align={align || 'end'}>
         <DropdownMenuRadioGroup value={language} onValueChange={switchLanguage}>
-          <DropdownMenuRadioItem value="en" className="cursor-pointer">
+          <DropdownMenuRadioItem value='en' className='cursor-pointer'>
             English
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="de" className="cursor-pointer">
+          <DropdownMenuRadioItem value='de' className='cursor-pointer'>
             Deutsch
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>

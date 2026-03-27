@@ -1,14 +1,19 @@
-import type { Metadata, NextPage } from 'next'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { type Metadata, type NextPage } from 'next'
 import { notFound } from 'next/navigation'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+
 import { getPostById } from '@/entities/api'
 import { PostDetailModule } from '@/modules/post-detail'
 
+// interface
 interface IProps {
   params: Promise<{ id: string; locale: string }>
 }
 
-export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+// metadata
+export const generateMetadata = async (props: IProps): Promise<Metadata> => {
+  const { params } = props
+
   const { id } = await params
   const post = await getPostById(id)
   const t = await getTranslations('PostDetail')
@@ -21,6 +26,7 @@ export const generateMetadata = async ({ params }: IProps): Promise<Metadata> =>
   }
 }
 
+// component
 const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const { params } = props
 
@@ -34,6 +40,7 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
     notFound()
   }
 
+  // return
   return <PostDetailModule {...post} />
 }
 

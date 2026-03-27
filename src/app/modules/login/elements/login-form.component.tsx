@@ -1,16 +1,24 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useRouter } from '@/pkg/locale'
-import { useLoginAction } from '@/shared/store'
-import { getLoginSchema, type LoginFormValues } from '../auth.schema'
-import { Label } from '@/pkg/theme/ui/label'
-import { Input } from '@/pkg/theme/ui/input'
-import { Button } from '@/pkg/theme/ui/button'
+import { type FC } from 'react'
+import { useForm } from 'react-hook-form'
 
-const LoginFormComponent = () => {
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { useRouter } from '@/pkg/locale'
+import { Button } from '@/pkg/theme/ui/button'
+import { Input } from '@/pkg/theme/ui/input'
+import { Label } from '@/pkg/theme/ui/label'
+import { useLoginAction } from '@/shared/store'
+
+import { getLoginSchema, type LoginFormValues } from '../auth.schema'
+
+// interface
+interface IProps {}
+
+// component
+const LoginFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const login = useLoginAction()
   const router = useRouter()
@@ -42,35 +50,32 @@ const LoginFormComponent = () => {
     }
   }
 
+  // return
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
-      <div className="space-y-2">
-        <Label htmlFor="login-email">{t('email')}</Label>
+    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 p-4'>
+      <div className='space-y-2'>
+        <Label htmlFor='login-email'>{t('email')}</Label>
         <Input
-          id="login-email"
+          id='login-email'
           placeholder={t('placeholders.email')}
-          type="email"
+          type='email'
           {...register('email')}
           className={errors.email ? 'border-destructive' : ''}
         />
-        {errors.email && (
-          <p className="text-sm text-destructive">{errors.email.message}</p>
-        )}
+        {errors.email && <p className='text-destructive text-sm'>{errors.email.message}</p>}
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="login-password">{t('password')}</Label>
+      <div className='space-y-2'>
+        <Label htmlFor='login-password'>{t('password')}</Label>
         <Input
-          id="login-password"
+          id='login-password'
           placeholder={t('placeholders.password')}
-          type="password"
+          type='password'
           {...register('password')}
           className={errors.password ? 'border-destructive' : ''}
         />
-        {errors.password && (
-          <p className="text-sm text-destructive">{errors.password.message}</p>
-        )}
+        {errors.password && <p className='text-destructive text-sm'>{errors.password.message}</p>}
       </div>
-      <Button type="submit" className="w-full">
+      <Button type='submit' className='w-full'>
         {t('submitLogin')}
       </Button>
     </form>

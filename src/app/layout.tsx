@@ -1,12 +1,15 @@
 import { type FC, type ReactNode } from 'react'
 
+// interface
 interface IProps {
   children: ReactNode
 }
 
-const RootLayout: FC<Readonly<IProps>> = (props) => {
+// component
+const RootLayout: FC<Readonly<IProps>> = (props: IProps) => {
   const { children } = props
 
+  // return
   return children
 }
 
