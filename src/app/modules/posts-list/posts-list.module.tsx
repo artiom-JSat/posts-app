@@ -19,7 +19,7 @@ interface IProps {}
 const PostsListModule: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Posts')
 
-  const { currentPage, limit, setPage } = usePostsListPagination()
+  const { currentPage, limit, setPage, isPending } = usePostsListPagination()
 
   const { data: postsData } = useQuery(postsQueries.list(currentPage, limit))
   const { data: posts = [], total = 0 } = postsData || {}
@@ -34,7 +34,9 @@ const PostsListModule: FC<Readonly<IProps>> = () => {
       <div className='mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:px-8'>
         <h1 className='text-primary text-2xl font-medium uppercase'>{t('title')}</h1>
 
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+        <div
+          className={`grid grid-cols-1 gap-6 transition-opacity duration-300 md:grid-cols-2 lg:grid-cols-3 ${isPending ? 'pointer-events-none opacity-50' : ''}`}
+        >
           {posts.map((post) => (
             <PostCardComponent key={post.id} post={post} fromPage={currentPage} data-testid='post-card' />
           ))}
