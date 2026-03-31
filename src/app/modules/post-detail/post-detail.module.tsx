@@ -23,9 +23,9 @@ const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
 
   const { data: post } = useQuery(postsQueries.detail(postId))
 
-  // if (!post) return null
+  if (!post) return null
 
-  const { title, body, userId } = post!
+  const { title, body, userId } = post
 
   // return
   return (
