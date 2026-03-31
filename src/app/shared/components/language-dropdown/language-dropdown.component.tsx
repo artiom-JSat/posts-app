@@ -35,9 +35,8 @@ const LanguageDropdownComponent: FC<Readonly<IProps>> = (props: IProps) => {
     setLanguage(locale)
   }, [locale])
 
-  const switchLanguage = (newLocale: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    router.replace(`${pathname}?${params.toString()}`, { locale: newLocale })
+  function switchLanguage(newLocale: string) {
+    router.replace({ pathname, query: Object.fromEntries(searchParams.entries()) }, { locale: newLocale })
   }
 
   // return

@@ -25,15 +25,17 @@ export const getPosts = async ({
     throw new Error('Failed to fetch posts')
   }
 
-  const total = Number(response.headers.get('x-total-count')) || 100 // 100 | 0 ?
+  const total = Number(response.headers.get('x-total-count')) || 0
   const data = await response.json<IPost[]>()
 
   return { data, total }
 }
 
-// api
 export const getPostById = async (id: string): Promise<IPost | null> => {
-  const response = await restApiFetcher.get(`posts/${id}`)
+  const response = await restApiFetcher.get(`posts/${id}`, {
+    next: { revalidate: 3600 },
+    cache: 'force-cache',
+  })
 
   if (response.status === 404) return null
 

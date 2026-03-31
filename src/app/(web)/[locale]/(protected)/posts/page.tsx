@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { getPosts } from '@/entities/api/posts/posts.api'
+import { postsQueries } from '@/entities/api/posts'
 import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
 import PostsListModule from '@/modules/posts-list/posts-list.module'
 import { getQueryClient } from '@/pkg/rest-api'
@@ -39,11 +39,7 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const limit = POSTS_LIST_PAGINATION.DEFAULT_LIMIT
 
   const queryClient = getQueryClient()
-
-  await queryClient.prefetchQuery({
-    queryKey: ['posts', { page: currentPage, limit, locale }],
-    queryFn: () => getPosts({ page: currentPage, limit }),
-  })
+  await queryClient.prefetchQuery(postsQueries.list(currentPage, limit))
 
   // return
   return (

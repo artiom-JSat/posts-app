@@ -1,20 +1,31 @@
+'use client'
+
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { type IPost } from '@/entities/models'
+import { useQuery } from '@tanstack/react-query'
+
+import { postsQueries } from '@/entities/api/posts'
 import { BackButtonComponent } from '@/shared/components/back-button'
 import { WrapperComponent } from '@/shared/components/wrapper'
 
 // interface
-interface IProps extends IPost {}
+interface IProps {
+  postId: string
+}
 
 // component
 const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
-  const { id, title, body, userId } = props
-
+  const { postId } = props
   const t = useTranslations('PostDetail')
-  const imageUrl = `https://picsum.photos/seed/${id}/1200/630`
+  const imageUrl = `https://picsum.photos/seed/${postId}/1200/630`
+
+  const { data: post } = useQuery(postsQueries.detail(postId))
+
+  // if (!post) return null
+
+  const { title, body, userId } = post!
 
   // return
   return (
@@ -24,7 +35,7 @@ const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
         <article className='space-y-6'>
           <div className='space-y-2'>
             <span className='text-muted-foreground text-sm font-medium tracking-wider uppercase'>
-              {t('postId')}: {id}
+              {t('postId')}: {postId}
             </span>
 
             <h1 className='text-4xl leading-tight font-extrabold capitalize lg:text-5xl'>{title}</h1>

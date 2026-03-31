@@ -1,11 +1,11 @@
 'use client'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
-import { getPosts } from '@/entities/api/posts/posts.api'
+import { postsQueries } from '@/entities/api/posts'
 import { PaginationComponent } from '@/shared/components/pagination'
 import { WrapperComponent } from '@/shared/components/wrapper'
 import { usePostsListPagination } from '@/shared/hooks'
@@ -18,21 +18,11 @@ interface IProps {}
 // component
 const PostsListModule: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Posts')
-  const locale = useLocale()
 
   const { currentPage, limit, setPage } = usePostsListPagination()
 
-  const { data: postsData } = useQuery({
-    queryKey: ['posts', { page: currentPage, limit, locale }],
-    queryFn: () => getPosts({ page: currentPage, limit }),
-    placeholderData: keepPreviousData,
-    select: (result) => ({
-      posts: result.data,
-      total: result.total,
-    }),
-  })
-
-  const { posts = [], total = 0 } = postsData || {}
+  const { data: postsData } = useQuery(postsQueries.list(currentPage, limit))
+  const { data: posts = [], total = 0 } = postsData || {}
 
   const totalPages = Math.ceil(total / limit)
 
