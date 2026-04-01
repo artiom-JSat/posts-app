@@ -40,7 +40,7 @@ const PostImageComponent: FC<Readonly<IProps>> = (props: IProps) => {
         fill
         className={cn(
           'scale-110 object-cover blur-2xl',
-          loadStatus === 'instant' ? 'opacity-0' : 'transition-opacity duration-700',
+          loadStatus === 'instant' ? 'opacity-0' : 'transition-opacity duration-1000',
           loadStatus ? 'opacity-0' : 'opacity-100',
         )}
         priority
