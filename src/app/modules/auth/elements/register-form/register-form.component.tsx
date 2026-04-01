@@ -81,7 +81,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
         <Label htmlFor='reg-password'>{t('password')}</Label>
         <Input
           id='reg-password'
-          placeholder='********'
+          placeholder={t('placeholders.password')}
           type='password'
           {...register('password')}
           className={errors.password ? 'border-destructive' : ''}
@@ -93,7 +93,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
         <Label htmlFor='reg-confirm'>{t('confirmPassword')}</Label>
         <Input
           id='reg-confirm'
-          placeholder='********'
+          placeholder={t('placeholders.password')}
           type='password'
           {...register('confirmPassword')}
           className={errors.confirmPassword ? 'border-destructive' : ''}

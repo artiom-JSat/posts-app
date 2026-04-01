@@ -16,7 +16,7 @@ export const generateMetadata = async (props: IProps): Promise<Metadata> => {
   const t = await getTranslations({ locale, namespace: 'Auth' })
 
   return {
-    title: t('loginTab'),
+    title: t('registerTab'),
   }
 }
 
@@ -28,7 +28,7 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   setRequestLocale(locale)
 
   // return
-  return <AuthModule variant='login' />
+  return <AuthModule variant='register' />
 }
 
 export default Page
