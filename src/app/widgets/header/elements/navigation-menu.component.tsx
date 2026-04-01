@@ -6,6 +6,7 @@ import { type FC } from 'react'
 
 import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
+import { Separator } from '@/pkg/theme/ui/separator'
 import { LanguageDropdownComponent } from '@/shared/components/language-dropdown'
 import { useLogout } from '@/shared/hooks'
 import { useIsAuth, useUser } from '@/shared/store'
@@ -59,7 +60,8 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
 
         {isAuth ? (
           <div className='hidden items-center gap-4 md:flex'>
-            <span className='text-muted-foreground hidden border-r pr-4 text-sm lg:block'>{user?.email}</span>
+            <span className='text-muted-foreground hidden pr-[10px] text-sm lg:block'>{user?.email}</span>
+            <Separator orientation='vertical' className='h-6 data-vertical:self-center' />
             <Button variant='ghost' onClick={handleLogout} className='gap-2'>
               <LogOut className='h-4 w-4' />
               {t('logout')}

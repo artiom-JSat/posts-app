@@ -47,11 +47,13 @@ const LanguageDropdownComponent: FC<Readonly<IProps>> = (props: IProps) => {
   return (
     <DropdownMenu defaultOpen={defaultOpen}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+
       <DropdownMenuContent className='w-40' align={align || 'end'}>
         <DropdownMenuRadioGroup value={language} onValueChange={switchLanguage}>
           <DropdownMenuRadioItem value='en' className='cursor-pointer'>
             English
           </DropdownMenuRadioItem>
+
           <DropdownMenuRadioItem value='de' className='cursor-pointer'>
             Deutsch
           </DropdownMenuRadioItem>

@@ -39,6 +39,7 @@ const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
 
             <h1 className='text-4xl leading-tight font-extrabold capitalize lg:text-5xl'>{title}</h1>
           </div>
+
           <div className='bg-muted relative aspect-video w-full overflow-hidden rounded-2xl border shadow-lg'>
             <PostImageComponent
               postId={postId}
@@ -48,12 +49,14 @@ const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
               sizes='(max-width: 768px) 100vw, 800px'
             />
           </div>
+
           <div className='prose prose-slate dark:prose-invert max-w-none'>
             <p className='text-foreground/90 text-xl leading-relaxed'>{body}</p>
             <p className='text-muted-foreground mt-4'>
               {body} {body}
             </p>
           </div>
+
           <div className='pt-10'>
             <div className='bg-card rounded-lg border p-6 shadow-sm'>
               <h3 className='mb-2 font-semibold'>{t('author.title')}</h3>

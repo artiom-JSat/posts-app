@@ -64,6 +64,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.email && <p className='text-destructive text-sm'>{errors.email.message}</p>}
       </div>
+
       <div className='space-y-2'>
         <Label htmlFor='login-password'>{t('password')}</Label>
         <Input
@@ -75,6 +76,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.password && <p className='text-destructive text-sm'>{errors.password.message}</p>}
       </div>
+
       <Button type='submit' className='w-full'>
         {t('submitLogin')}
       </Button>

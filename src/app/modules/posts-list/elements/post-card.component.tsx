@@ -25,8 +25,8 @@ const PostCardComponent: FC<Readonly<IProps>> = (props: IProps) => {
 
   // return
   return (
-    <Card key={id} {...rest} className='flex h-full flex-col pt-0 shadow-none'>
-      <CardContent className='relative aspect-video w-full overflow-hidden px-0'>
+    <Card key={id} {...rest} className='flex h-[450px] w-full flex-col pt-0 shadow-none'>
+      <CardContent className='relative aspect-video h-[200px] w-full shrink-0 overflow-hidden px-0'>
         <PostImageComponent
           postId={id}
           title={title}
@@ -37,8 +37,8 @@ const PostCardComponent: FC<Readonly<IProps>> = (props: IProps) => {
       </CardContent>
 
       <CardHeader className='mb-2 gap-3'>
-        <CardTitle className='text-xl'>{title}</CardTitle>
-        <CardDescription className='text-base'>{body}</CardDescription>
+        <CardTitle className='line-clamp-2 min-h-12 text-xl'>{title}</CardTitle>
+        <CardDescription className='line-clamp-3 min-h-14.5 text-base'>{body}</CardDescription>
       </CardHeader>
 
       <div className='grow' />

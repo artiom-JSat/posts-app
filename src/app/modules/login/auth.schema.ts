@@ -6,7 +6,7 @@ type TFunction = (key: string) => string
 // schema
 export const getLoginSchema = (t: TFunction) =>
   z.object({
-    email: z.string().min(1, t('errors.emailRequired')).email(t('errors.invalidEmail')),
+    email: z.email(t('errors.invalidEmail')).min(1, t('errors.emailRequired')),
     password: z.string().min(8, t('errors.shortPassword')),
   })
 

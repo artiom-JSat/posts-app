@@ -19,6 +19,7 @@ const HeaderWidget: FC<Readonly<IProps>> = () => {
         className='container mx-auto flex items-center justify-between gap-16 px-4 py-7 sm:px-6 lg:px-8'
       >
         <LogoComponent />
+
         <NavigationMenuComponent navigationData={navigationData} />
       </WrapperComponent>
     </header>

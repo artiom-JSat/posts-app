@@ -64,6 +64,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.name && <p className='text-destructive text-sm'>{errors.name.message}</p>}
       </div>
+
       <div className='space-y-2'>
         <Label htmlFor='reg-email'>{t('email')}</Label>
         <Input
@@ -75,6 +76,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.email && <p className='text-destructive text-sm'>{errors.email.message}</p>}
       </div>
+
       <div className='space-y-2'>
         <Label htmlFor='reg-password'>Password*</Label>
         <Input
@@ -86,6 +88,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.password && <p className='text-destructive text-sm'>{errors.password.message}</p>}
       </div>
+
       <div className='space-y-2'>
         <Label htmlFor='reg-confirm'>{t('confirmPassword')}</Label>
         <Input
@@ -97,6 +100,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.confirmPassword && <p className='text-destructive text-sm'>{errors.confirmPassword.message}</p>}
       </div>
+
       <Button type='submit' className='w-full'>
         {t('submitRegister')}
       </Button>
