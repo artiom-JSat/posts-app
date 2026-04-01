@@ -23,5 +23,6 @@ export const useLogout = () => {
     checkAndLogout()
   }
 
+  // return
   return { handleLogout }
 }

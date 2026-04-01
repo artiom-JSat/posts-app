@@ -1,1 +1,1 @@
-export { default as NavigationMenuComponent } from './navigation-menu.component'
+export { default as NavigationMenuComponent } from './navigation-menu/navigation-menu.component'

@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/pkg/theme/ui/dropdown-menu'
 
-import { type IMobileNavigationMenu } from '../header.interface'
+import { type IMobileNavigationMenu } from '../../header.interface'
 
 // interface
 interface IProps extends IMobileNavigationMenu {}

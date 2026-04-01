@@ -12,7 +12,7 @@ import { Input } from '@/pkg/theme/ui/input'
 import { Label } from '@/pkg/theme/ui/label'
 import { useLoginAction } from '@/shared/store'
 
-import { getLoginSchema, type LoginFormValues } from '../auth.schema'
+import { getLoginSchema, type LoginFormValues } from '../../auth.schema'
 
 // interface
 interface IProps {}
@@ -64,6 +64,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.email && <p className='text-destructive text-sm'>{errors.email.message}</p>}
       </div>
+
       <div className='space-y-2'>
         <Label htmlFor='login-password'>{t('password')}</Label>
         <Input
@@ -75,6 +76,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
         />
         {errors.password && <p className='text-destructive text-sm'>{errors.password.message}</p>}
       </div>
+
       <Button type='submit' className='w-full'>
         {t('submitLogin')}
       </Button>

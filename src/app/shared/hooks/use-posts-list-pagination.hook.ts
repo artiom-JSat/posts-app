@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useTransition } from 'react'
 
 import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
 import { usePathname, useRouter } from '@/pkg/locale'
@@ -16,6 +16,8 @@ export const usePostsListPagination = ({ totalPages = 0 }: IProps = {}) => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
+
+  const [isPending, startTransition] = useTransition()
 
   const currentPage = useMemo(
     () => Number(searchParams.get('page')) || POSTS_LIST_PAGINATION.DEFAULT_PAGE,
@@ -33,7 +35,9 @@ export const usePostsListPagination = ({ totalPages = 0 }: IProps = {}) => {
         params.set('page', String(page))
       }
 
-      router.push(`${pathname}?${params.toString()}`, { scroll: true })
+      startTransition(() => {
+        router.push(`${pathname}?${params.toString()}`, { scroll: true })
+      })
     },
     [searchParams, pathname, router],
   )
@@ -53,5 +57,6 @@ export const usePostsListPagination = ({ totalPages = 0 }: IProps = {}) => {
     currentPage,
     limit,
     setPage,
+    isPending,
   }
 }
