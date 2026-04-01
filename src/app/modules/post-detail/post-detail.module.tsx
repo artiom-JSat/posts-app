@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { type FC } from 'react'
 
@@ -8,6 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { postsQueries } from '@/entities/api/posts'
 import { BackButtonComponent } from '@/shared/components/back-button'
+import { PostImageComponent } from '@/shared/components/post-image'
 import { WrapperComponent } from '@/shared/components/wrapper'
 
 // interface
@@ -19,7 +19,6 @@ interface IProps {
 const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
   const { postId } = props
   const t = useTranslations('PostDetail')
-  const imageUrl = `https://picsum.photos/seed/${postId}/1200/630`
 
   const { data: post } = useQuery(postsQueries.detail(postId))
 
@@ -41,12 +40,11 @@ const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
             <h1 className='text-4xl leading-tight font-extrabold capitalize lg:text-5xl'>{title}</h1>
           </div>
           <div className='bg-muted relative aspect-video w-full overflow-hidden rounded-2xl border shadow-lg'>
-            <Image
-              src={imageUrl}
-              alt={title}
-              fill
-              priority
-              className='object-cover'
+            <PostImageComponent
+              postId={postId}
+              title={title}
+              preload={true}
+              aspectRatio='video'
               sizes='(max-width: 768px) 100vw, 800px'
             />
           </div>
