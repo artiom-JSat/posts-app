@@ -2,6 +2,7 @@ import { keepPreviousData, queryOptions } from '@tanstack/react-query'
 
 import { getPostById, getPosts } from '@/entities/api/posts/posts.api'
 
+// query options
 export const postsQueries = {
   all: ['posts'] as const,
   lists: () => [...postsQueries.all, 'list'] as const,

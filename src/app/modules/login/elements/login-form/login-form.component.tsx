@@ -12,7 +12,7 @@ import { Input } from '@/pkg/theme/ui/input'
 import { Label } from '@/pkg/theme/ui/label'
 import { useLoginAction } from '@/shared/store'
 
-import { getLoginSchema, type LoginFormValues } from '../auth.schema'
+import { getLoginSchema, type LoginFormValues } from '../../auth.schema'
 
 // interface
 interface IProps {}

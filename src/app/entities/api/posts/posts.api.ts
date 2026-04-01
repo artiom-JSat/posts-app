@@ -25,6 +25,7 @@ export const getPosts = async ({
   return { data, total }
 }
 
+// api
 export const getPostById = async (id: string): Promise<IPost | null> => {
   const response = await restApiFetcher.get(`posts/${id}`, {
     next: { revalidate: 3600 },

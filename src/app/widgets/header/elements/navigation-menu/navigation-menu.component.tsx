@@ -13,7 +13,7 @@ import { useIsAuth, useUser } from '@/shared/store'
 
 import MobileNavigationMenuComponent from './mobile-navigation-menu.component'
 
-import { type INavigationItem } from '../header.interface'
+import { type INavigationItem } from '../../header.interface'
 
 // interface
 interface IProps {

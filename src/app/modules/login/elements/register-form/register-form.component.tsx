@@ -12,7 +12,7 @@ import { Input } from '@/pkg/theme/ui/input'
 import { Label } from '@/pkg/theme/ui/label'
 import { useRegisterAction } from '@/shared/store'
 
-import { getRegisterSchema, type RegisterFormValues } from '../auth.schema'
+import { getRegisterSchema, type RegisterFormValues } from '../../auth.schema'
 
 // interface
 interface IProps {}
@@ -78,7 +78,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
       </div>
 
       <div className='space-y-2'>
-        <Label htmlFor='reg-password'>Password*</Label>
+        <Label htmlFor='reg-password'>{t('password')}</Label>
         <Input
           id='reg-password'
           placeholder='********'
