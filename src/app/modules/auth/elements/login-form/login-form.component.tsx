@@ -20,7 +20,7 @@ interface IProps {}
 const LoginFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
-  const login = useLoginAction()
+  const loginUser = useLoginAction()
 
   const methods = useForm<LoginFormValues>({
     resolver: zodResolver(getLoginSchema(t)),
@@ -33,7 +33,10 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
   const { handleSubmit, setError } = methods
 
   const onLoginSubmit = (values: LoginFormValues) => {
-    const result = login(values.email, values.password)
+    const result = loginUser({
+      email: values.email,
+      password: values.password,
+    })
 
     if (result.success) {
       router.push('/posts')

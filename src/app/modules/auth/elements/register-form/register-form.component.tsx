@@ -37,18 +37,15 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
 
   const onRegisterSubmit = (values: RegisterFormValues) => {
     const result = registerUser({
+      name: values.name,
       email: values.email,
       password: values.password,
-      name: values.name,
     })
 
     if (result.success) {
       router.push('/posts')
     } else {
-      setError('email', {
-        type: 'manual',
-        message: t(`errors.${result.message}`),
-      })
+      setError('email', { type: 'manual', message: t(`errors.${result.message}`) })
     }
   }
 
