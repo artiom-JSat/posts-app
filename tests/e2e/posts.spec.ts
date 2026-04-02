@@ -29,10 +29,9 @@ test.describe('Posts Functionality (via Dedicated Register Page)', () => {
     await page.getByPlaceholder(/Enter your name/i).fill('Test user')
     await page.getByPlaceholder(/email/i).fill('new_user@test.com')
 
-    // Select password and confirm password fields by their common placeholder pattern
-    const passwordFields = page.getByPlaceholder(/[\*]{4,}/)
-    await passwordFields.first().fill('password123')
-    await passwordFields.last().fill('password123')
+    // Select password and confirm password fields by Labels
+    await page.getByLabel('Password*', { exact: true }).fill('password123')
+    await page.getByLabel('Confirm password*', { exact: true }).fill('password123')
 
     // Submit the form and wait for redirect to the feed page
     await page.getByRole('button', { name: /^Register$/i }).click()
