@@ -1,50 +1,66 @@
-import Image from 'next/image'
+'use client'
+
 import { useTranslations } from 'next-intl'
-import type { IPost } from '@/entities/models'
-import { WrapperComponent } from '@/shared/components/wrapper'
+import { type FC } from 'react'
+
+import { useQuery } from '@tanstack/react-query'
+
+import { postsQueries } from '@/entities/api/posts'
 import { BackButtonComponent } from '@/shared/components/back-button'
+import { PostImageComponent } from '@/shared/components/post-image'
+import { WrapperComponent } from '@/shared/components/wrapper'
 
-const PostDetailModule = (post: IPost) => {
-  const { id, title, body, userId } = post
+// interface
+interface IProps {
+  postId: string
+}
+
+// component
+const PostDetailModule: FC<Readonly<IProps>> = (props: IProps) => {
+  const { postId } = props
   const t = useTranslations('PostDetail')
-  const imageUrl = `https://picsum.photos/seed/${id}/1200/630`
 
+  const { data: post } = useQuery(postsQueries.detail(postId))
+
+  if (!post) return null
+
+  const { title, body, userId } = post
+
+  // return
   return (
-    <WrapperComponent type="main" className="max-w-3xl">
-      <div className="px-4 sm:px-6 lg:px-8">
-        <BackButtonComponent baseUrl="/posts">{t('back')}</BackButtonComponent>
-        <article className="space-y-6">
-          <div className="space-y-2">
-            <span className="text-sm text-muted-foreground uppercase tracking-wider font-medium">
-              {t('postId')}: {id}
+    <WrapperComponent type='main' className='max-w-3xl'>
+      <div className='px-4 sm:px-6 lg:px-8'>
+        <BackButtonComponent baseUrl='/posts'>{t('back')}</BackButtonComponent>
+        <article className='space-y-6'>
+          <div className='space-y-2'>
+            <span className='text-muted-foreground text-sm font-medium tracking-wider uppercase'>
+              {t('postId')}: {postId}
             </span>
 
-            <h1 className="text-4xl font-extrabold lg:text-5xl capitalize leading-tight">
-              {title}
-            </h1>
+            <h1 className='text-4xl leading-tight font-extrabold capitalize lg:text-5xl'>{title}</h1>
           </div>
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl border bg-muted shadow-lg">
-            <Image
-              src={imageUrl}
-              alt={title}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 800px"
+
+          <div className='bg-muted relative aspect-video w-full overflow-hidden rounded-2xl border shadow-lg'>
+            <PostImageComponent
+              postId={postId}
+              title={title}
+              preload={true}
+              aspectRatio='video'
+              sizes='(max-width: 768px) 100vw, 800px'
             />
           </div>
-          <div className="prose prose-slate dark:prose-invert max-w-none">
-            <p className="text-xl leading-relaxed text-foreground/90">{body}</p>
-            <p className="text-muted-foreground mt-4">
+
+          <div className='prose prose-slate dark:prose-invert max-w-none'>
+            <p className='text-foreground/90 text-xl leading-relaxed'>{body}</p>
+            <p className='text-muted-foreground mt-4'>
               {body} {body}
             </p>
           </div>
-          <div className="pt-10">
-            <div className="rounded-lg border bg-card p-6 shadow-sm">
-              <h3 className="font-semibold mb-2">{t('author.title')}</h3>
-              <p className="text-sm text-muted-foreground">
-                {t('author.description', { id: userId })}
-              </p>
+
+          <div className='pt-10'>
+            <div className='bg-card rounded-lg border p-6 shadow-sm'>
+              <h3 className='mb-2 font-semibold'>{t('author.title')}</h3>
+              <p className='text-muted-foreground text-sm'>{t('author.description', { id: userId })}</p>
             </div>
           </div>
         </article>

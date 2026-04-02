@@ -21,7 +21,7 @@
     "placeholders": {
       "name": "Geben Sie Ihren Namen ein",
       "email": "E-Mail-Adresse eingeben",
-      "password": "********"
+      "password": "••••••••••••••••"
     },
     "errors": {
       "invalidEmail": "Ungültiges E-Mail-Format",

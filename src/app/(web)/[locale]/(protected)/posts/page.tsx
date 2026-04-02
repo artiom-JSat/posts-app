@@ -1,17 +1,23 @@
-import type { Metadata, NextPage } from 'next'
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { type Metadata, type NextPage } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getQueryClient } from '@/pkg/rest-api'
-import { getPosts } from '@/entities/api/posts/posts.api'
+
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+
+import { postsQueries } from '@/entities/api/posts'
 import { POSTS_LIST_PAGINATION } from '@/modules/posts-list'
 import PostsListModule from '@/modules/posts-list/posts-list.module'
+import { getQueryClient } from '@/pkg/rest-api'
 
+// interface
 interface IProps {
   params: Promise<{ locale: string }>
   searchParams: Promise<{ page?: string }>
 }
 
-export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+// metadata
+export const generateMetadata = async (props: IProps): Promise<Metadata> => {
+  const { params } = props
+
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'Posts' })
 
@@ -21,6 +27,7 @@ export const generateMetadata = async ({ params }: IProps): Promise<Metadata> =>
   }
 }
 
+// component
 const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const { params, searchParams } = props
 
@@ -32,12 +39,9 @@ const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const limit = POSTS_LIST_PAGINATION.DEFAULT_LIMIT
 
   const queryClient = getQueryClient()
+  await queryClient.prefetchQuery(postsQueries.list(currentPage, limit))
 
-  await queryClient.prefetchQuery({
-    queryKey: ['posts', { page: currentPage, limit, locale }],
-    queryFn: () => getPosts({ page: currentPage, limit }),
-  })
-
+  // return
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <PostsListModule />

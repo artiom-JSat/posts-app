@@ -1,14 +1,24 @@
-import type { Metadata, NextPage } from 'next'
+import { type Metadata, type NextPage } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getPostById } from '@/entities/api'
-import { PostDetailModule } from '@/modules/post-detail'
 
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+
+import { getPostById } from '@/entities/api'
+import { postsQueries } from '@/entities/api/posts'
+import { IPost } from '@/entities/models'
+import { PostDetailModule } from '@/modules/post-detail'
+import { getQueryClient } from '@/pkg/rest-api'
+
+// interface
 interface IProps {
   params: Promise<{ id: string; locale: string }>
 }
 
-export const generateMetadata = async ({ params }: IProps): Promise<Metadata> => {
+// metadata
+export const generateMetadata = async (props: IProps): Promise<Metadata> => {
+  const { params } = props
+
   const { id } = await params
   const post = await getPostById(id)
   const t = await getTranslations('PostDetail')
@@ -21,20 +31,26 @@ export const generateMetadata = async ({ params }: IProps): Promise<Metadata> =>
   }
 }
 
+// component
 const Page: NextPage<Readonly<IProps>> = async (props: IProps) => {
   const { params } = props
 
-  const { locale } = await params
+  const { id, locale } = await params
   setRequestLocale(locale)
 
-  const { id } = await params
-  const post = await getPostById(id)
+  const queryClient = getQueryClient()
+  await queryClient.prefetchQuery(postsQueries.detail(id))
 
-  if (!post) {
-    notFound()
-  }
+  const post = queryClient.getQueryData<IPost>(postsQueries.detail(id).queryKey)
 
-  return <PostDetailModule {...post} />
+  if (!post) notFound()
+
+  // return
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <PostDetailModule postId={id} />
+    </HydrationBoundary>
+  )
 }
 
 export default Page

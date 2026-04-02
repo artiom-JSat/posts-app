@@ -2,21 +2,26 @@ import { type FC, type ReactNode } from 'react'
 
 import { cn } from '@/pkg/theme/lib/utils'
 
+// interface
 interface IProps {
   children: ReactNode
   type?: 'main' | 'section'
   className?: string
 }
 
-const WrapperComponent: FC<Readonly<IProps>> = (props) => {
+// component
+const WrapperComponent: FC<Readonly<IProps>> = (props: IProps) => {
   const { children, type = 'main', className } = props
 
+  // return
   return (
     <>
       {type === 'main' ? (
-        <main className={cn('mx-auto w-full max-w-[1500px] px-4 py-10 sm:pt-[88px] pb-20 container', className)}>{children}</main>
+        <main className={cn('container mx-auto w-full max-w-[1500px] px-4 py-10 pb-20 sm:pt-[88px]', className)}>
+          {children}
+        </main>
       ) : (
-        <section className={cn('mx-auto w-full max-w-[1500px] px-4', className)}>{children}</section>
+        <section className={cn('container mx-auto w-full max-w-[1500px] px-4', className)}>{children}</section>
       )}
     </>
   )

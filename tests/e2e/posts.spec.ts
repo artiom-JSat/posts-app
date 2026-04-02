@@ -1,8 +1,10 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
+// base locale
 const BASE_LOCALE = '/en'
 
-test.describe('Posts Functionality (via Register Tab)', () => {
+// test
+test.describe('Posts Functionality (via Dedicated Register Page)', () => {
   test.beforeEach(async ({ page }) => {
     // Intercept registration API call and mock a successful response
     await page.route(/\/api\/.*\/register/, async (route) => {
@@ -16,27 +18,27 @@ test.describe('Posts Functionality (via Register Tab)', () => {
       })
     })
 
-    // Navigate to the authentication page and switch to the Registration tab
-    await page.goto(`${BASE_LOCALE}/login`)
-    await page.getByRole('tab', { name: /Register/i }).click()
+    // Navigate to the Registration page
+    await page.goto(`${BASE_LOCALE}/register`)
+
+    // Check that the correct tab is active
+    const registerTab = page.getByRole('tab', { name: /Register/i })
+    await expect(registerTab).toHaveAttribute('data-state', 'active')
 
     // Fill out the registration form
     await page.getByPlaceholder(/Enter your name/i).fill('Test user')
     await page.getByPlaceholder(/email/i).fill('new_user@test.com')
 
-    // Select password and confirm password fields by their common placeholder pattern
-    const passwordFields = page.getByPlaceholder(/[\*]{4,}/)
-    await passwordFields.first().fill('password123')
-    await passwordFields.last().fill('password123')
+    // Select password and confirm password fields by Labels
+    await page.getByLabel('Password*', { exact: true }).fill('password123')
+    await page.getByLabel('Confirm password*', { exact: true }).fill('password123')
 
     // Submit the form and wait for redirect to the feed page
     await page.getByRole('button', { name: /^Register$/i }).click()
     await expect(page).toHaveURL(`${BASE_LOCALE}/posts`, { timeout: 10000 })
   })
 
-  test('should display posts list after successful registration', async ({
-    page,
-  }) => {
+  test('should display posts list after successful registration', async ({ page }) => {
     // Check if at least one post card is rendered in the feed
     const postCards = page.locator('article, [data-testid="post-card"]')
     await expect(postCards.first()).toBeVisible()
@@ -45,10 +47,7 @@ test.describe('Posts Functionality (via Register Tab)', () => {
   test('should navigate to post details page', async ({ page }) => {
     // Get the first post card and extract its title for later verification
     const firstPost = page.locator('article, [data-testid="post-card"]').first()
-    const postTitle = await firstPost
-      .locator('h3, h2, .text-xl')
-      .first()
-      .innerText()
+    const postTitle = await firstPost.locator('h3, h2, .text-xl').first().innerText()
 
     // Click on the details link and verify the dynamic URL structure
     await firstPost.getByRole('link', { name: /Details/i }).click()

@@ -1,6 +1,7 @@
 import { useRouter } from '@/pkg/locale'
 import { useLogoutAction } from '@/shared/store'
 
+// hook
 export const useLogout = () => {
   const router = useRouter()
   const logout = useLogoutAction()
@@ -22,5 +23,6 @@ export const useLogout = () => {
     checkAndLogout()
   }
 
+  // return
   return { handleLogout }
 }

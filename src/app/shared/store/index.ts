@@ -1,7 +1,1 @@
-export {
-  useUser,
-  useIsAuth,
-  useLoginAction,
-  useRegisterAction,
-  useLogoutAction,
-} from './auth.store'
+export { useIsAuth, useLoginAction, useLogoutAction, useRegisterAction, useUser } from './auth.store'

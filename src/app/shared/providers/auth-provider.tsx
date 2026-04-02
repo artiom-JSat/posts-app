@@ -1,12 +1,22 @@
 'use client'
 
-import { useEffect, useState, type ReactNode } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
+
 import { usePathname, useRouter } from '@/pkg/locale'
 import { useIsAuth } from '@/shared/store'
 
-const PUBLIC_ROUTES = ['/', '/login']
+// constants
+const PUBLIC_ROUTES = ['/', '/login', '/register']
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+// interface
+interface IProps {
+  children: ReactNode
+}
+
+// component
+export const AuthProvider = (props: IProps) => {
+  const { children } = props
+
   const pathname = usePathname()
   const router = useRouter()
 
@@ -14,7 +24,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {
-    setIsHydrated(true)
+    const timer = setTimeout(() => setIsHydrated(true), 0)
+    return () => clearTimeout(timer)
   }, [])
 
   useEffect(() => {
@@ -24,6 +35,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (!isPublic && !isAuth) {
       router.replace('/login')
+    }
+
+    if (isAuth && (pathname === '/login' || pathname === '/register')) {
+      router.replace('/posts')
     }
   }, [isAuth, isHydrated, pathname, router])
 
@@ -35,5 +50,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return null
   }
 
+  // return
   return <>{children}</>
 }

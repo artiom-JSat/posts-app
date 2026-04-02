@@ -1,11 +1,23 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
+
 import { safePersistStorage } from './persist-storage'
 
+// interface
 interface IAuthUser {
   email: string
-  password?: string
   name?: string
+  password?: string
+}
+
+interface ILoginCredentials {
+  email: string
+  password: string
+}
+
+interface IRegisterCredentials extends ILoginCredentials {
+  name: string
+  confirmPassword?: string
 }
 
 interface IAuthState {
@@ -14,14 +26,12 @@ interface IAuthState {
   isAuth: boolean
   registeredUsers: IAuthUser[]
 
-  register: (user: IAuthUser) => { success: boolean; message?: string }
-  login: (
-    email: string,
-    password: string,
-  ) => { success: boolean; message?: string }
+  register: (credentials: IRegisterCredentials) => { success: boolean; message?: string }
+  login: (credentials: ILoginCredentials) => { success: boolean; message?: string }
   logout: () => void
 }
 
+// store
 export const useAuthStore = create<IAuthState>()(
   persist(
     (set, get) => ({
@@ -30,19 +40,22 @@ export const useAuthStore = create<IAuthState>()(
       isAuth: false,
       registeredUsers: [],
 
-      register: (newUser) => {
+      register: (credentials) => {
         const currentUsers = get().registeredUsers || []
 
-        const exists = currentUsers.find((u) => u.email === newUser.email)
+        const exists = currentUsers.find((u) => u.email === credentials.email)
         if (exists) {
           return { success: false, message: 'userExists' }
         }
 
-        const updatedUsers = [...currentUsers, newUser]
+        const { email, name, password } = credentials
+        const userToSave: IAuthUser = { email, name, password }
+
+        const updatedUsers = [...currentUsers, userToSave]
 
         set({
           registeredUsers: updatedUsers,
-          user: { email: newUser.email, name: newUser.name },
+          user: { email, name },
           isAuth: true,
           token: 'fake-jwt',
         })
@@ -50,12 +63,10 @@ export const useAuthStore = create<IAuthState>()(
         return { success: true }
       },
 
-      login: (email, password) => {
+      login: (credentials) => {
         const users = get().registeredUsers || []
 
-        const foundUser = users.find(
-          (u) => u.email === email && u.password === password,
-        )
+        const foundUser = users.find((u) => u.email === credentials.email && u.password === credentials.password)
 
         if (!foundUser) {
           return { success: false, message: 'invalidCredentials' }
@@ -79,6 +90,7 @@ export const useAuthStore = create<IAuthState>()(
   ),
 )
 
+// selectors
 export const useUser = () => useAuthStore((state) => state.user)
 export const useIsAuth = () => useAuthStore((state) => state.isAuth)
 export const useLoginAction = () => useAuthStore((state) => state.login)
