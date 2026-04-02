@@ -11,7 +11,8 @@ import { Button } from '@/pkg/theme/ui/button'
 import { ControlledFieldComponent } from '@/shared/components/controlled-field'
 import { useRegisterAction } from '@/shared/store'
 
-import { getRegisterSchema, type RegisterFormValues } from '../../auth.schema'
+import { registerFields } from '../../auth.constant'
+import { getRegisterSchema, type IRegisterFormValues } from '../../auth.schema'
 
 // interface
 interface IProps {}
@@ -22,7 +23,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
   const router = useRouter()
   const registerUser = useRegisterAction()
 
-  const methods = useForm<RegisterFormValues>({
+  const methods = useForm<IRegisterFormValues>({
     resolver: zodResolver(getRegisterSchema(t)),
     defaultValues: {
       email: '',
@@ -35,7 +36,7 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
 
   const { handleSubmit, setError } = methods
 
-  const onRegisterSubmit = (values: RegisterFormValues) => {
+  const onRegisterSubmit = (values: IRegisterFormValues) => {
     const result = registerUser({
       name: values.name,
       email: values.email,
@@ -45,7 +46,10 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
     if (result.success) {
       router.push('/posts')
     } else {
-      setError('email', { type: 'manual', message: t(`errors.${result.message}`) })
+      setError('email', {
+        type: 'manual',
+        message: t(`errors.${result.message}`),
+      })
     }
   }
 
@@ -53,31 +57,16 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onRegisterSubmit)} className='space-y-4 p-4'>
-        <ControlledFieldComponent id='reg-name' name='name' label={t('name')} placeholder={t('placeholders.name')} />
-
-        <ControlledFieldComponent
-          id='reg-email'
-          name='email'
-          label={t('email')}
-          placeholder={t('placeholders.email')}
-          type='email'
-        />
-
-        <ControlledFieldComponent
-          id='reg-password'
-          name='password'
-          label={t('password')}
-          placeholder={t('placeholders.password')}
-          type='password'
-        />
-
-        <ControlledFieldComponent
-          id='reg-confirm'
-          name='confirmPassword'
-          label={t('confirmPassword')}
-          placeholder={t('placeholders.password')}
-          type='password'
-        />
+        {registerFields.map((field) => (
+          <ControlledFieldComponent
+            key={field.id}
+            id={field.id}
+            name={field.name}
+            label={t(field.labelKey)}
+            placeholder={t(field.placeholderKey)}
+            type={field.type}
+          />
+        ))}
 
         <Button type='submit' className='w-full'>
           {t('submitRegister')}

@@ -23,5 +23,5 @@ export const getRegisterSchema = (t: TFunction) =>
     })
 
 // interface
-export interface LoginFormValues extends z.infer<ReturnType<typeof getLoginSchema>> {}
-export interface RegisterFormValues extends z.infer<ReturnType<typeof getRegisterSchema>> {}
+export interface ILoginFormValues extends z.infer<ReturnType<typeof getLoginSchema>> {}
+export interface IRegisterFormValues extends z.infer<ReturnType<typeof getRegisterSchema>> {}

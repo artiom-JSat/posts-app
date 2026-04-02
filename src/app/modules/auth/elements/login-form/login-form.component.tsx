@@ -11,7 +11,8 @@ import { Button } from '@/pkg/theme/ui/button'
 import { ControlledFieldComponent } from '@/shared/components/controlled-field'
 import { useLoginAction } from '@/shared/store'
 
-import { getLoginSchema, type LoginFormValues } from '../../auth.schema'
+import { loginFields } from '../../auth.constant'
+import { getLoginSchema, type ILoginFormValues } from '../../auth.schema'
 
 // interface
 interface IProps {}
@@ -22,7 +23,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
   const router = useRouter()
   const loginUser = useLoginAction()
 
-  const methods = useForm<LoginFormValues>({
+  const methods = useForm<ILoginFormValues>({
     resolver: zodResolver(getLoginSchema(t)),
     defaultValues: {
       email: '',
@@ -32,7 +33,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
 
   const { handleSubmit, setError } = methods
 
-  const onLoginSubmit = (values: LoginFormValues) => {
+  const onLoginSubmit = (values: ILoginFormValues) => {
     const result = loginUser({
       email: values.email,
       password: values.password,
@@ -41,8 +42,14 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
     if (result.success) {
       router.push('/posts')
     } else {
-      setError('email', { type: 'manual', message: t(`errors.${result.message}`) })
-      setError('password', { type: 'manual', message: t(`errors.${result.message}`) })
+      setError('email', {
+        type: 'manual',
+        message: t(`errors.${result.message}`),
+      })
+      setError('password', {
+        type: 'manual',
+        message: t(`errors.${result.message}`),
+      })
     }
   }
 
@@ -50,21 +57,16 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onLoginSubmit)} className='space-y-4 p-4'>
-        <ControlledFieldComponent
-          id='login-email'
-          name='email'
-          label={t('email')}
-          placeholder={t('placeholders.email')}
-          type='email'
-        />
-
-        <ControlledFieldComponent
-          id='login-password'
-          name='password'
-          label={t('password')}
-          placeholder={t('placeholders.password')}
-          type='password'
-        />
+        {loginFields.map((field) => (
+          <ControlledFieldComponent
+            key={field.id}
+            id={field.id}
+            name={field.name}
+            label={t(field.labelKey)}
+            placeholder={t(field.placeholderKey)}
+            type={field.type}
+          />
+        ))}
 
         <Button type='submit' className='w-full'>
           {t('submitLogin')}
