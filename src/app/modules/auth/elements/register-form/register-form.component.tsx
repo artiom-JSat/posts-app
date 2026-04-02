@@ -1,13 +1,14 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useRouter } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
+import { Spinner } from '@/pkg/theme/ui/spinner'
 import { ControlledFieldComponent } from '@/shared/components/controlled-field'
 import { useRegisterAction } from '@/shared/store'
 
@@ -22,6 +23,8 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
   const registerUser = useRegisterAction()
+
+  const [isRedirecting, setIsRedirecting] = useState(false)
 
   const methods = useForm<IRegisterFormValues>({
     resolver: zodResolver(getRegisterSchema(t)),
@@ -44,12 +47,15 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
     })
 
     if (result.success) {
+      setIsRedirecting(true)
       router.push('/posts')
     } else {
       setError('email', {
         type: 'manual',
         message: t(`errors.${result.message}`),
       })
+
+      setIsRedirecting(false)
     }
   }
 
@@ -68,8 +74,9 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
           />
         ))}
 
-        <Button type='submit' className='w-full'>
+        <Button type='submit' className='w-full' disabled={isRedirecting}>
           {t('submitRegister')}
+          {isRedirecting && <Spinner />}
         </Button>
       </form>
     </FormProvider>

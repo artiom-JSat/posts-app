@@ -1,13 +1,14 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { type FC } from 'react'
+import { type FC, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useRouter } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
+import { Spinner } from '@/pkg/theme/ui/spinner'
 import { ControlledFieldComponent } from '@/shared/components/controlled-field'
 import { useLoginAction } from '@/shared/store'
 
@@ -22,6 +23,8 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
   const loginUser = useLoginAction()
+
+  const [isRedirecting, setIsRedirecting] = useState(false)
 
   const methods = useForm<ILoginFormValues>({
     resolver: zodResolver(getLoginSchema(t)),
@@ -40,16 +43,15 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
     })
 
     if (result.success) {
+      setIsRedirecting(true)
       router.push('/posts')
     } else {
-      setError('email', {
-        type: 'manual',
-        message: t(`errors.${result.message}`),
-      })
-      setError('password', {
-        type: 'manual',
-        message: t(`errors.${result.message}`),
-      })
+      const errorMessage = t(`errors.${result.message}`)
+
+      setError('email', { type: 'manual', message: errorMessage })
+      setError('password', { type: 'manual', message: errorMessage })
+
+      setIsRedirecting(false)
     }
   }
 
@@ -68,8 +70,9 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
           />
         ))}
 
-        <Button type='submit' className='w-full'>
+        <Button type='submit' className='w-full' disabled={isRedirecting}>
           {t('submitLogin')}
+          {isRedirecting && <Spinner />}
         </Button>
       </form>
     </FormProvider>

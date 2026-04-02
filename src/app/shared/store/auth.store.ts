@@ -63,10 +63,10 @@ export const useAuthStore = create<IAuthState>()(
         return { success: true }
       },
 
-      login: ({ email, password }) => {
+      login: (credentials) => {
         const users = get().registeredUsers || []
 
-        const foundUser = users.find((u) => u.email === email && u.password === password)
+        const foundUser = users.find((u) => u.email === credentials.email && u.password === credentials.password)
 
         if (!foundUser) {
           return { success: false, message: 'invalidCredentials' }
