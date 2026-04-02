@@ -61,8 +61,8 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
         {isAuth ? (
           <div className='hidden items-center gap-4 md:flex'>
             <span className='text-muted-foreground hidden pr-[10px] text-sm lg:block'>{user?.email}</span>
-            <Separator orientation='vertical' className='h-6 data-vertical:self-center' />
-            <Button variant='ghost' onClick={handleLogout} className='gap-2'>
+            <Separator orientation='vertical' className='h-4 data-vertical:self-center' />
+            <Button variant='ghost' size='lg' onClick={handleLogout} className='gap-2'>
               <LogOut className='h-4 w-4' />
               {t('logout')}
             </Button>
