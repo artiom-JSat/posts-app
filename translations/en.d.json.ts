@@ -24,7 +24,7 @@ declare const messages: {
     "placeholders": {
       "name": "Enter your name",
       "email": "Enter your email address",
-      "password": "********"
+      "password": "••••••••••••••••"
     },
     "errors": {
       "invalidEmail": "Invalid email format",

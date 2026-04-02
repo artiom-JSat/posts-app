@@ -6,7 +6,7 @@ import { usePathname, useRouter } from '@/pkg/locale'
 import { useIsAuth } from '@/shared/store'
 
 // constants
-const PUBLIC_ROUTES = ['/', '/login']
+const PUBLIC_ROUTES = ['/', '/login', '/register']
 
 // interface
 interface IProps {
@@ -35,6 +35,10 @@ export const AuthProvider = (props: IProps) => {
 
     if (!isPublic && !isAuth) {
       router.replace('/login')
+    }
+
+    if (isAuth && (pathname === '/login' || pathname === '/register')) {
+      router.replace('/posts')
     }
   }, [isAuth, isHydrated, pathname, router])
 

@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test'
 const BASE_LOCALE = '/en'
 
 // test
-test.describe('Posts Functionality (via Register Tab)', () => {
+test.describe('Posts Functionality (via Dedicated Register Page)', () => {
   test.beforeEach(async ({ page }) => {
     // Intercept registration API call and mock a successful response
     await page.route(/\/api\/.*\/register/, async (route) => {
@@ -18,18 +18,20 @@ test.describe('Posts Functionality (via Register Tab)', () => {
       })
     })
 
-    // Navigate to the authentication page and switch to the Registration tab
-    await page.goto(`${BASE_LOCALE}/login`)
-    await page.getByRole('tab', { name: /Register/i }).click()
+    // Navigate to the Registration page
+    await page.goto(`${BASE_LOCALE}/register`)
+
+    // Check that the correct tab is active
+    const registerTab = page.getByRole('tab', { name: /Register/i })
+    await expect(registerTab).toHaveAttribute('data-state', 'active')
 
     // Fill out the registration form
     await page.getByPlaceholder(/Enter your name/i).fill('Test user')
     await page.getByPlaceholder(/email/i).fill('new_user@test.com')
 
-    // Select password and confirm password fields by their common placeholder pattern
-    const passwordFields = page.getByPlaceholder(/[\*]{4,}/)
-    await passwordFields.first().fill('password123')
-    await passwordFields.last().fill('password123')
+    // Select password and confirm password fields by Labels
+    await page.getByLabel('Password*', { exact: true }).fill('password123')
+    await page.getByLabel('Confirm password*', { exact: true }).fill('password123')
 
     // Submit the form and wait for redirect to the feed page
     await page.getByRole('button', { name: /^Register$/i }).click()
