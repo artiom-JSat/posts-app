@@ -2,14 +2,13 @@
 
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useRouter } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
-import { Input } from '@/pkg/theme/ui/input'
-import { Label } from '@/pkg/theme/ui/label'
+import { ControlledFieldComponent } from '@/shared/components/controlled-field'
 import { useRegisterAction } from '@/shared/store'
 
 import { getRegisterSchema, type RegisterFormValues } from '../../auth.schema'
@@ -21,20 +20,22 @@ interface IProps {}
 const RegisterFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
+  const registerUser = useRegisterAction()
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<RegisterFormValues>({
+  const methods = useForm<RegisterFormValues>({
     resolver: zodResolver(getRegisterSchema(t)),
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      name: '',
+    },
     mode: 'onChange',
   })
 
-  const registerUser = useRegisterAction()
+  const { handleSubmit, setError } = methods
 
-  const onSubmit = (values: RegisterFormValues) => {
+  const onRegisterSubmit = (values: RegisterFormValues) => {
     const result = registerUser({
       email: values.email,
       password: values.password,
@@ -53,58 +54,39 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
 
   // return
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 p-4'>
-      <div className='space-y-2'>
-        <Label htmlFor='reg-name'>{t('name')}</Label>
-        <Input
-          id='reg-name'
-          placeholder={t('placeholders.name')}
-          {...register('name')}
-          className={errors.name ? 'border-destructive' : ''}
-        />
-        {errors.name && <p className='text-destructive text-sm'>{errors.name.message}</p>}
-      </div>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onRegisterSubmit)} className='space-y-4 p-4'>
+        <ControlledFieldComponent id='reg-name' name='name' label={t('name')} placeholder={t('placeholders.name')} />
 
-      <div className='space-y-2'>
-        <Label htmlFor='reg-email'>{t('email')}</Label>
-        <Input
+        <ControlledFieldComponent
           id='reg-email'
+          name='email'
+          label={t('email')}
           placeholder={t('placeholders.email')}
           type='email'
-          {...register('email')}
-          className={errors.email ? 'border-destructive' : ''}
         />
-        {errors.email && <p className='text-destructive text-sm'>{errors.email.message}</p>}
-      </div>
 
-      <div className='space-y-2'>
-        <Label htmlFor='reg-password'>{t('password')}</Label>
-        <Input
+        <ControlledFieldComponent
           id='reg-password'
+          name='password'
+          label={t('password')}
           placeholder={t('placeholders.password')}
           type='password'
-          {...register('password')}
-          className={errors.password ? 'border-destructive' : ''}
         />
-        {errors.password && <p className='text-destructive text-sm'>{errors.password.message}</p>}
-      </div>
 
-      <div className='space-y-2'>
-        <Label htmlFor='reg-confirm'>{t('confirmPassword')}</Label>
-        <Input
+        <ControlledFieldComponent
           id='reg-confirm'
+          name='confirmPassword'
+          label={t('confirmPassword')}
           placeholder={t('placeholders.password')}
           type='password'
-          {...register('confirmPassword')}
-          className={errors.confirmPassword ? 'border-destructive' : ''}
         />
-        {errors.confirmPassword && <p className='text-destructive text-sm'>{errors.confirmPassword.message}</p>}
-      </div>
 
-      <Button type='submit' className='w-full'>
-        {t('submitRegister')}
-      </Button>
-    </form>
+        <Button type='submit' className='w-full'>
+          {t('submitRegister')}
+        </Button>
+      </form>
+    </FormProvider>
   )
 }
 
