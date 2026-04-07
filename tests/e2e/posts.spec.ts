@@ -11,6 +11,21 @@ test.describe('Posts Functionality (via Dedicated Register Page)', () => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
+        headers: {
+          'Set-Cookie': [
+            'is_logged_in=true; Path=/; Max-Age=604800',
+            `auth-storage=${encodeURIComponent(
+              JSON.stringify({
+                state: {
+                  user: { email: 'new_user@test.com', name: 'Test user' },
+                  isAuth: true,
+                  token: 'fake-jwt',
+                },
+                version: 0,
+              }),
+            )}; Path=/; Max-Age=604800`,
+          ].join(', '),
+        },
         body: JSON.stringify({
           user: { id: 101, email: 'new_user@test.com' },
           token: 'fake',
@@ -26,13 +41,14 @@ test.describe('Posts Functionality (via Dedicated Register Page)', () => {
     await expect(registerTab).toHaveAttribute('data-state', 'active')
 
     // Fill out the registration form
-    await page.getByPlaceholder(/Enter your name/i).fill('Test user')
+    await page.getByPlaceholder(/Enter your name/i).pressSequentially('Test user', { delay: 100 })
     await page.getByPlaceholder(/email/i).fill('new_user@test.com')
 
     // Select password and confirm password fields by Labels
     await page.getByLabel('Password*', { exact: true }).fill('password123')
     await page.getByLabel('Confirm password*', { exact: true }).fill('password123')
 
+    await expect(page.getByText(/Name is too short/i)).not.toBeVisible()
     // Submit the form and wait for redirect to the feed page
     await page.getByRole('button', { name: /^Register$/i }).click()
     await expect(page).toHaveURL(`${BASE_LOCALE}/posts`, { timeout: 10000 })

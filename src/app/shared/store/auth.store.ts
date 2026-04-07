@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
@@ -53,6 +54,8 @@ export const useAuthStore = create<IAuthState>()(
 
         const updatedUsers = [...currentUsers, userToSave]
 
+        Cookies.set('is_logged_in', 'true', { expires: 7, path: '/' })
+
         set({
           registeredUsers: updatedUsers,
           user: { email, name },
@@ -72,6 +75,8 @@ export const useAuthStore = create<IAuthState>()(
           return { success: false, message: 'invalidCredentials' }
         }
 
+        Cookies.set('is_logged_in', 'true', { expires: 7, path: '/' })
+
         set({
           user: { email: foundUser.email, name: foundUser.name },
           isAuth: true,
@@ -81,7 +86,10 @@ export const useAuthStore = create<IAuthState>()(
         return { success: true }
       },
 
-      logout: () => set({ user: null, token: null, isAuth: false }),
+      logout: () => {
+        Cookies.remove('is_logged_in', { path: '/' })
+        set({ user: null, token: null, isAuth: false })
+      },
     }),
     {
       name: 'auth-storage',

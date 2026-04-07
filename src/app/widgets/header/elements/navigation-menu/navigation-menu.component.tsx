@@ -2,7 +2,7 @@
 
 import { LanguagesIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { type FC } from 'react'
+import { type FC, useSyncExternalStore } from 'react'
 
 import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
@@ -18,16 +18,29 @@ import { type INavigationItem } from '../../header.interface'
 // interface
 interface IProps {
   navigationData: INavigationItem[]
+  initialIsAuth: boolean
+  initialEmail: string
 }
+
+const emptySubscribe = () => () => {}
 
 // component
 const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
-  const { navigationData } = props
+  const { navigationData, initialIsAuth, initialEmail } = props
 
   const t = useTranslations('Navigation')
 
-  const isAuth = useIsAuth()
+  const isAuthStore = useIsAuth()
   const user = useUser()
+
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  )
+
+  const isAuth = isClient ? isAuthStore : initialIsAuth
+  const displayEmail = isClient ? user?.email : initialEmail
 
   const visibleNavigation = navigationData.filter((item) => {
     if (item.isPrivate && !isAuth) return false
@@ -60,7 +73,7 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
 
         {isAuth ? (
           <div className='hidden items-center gap-4 md:flex'>
-            <span className='text-muted-foreground hidden pr-[10px] text-sm lg:block'>{user?.email}</span>
+            <span className='text-muted-foreground hidden pr-[10px] text-sm lg:block'>{displayEmail}</span>
             <Separator orientation='vertical' className='h-4 data-vertical:self-center' />
             <Button variant='ghost' size='lg' onClick={handleLogout} className='gap-2'>
               <LogOut className='h-4 w-4' />
