@@ -6,6 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { authClient } from '@/pkg/auth/client'
 import { useRouter } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { Spinner } from '@/pkg/theme/ui/spinner'
@@ -22,9 +23,10 @@ interface IProps {}
 const LoginFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
-  const loginUser = useLoginAction()
+  // const loginUser = useLoginAction()
 
-  const [isRedirecting, setIsRedirecting] = useState(false)
+  // const [isRedirecting, setIsRedirecting] = useState(false)
+  const [isPending, setIsPending] = useState(false)
 
   const methods = useForm<ILoginFormValues>({
     resolver: zodResolver(getLoginSchema(t)),
@@ -36,22 +38,44 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
 
   const { handleSubmit, setError } = methods
 
-  const onLoginSubmit = (values: ILoginFormValues) => {
-    const result = loginUser({
-      email: values.email,
-      password: values.password,
-    })
+  // const onLoginSubmit = (values: ILoginFormValues) => {
+  //   const result = loginUser({
+  //     email: values.email,
+  //     password: values.password,
+  //   })
 
-    if (result.success) {
-      setIsRedirecting(true)
+  //   if (result.success) {
+  //     setIsRedirecting(true)
+  //     router.push('/posts')
+  //   } else {
+  //     const errorMessage = t(`errors.${result.message}`)
+
+  //     setError('email', { type: 'manual', message: errorMessage })
+  //     setError('password', { type: 'manual', message: errorMessage })
+
+  //     setIsRedirecting(false)
+  //   }
+  // }
+
+  const onLoginSubmit = async (data: ILoginFormValues) => {
+    const { email, password } = data
+
+    setIsPending(true)
+
+    // Используем authClient. TypeScript сам проверит соответствие ILoginFormValues и ILoginCredentials
+    const { data: res, error } = await authClient.signIn.email({ email, password })
+
+    if (res) {
+      // Если вход успешен, куки и стор уже обновлены внутри authClient
       router.push('/posts')
     } else {
-      const errorMessage = t(`errors.${result.message}`)
+      // Если ошибка (например, 'invalidCredentials'), берем ключ из error
+      const errorMessage = t(`errors.${error}`)
 
       setError('email', { type: 'manual', message: errorMessage })
       setError('password', { type: 'manual', message: errorMessage })
 
-      setIsRedirecting(false)
+      setIsPending(false)
     }
   }
 
@@ -70,9 +94,9 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
           />
         ))}
 
-        <Button type='submit' className='w-full' disabled={isRedirecting}>
+        <Button type='submit' className='w-full' disabled={isPending}>
           {t('submitLogin')}
-          {isRedirecting && <Spinner />}
+          {isPending && <Spinner />}
         </Button>
       </form>
     </FormProvider>

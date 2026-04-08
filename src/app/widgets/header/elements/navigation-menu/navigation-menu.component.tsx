@@ -18,20 +18,20 @@ import { type INavigationItem } from '../../header.interface'
 // interface
 interface IProps {
   navigationData: INavigationItem[]
-  initialIsAuth: boolean
-  initialEmail: string
+  initialUser: { email: string; name?: string } | null
 }
 
+// subscribe
 const emptySubscribe = () => () => {}
 
 // component
 const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
-  const { navigationData, initialIsAuth, initialEmail } = props
+  const { navigationData, initialUser } = props
 
   const t = useTranslations('Navigation')
 
   const isAuthStore = useIsAuth()
-  const user = useUser()
+  const storeUser = useUser()
 
   const isClient = useSyncExternalStore(
     emptySubscribe,
@@ -39,8 +39,8 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
     () => false,
   )
 
-  const isAuth = isClient ? isAuthStore : initialIsAuth
-  const displayEmail = isClient ? user?.email : initialEmail
+  const isAuth = isClient ? isAuthStore : !!initialUser
+  const displayEmail = isClient ? storeUser?.email : initialUser?.email
 
   const visibleNavigation = navigationData.filter((item) => {
     if (item.isPrivate && !isAuth) return false

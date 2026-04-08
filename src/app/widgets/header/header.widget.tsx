@@ -1,6 +1,6 @@
-import { cookies } from 'next/headers'
 import { type FC } from 'react'
 
+import { authServer } from '@/pkg/auth/server'
 import { LogoComponent } from '@/shared/components/logo'
 import { WrapperComponent } from '@/shared/components/wrapper'
 
@@ -12,22 +12,7 @@ interface IProps {}
 
 // component
 const HeaderWidget: FC<Readonly<IProps>> = async () => {
-  const cookieStore = await cookies()
-  // Сервер видит куку и понимает: рисовать "Login" или "Logout"
-  const isAuthServer = cookieStore.get('is_logged_in')?.value === 'true'
-
-  const authStorage = cookieStore.get('auth-storage')?.value
-  let initialEmail = ''
-
-  if (authStorage) {
-    try {
-      const parsed = JSON.parse(authStorage)
-      initialEmail = parsed.state?.user?.email || ''
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to parse auth-storage:', e)
-    }
-  }
+  const { user } = await authServer.getSession()
 
   // return
   return (
@@ -38,11 +23,7 @@ const HeaderWidget: FC<Readonly<IProps>> = async () => {
       >
         <LogoComponent />
 
-        <NavigationMenuComponent
-          navigationData={navigationData}
-          initialIsAuth={isAuthServer}
-          initialEmail={initialEmail}
-        />
+        <NavigationMenuComponent navigationData={navigationData} initialUser={user} />
       </WrapperComponent>
     </header>
   )

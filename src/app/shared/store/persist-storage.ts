@@ -7,6 +7,7 @@ interface IProps {
   removeItem: (name: string) => void
 }
 
+// storage
 export const safePersistStorage: IProps = {
   getItem: (name) => {
     return Cookies.get(name) || null

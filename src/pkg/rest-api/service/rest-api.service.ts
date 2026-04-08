@@ -1,4 +1,4 @@
-import { defaultShouldDehydrateQuery, isServer, keepPreviousData, QueryClient } from '@tanstack/react-query'
+import { defaultShouldDehydrateQuery, environmentManager, keepPreviousData, QueryClient } from '@tanstack/react-query'
 
 let browserQueryClient: QueryClient | undefined = undefined
 
@@ -23,7 +23,7 @@ const makeQueryClient = () => {
 
 // query client
 export const getQueryClient = () => {
-  if (isServer) {
+  if (environmentManager.isServer()) {
     return makeQueryClient()
   } else {
     if (!browserQueryClient) browserQueryClient = makeQueryClient()

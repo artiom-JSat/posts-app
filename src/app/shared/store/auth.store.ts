@@ -11,12 +11,12 @@ interface IAuthUser {
   password?: string
 }
 
-interface ILoginCredentials {
+export interface ILoginCredentials {
   email: string
   password: string
 }
 
-interface IRegisterCredentials extends ILoginCredentials {
+export interface IRegisterCredentials extends ILoginCredentials {
   name: string
   confirmPassword?: string
 }
