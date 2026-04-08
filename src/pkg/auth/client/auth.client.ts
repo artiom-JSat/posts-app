@@ -7,24 +7,15 @@ interface AuthResponse {
   error: string | null
 }
 
-// client
+// auth client
 export const authClient = {
-  // Мы сохраняем baseURL, так как в будущем запросы пойдут сюда
   baseURL: envClient.NEXT_PUBLIC_CLIENT_API_URL,
 
-  /**
-   * session — возвращает текущее состояние пользователя.
-   * Удобно использовать в защищенных роутах и шапке.
-   */
   session: () => {
     const state = useAuthStore.getState()
     return state.isAuth ? { user: state.user } : null
   },
 
-  /**
-   * signIn — метод для логина.
-   * Возвращает стандартный объект { data, error } для удобной обработки в формах.
-   */
   signIn: {
     email: async (credentials: ILoginCredentials): Promise<AuthResponse> => {
       const result = useAuthStore.getState().login(credentials)
@@ -40,9 +31,6 @@ export const authClient = {
     },
   },
 
-  /**
-   * signUp — метод для регистрации.
-   */
   signUp: {
     email: async (credentials: IRegisterCredentials): Promise<AuthResponse> => {
       const result = useAuthStore.getState().register(credentials)
@@ -58,9 +46,6 @@ export const authClient = {
     },
   },
 
-  /**
-   * signOut — очистка сессии и редирект.
-   */
   signOut: async (): Promise<void> => {
     useAuthStore.getState().logout()
     window.location.href = '/'

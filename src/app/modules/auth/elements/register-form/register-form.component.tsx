@@ -11,7 +11,6 @@ import { useRouter } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { Spinner } from '@/pkg/theme/ui/spinner'
 import { ControlledFieldComponent } from '@/shared/components/controlled-field'
-import { useRegisterAction } from '@/shared/store'
 
 import { registerFields } from '../../auth.constant'
 import { getRegisterSchema, type IRegisterFormValues } from '../../auth.schema'
@@ -23,9 +22,7 @@ interface IProps {}
 const RegisterFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
-  // const registerUser = useRegisterAction()
 
-  // const [isRedirecting, setIsRedirecting] = useState(false)
   const [isPending, setIsPending] = useState(false)
 
   const methods = useForm<IRegisterFormValues>({
@@ -41,26 +38,6 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
 
   const { handleSubmit, setError } = methods
 
-  // const onRegisterSubmit = (values: IRegisterFormValues) => {
-  //   const result = registerUser({
-  //     name: values.name,
-  //     email: values.email,
-  //     password: values.password,
-  //   })
-
-  //   if (result.success) {
-  //     setIsRedirecting(true)
-  //     router.push('/posts')
-  //   } else {
-  //     setError('email', {
-  //       type: 'manual',
-  //       message: t(`errors.${result.message}`),
-  //     })
-
-  //     setIsRedirecting(false)
-  //   }
-  // }
-
   const onRegisterSubmit = async (data: IRegisterFormValues) => {
     const { name, email, password } = data
 
@@ -71,9 +48,11 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
     if (res) {
       router.push('/posts')
     } else {
-      setError('email', { type: 'manual', message: t(`errors.${error}`) })
-      setError('password', { type: 'manual', message: t(`errors.${error}`) })
-      setError('confirmPassword', { type: 'manual', message: t(`errors.${error}`) })
+      const errorMessage = t(`errors.${error}`)
+
+      setError('email', { type: 'manual', message: errorMessage })
+      setError('password', { type: 'manual', message: errorMessage })
+      setError('confirmPassword', { type: 'manual', message: errorMessage })
 
       setIsPending(false)
     }
