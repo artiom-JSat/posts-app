@@ -2,7 +2,7 @@
 
 import { LanguagesIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { type FC, Suspense } from 'react'
+import { type FC } from 'react'
 
 import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
@@ -47,15 +47,13 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
       </div>
 
       <div className='flex items-center gap-4 lg:gap-6'>
-        <Suspense fallback={<div className='h-5 w-5' />}>
-          <LanguageDropdownComponent
-            trigger={
-              <Button variant='ghost' size='icon'>
-                <LanguagesIcon className='h-5 w-5' />
-              </Button>
-            }
-          />
-        </Suspense>
+        <LanguageDropdownComponent
+          trigger={
+            <Button variant='ghost' size='icon'>
+              <LanguagesIcon className='h-5 w-5' />
+            </Button>
+          }
+        />
 
         <MobileNavigationMenuComponent items={visibleNavigation} isAuth={isAuth} onLogout={handleLogout} />
 
