@@ -1,5 +1,6 @@
 import { type FC } from 'react'
 
+import { authServer } from '@/pkg/auth/server'
 import { LogoComponent } from '@/shared/components/logo'
 import { WrapperComponent } from '@/shared/components/wrapper'
 
@@ -10,7 +11,9 @@ import { navigationData } from './header.constant'
 interface IProps {}
 
 // component
-const HeaderWidget: FC<Readonly<IProps>> = () => {
+const HeaderWidget: FC<Readonly<IProps>> = async () => {
+  const { user } = await authServer.getSession()
+
   // return
   return (
     <header className='bg-background sticky top-0 z-50 border-b'>
@@ -20,7 +23,7 @@ const HeaderWidget: FC<Readonly<IProps>> = () => {
       >
         <LogoComponent />
 
-        <NavigationMenuComponent navigationData={navigationData} />
+        <NavigationMenuComponent navigationData={navigationData} initialUser={user} />
       </WrapperComponent>
     </header>
   )

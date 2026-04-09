@@ -18,6 +18,7 @@ interface IProps {
 // component
 const LoginModule: FC<Readonly<IProps>> = (props) => {
   const { variant } = props
+
   const t = useTranslations('Auth')
   const router = useRouter()
 
