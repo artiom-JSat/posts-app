@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
-import { type FC, type ReactNode, useEffect, useState, useTransition } from 'react'
+import { type FC, type ReactNode, useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from '@/pkg/locale'
 import {
@@ -35,17 +35,13 @@ const LanguageDropdownComponent: FC<Readonly<IProps>> = (props: IProps) => {
     setLanguage(locale)
   }, [locale])
 
-  const [_, startTransition] = useTransition()
-
   const switchLanguage = (newLocale: string) => {
-    startTransition(() => {
-      router.replace({ pathname, query: Object.fromEntries(searchParams.entries()) }, { locale: newLocale })
-    })
+    router.replace({ pathname, query: Object.fromEntries(searchParams.entries()) }, { locale: newLocale })
   }
 
   // return
   return (
-    <DropdownMenu defaultOpen={defaultOpen}>
+    <DropdownMenu defaultOpen={defaultOpen} modal={false}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
 
       <DropdownMenuContent className='w-40' align={align || 'end'}>
