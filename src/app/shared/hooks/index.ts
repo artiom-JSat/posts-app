@@ -1,3 +1,4 @@
-export { useAuthSession } from './use-auth-session'
+export { useAuthSession } from './use-auth-session.hook'
 export { useLogout } from './use-logout.hook'
-export { usePostsListPagination } from './use-posts-list-pagination.hook'
+export { usePaginationGuard } from './use-pagination-guard.hook'
+export { usePaginationParams } from './use-pagination-params.hook'

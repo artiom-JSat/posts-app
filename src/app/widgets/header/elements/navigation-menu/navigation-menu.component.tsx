@@ -47,7 +47,7 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
       </div>
 
       <div className='flex items-center gap-4 lg:gap-6'>
-        <Suspense fallback={<div className='h-10 w-10' />}>
+        <Suspense fallback={<div className='h-5 w-5' />}>
           <LanguageDropdownComponent
             trigger={
               <Button variant='ghost' size='icon'>
