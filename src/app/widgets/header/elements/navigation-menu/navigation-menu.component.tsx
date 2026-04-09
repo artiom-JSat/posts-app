@@ -2,27 +2,23 @@
 
 import { LanguagesIcon, LogOut } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { type FC, Suspense, useSyncExternalStore } from 'react'
+import { type FC, Suspense } from 'react'
 
 import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { Separator } from '@/pkg/theme/ui/separator'
 import { LanguageDropdownComponent } from '@/shared/components/language-dropdown'
-import { useLogout } from '@/shared/hooks'
-import { useIsAuth, useUser } from '@/shared/store'
+import { useAuthSession, useLogout } from '@/shared/hooks'
 
 import MobileNavigationMenuComponent from './mobile-navigation-menu.component'
 
-import { type INavigationItem } from '../../header.interface'
+import { type INavigationItem, type IUser } from '../../header.interface'
 
 // interface
 interface IProps {
   navigationData: INavigationItem[]
-  initialUser: { email: string; name?: string } | null
+  initialUser: IUser | null
 }
-
-// subscribe
-const emptySubscribe = () => () => {}
 
 // component
 const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
@@ -30,17 +26,7 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
 
   const t = useTranslations('Navigation')
 
-  const isAuthStore = useIsAuth()
-  const storeUser = useUser()
-
-  const isClient = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  )
-
-  const isAuth = isClient ? isAuthStore : !!initialUser
-  const displayEmail = isClient ? storeUser?.email : initialUser?.email
+  const { isAuth, displayEmail } = useAuthSession({ initialUser })
 
   const visibleNavigation = navigationData.filter((item) => {
     if (item.isPrivate && !isAuth) return false
@@ -61,7 +47,7 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
       </div>
 
       <div className='flex items-center gap-4 lg:gap-6'>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className='h-10 w-10' />}>
           <LanguageDropdownComponent
             trigger={
               <Button variant='ghost' size='icon'>
