@@ -4,27 +4,39 @@ on:
     branches: [ main, master, develop ]
   pull_request:
     branches: [ main, master, develop ]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
       with:
-        node-version: lts/*
+        node-version: 'lts/*'
+        cache: 'yarn'
+
     - name: Install Yarn
       run: npm install -g yarn@1.22.22
+
     - name: Install dependencies
       run: yarn install --frozen-lockfile
+
     - name: Install Playwright Browsers
       run: yarn playwright install --with-deps
+
     - name: Run Playwright tests
       env:
         NEXT_PUBLIC_CLIENT_WEB_URL: http://localhost:3000
         NEXT_PUBLIC_CLIENT_API_URL: https://jsonplaceholder.typicode.com
         JWT_SECRET: "test-secret-key-for-e2e"
       run: yarn playwright test
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
