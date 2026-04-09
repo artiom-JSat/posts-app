@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
-import { type FC, type ReactNode, useEffect, useState, useTransition } from 'react'
+import { type FC, type ReactNode, Suspense, useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from '@/pkg/locale'
 import {
@@ -20,9 +20,12 @@ interface IProps {
   align?: 'start' | 'center' | 'end'
 }
 
+// interface
+interface IPropsLanguageMenuContent extends Pick<IProps, 'align'> {}
+
 // component
-const LanguageDropdownComponent: FC<Readonly<IProps>> = (props: IProps) => {
-  const { defaultOpen, align, trigger } = props
+const LanguageMenuContent: FC<Readonly<IPropsLanguageMenuContent>> = (props: IPropsLanguageMenuContent) => {
+  const { align } = props
 
   const locale = useLocale()
   const [language, setLanguage] = useState(locale)
@@ -35,30 +38,37 @@ const LanguageDropdownComponent: FC<Readonly<IProps>> = (props: IProps) => {
     setLanguage(locale)
   }, [locale])
 
-  const [_, startTransition] = useTransition()
-
   const switchLanguage = (newLocale: string) => {
-    startTransition(() => {
-      router.replace({ pathname, query: Object.fromEntries(searchParams.entries()) }, { locale: newLocale })
-    })
+    router.replace({ pathname, query: Object.fromEntries(searchParams.entries()) }, { locale: newLocale })
   }
 
   // return
   return (
-    <DropdownMenu defaultOpen={defaultOpen}>
+    <DropdownMenuContent className='w-40' align={align || 'end'}>
+      <DropdownMenuRadioGroup value={language} onValueChange={switchLanguage}>
+        <DropdownMenuRadioItem value='en' className='cursor-pointer'>
+          English
+        </DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value='de' className='cursor-pointer'>
+          Deutsch
+        </DropdownMenuRadioItem>
+      </DropdownMenuRadioGroup>
+    </DropdownMenuContent>
+  )
+}
+
+// component
+const LanguageDropdownComponent: FC<Readonly<IProps>> = (props: IProps) => {
+  const { defaultOpen, align, trigger } = props
+
+  // return
+  return (
+    <DropdownMenu defaultOpen={defaultOpen} modal={false}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
 
-      <DropdownMenuContent className='w-40' align={align || 'end'}>
-        <DropdownMenuRadioGroup value={language} onValueChange={switchLanguage}>
-          <DropdownMenuRadioItem value='en' className='cursor-pointer'>
-            English
-          </DropdownMenuRadioItem>
-
-          <DropdownMenuRadioItem value='de' className='cursor-pointer'>
-            Deutsch
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
+      <Suspense fallback={null}>
+        <LanguageMenuContent align={align} />
+      </Suspense>
     </DropdownMenu>
   )
 }

@@ -7,7 +7,7 @@ import { WrapperComponent } from '@/shared/components/wrapper'
 interface IProps {}
 
 // component
-const LoadingPosts: FC<Readonly<IProps>> = () => {
+const PostsListSkeleton: FC<Readonly<IProps>> = () => {
   return (
     <WrapperComponent type='main'>
       <div className='mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:px-8'>
@@ -45,4 +45,4 @@ const LoadingPosts: FC<Readonly<IProps>> = () => {
   )
 }
 
-export default LoadingPosts
+export default PostsListSkeleton

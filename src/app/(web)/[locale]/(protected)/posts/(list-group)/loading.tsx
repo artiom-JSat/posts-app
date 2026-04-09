@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 
-import { PostDetailSkeleton } from '@/shared/components/skeletons'
+import { PostsListSkeleton } from '@/shared/components/skeletons'
 
 // interface
 interface IProps {}
@@ -8,7 +8,7 @@ interface IProps {}
 // component
 const Loading: FC<Readonly<IProps>> = () => {
   // return
-  return <PostDetailSkeleton />
+  return <PostsListSkeleton />
 }
 
 export default Loading

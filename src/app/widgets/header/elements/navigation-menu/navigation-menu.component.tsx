@@ -8,26 +8,25 @@ import { Link } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { Separator } from '@/pkg/theme/ui/separator'
 import { LanguageDropdownComponent } from '@/shared/components/language-dropdown'
-import { useLogout } from '@/shared/hooks'
-import { useIsAuth, useUser } from '@/shared/store'
+import { useAuthSession, useLogout } from '@/shared/hooks'
 
 import MobileNavigationMenuComponent from './mobile-navigation-menu.component'
 
-import { type INavigationItem } from '../../header.interface'
+import { type INavigationItem, type IUser } from '../../header.interface'
 
 // interface
 interface IProps {
   navigationData: INavigationItem[]
+  initialUser: IUser | null
 }
 
 // component
 const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
-  const { navigationData } = props
+  const { navigationData, initialUser } = props
 
   const t = useTranslations('Navigation')
 
-  const isAuth = useIsAuth()
-  const user = useUser()
+  const { isAuth, displayEmail } = useAuthSession({ initialUser })
 
   const visibleNavigation = navigationData.filter((item) => {
     if (item.isPrivate && !isAuth) return false
@@ -60,7 +59,7 @@ const NavigationMenuComponent: FC<Readonly<IProps>> = (props: IProps) => {
 
         {isAuth ? (
           <div className='hidden items-center gap-4 md:flex'>
-            <span className='text-muted-foreground hidden pr-[10px] text-sm lg:block'>{user?.email}</span>
+            <span className='text-muted-foreground hidden pr-[10px] text-sm lg:block'>{displayEmail}</span>
             <Separator orientation='vertical' className='h-4 data-vertical:self-center' />
             <Button variant='ghost' size='lg' onClick={handleLogout} className='gap-2'>
               <LogOut className='h-4 w-4' />

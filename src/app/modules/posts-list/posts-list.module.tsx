@@ -7,10 +7,12 @@ import { useQuery } from '@tanstack/react-query'
 
 import { postsQueries } from '@/entities/api/posts'
 import { PaginationComponent } from '@/shared/components/pagination'
+import { PostsListSkeleton } from '@/shared/components/skeletons'
 import { WrapperComponent } from '@/shared/components/wrapper'
-import { usePostsListPagination } from '@/shared/hooks'
+import { usePaginationGuard, usePaginationParams } from '@/shared/hooks'
 
 import { PostCardComponent } from './elements'
+import { POSTS_LIST_PAGINATION } from './posts-list.constant'
 
 // interface
 interface IProps {}
@@ -19,14 +21,19 @@ interface IProps {}
 const PostsListModule: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Posts')
 
-  const { currentPage, limit, setPage, isPending } = usePostsListPagination()
+  const { currentPage, limit, setPage, isPending } = usePaginationParams({
+    defaultPage: POSTS_LIST_PAGINATION.DEFAULT_PAGE,
+    defaultLimit: POSTS_LIST_PAGINATION.DEFAULT_LIMIT,
+  })
 
-  const { data: postsData } = useQuery(postsQueries.list(currentPage, limit))
+  const { data: postsData, isFetching } = useQuery(postsQueries.list(currentPage, limit))
   const { data: posts = [], total = 0 } = postsData || {}
 
   const totalPages = Math.ceil(total / limit)
 
-  usePostsListPagination({ totalPages })
+  usePaginationGuard({ currentPage, totalPages, setPage })
+
+  if (!isFetching && posts.length === 0) return <PostsListSkeleton />
 
   // return
   return (

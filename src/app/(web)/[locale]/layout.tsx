@@ -8,7 +8,6 @@ import { envClient } from '@/config/env'
 import { fontPrimary, fontSecondary } from '@/config/fronts'
 import { routing } from '@/pkg/locale'
 import { RestApiProvider } from '@/pkg/rest-api'
-import { AuthProvider } from '@/shared/providers/auth-provider'
 import { HeaderWidget } from '@/widgets/header'
 
 import '@/config/styles/globals.css'
@@ -65,10 +64,8 @@ const LocaleLayout: FC<Readonly<IProps>> = async (props: IProps) => {
       <body className={`${fontPrimary.variable} ${fontSecondary.variable} antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider>
           <RestApiProvider>
-            <AuthProvider>
-              <HeaderWidget />
-              {children}
-            </AuthProvider>
+            <HeaderWidget />
+            {children}
           </RestApiProvider>
         </NextIntlClientProvider>
       </body>

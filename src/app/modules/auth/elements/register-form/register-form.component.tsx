@@ -6,11 +6,11 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { authClient } from '@/pkg/auth/client'
 import { useRouter } from '@/pkg/locale'
 import { Button } from '@/pkg/theme/ui/button'
 import { Spinner } from '@/pkg/theme/ui/spinner'
 import { ControlledFieldComponent } from '@/shared/components/controlled-field'
-import { useRegisterAction } from '@/shared/store'
 
 import { registerFields } from '../../auth.constant'
 import { getRegisterSchema, type IRegisterFormValues } from '../../auth.schema'
@@ -22,9 +22,8 @@ interface IProps {}
 const RegisterFormComponent: FC<Readonly<IProps>> = () => {
   const t = useTranslations('Auth')
   const router = useRouter()
-  const registerUser = useRegisterAction()
 
-  const [isRedirecting, setIsRedirecting] = useState(false)
+  const [isPending, setIsPending] = useState(false)
 
   const methods = useForm<IRegisterFormValues>({
     resolver: zodResolver(getRegisterSchema(t)),
@@ -39,23 +38,23 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
 
   const { handleSubmit, setError } = methods
 
-  const onRegisterSubmit = (values: IRegisterFormValues) => {
-    const result = registerUser({
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    })
+  const onRegisterSubmit = async (data: IRegisterFormValues) => {
+    const { name, email, password } = data
 
-    if (result.success) {
-      setIsRedirecting(true)
+    setIsPending(true)
+
+    const { data: res, error } = await authClient.signUp.email({ name, email, password })
+
+    if (res) {
       router.push('/posts')
     } else {
-      setError('email', {
-        type: 'manual',
-        message: t(`errors.${result.message}`),
-      })
+      const errorMessage = t(`errors.${error}`)
 
-      setIsRedirecting(false)
+      setError('email', { type: 'manual', message: errorMessage })
+      setError('password', { type: 'manual', message: errorMessage })
+      setError('confirmPassword', { type: 'manual', message: errorMessage })
+
+      setIsPending(false)
     }
   }
 
@@ -74,9 +73,9 @@ const RegisterFormComponent: FC<Readonly<IProps>> = () => {
           />
         ))}
 
-        <Button type='submit' className='w-full' disabled={isRedirecting}>
+        <Button type='submit' className='w-full' disabled={isPending}>
           {t('submitRegister')}
-          {isRedirecting && <Spinner />}
+          {isPending && <Spinner />}
         </Button>
       </form>
     </FormProvider>

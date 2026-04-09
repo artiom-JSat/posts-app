@@ -10,3 +10,8 @@ export interface IMobileNavigationMenu {
   isAuth: boolean
   onLogout: () => void
 }
+
+export interface IUser {
+  email: string
+  name?: string
+}

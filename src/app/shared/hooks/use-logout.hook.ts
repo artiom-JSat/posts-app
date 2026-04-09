@@ -1,26 +1,19 @@
+import { authClient } from '@/pkg/auth/client'
 import { useRouter } from '@/pkg/locale'
-import { useLogoutAction } from '@/shared/store'
 
 // hook
 export const useLogout = () => {
   const router = useRouter()
-  const logout = useLogoutAction()
 
-  const handleLogout = () => {
-    router.push('/')
-
-    const checkAndLogout = () => {
-      const path = window.location.pathname
-      const isHomePage = path.length <= 4
-
-      if (isHomePage) {
-        logout()
-      } else {
-        setTimeout(checkAndLogout, 50)
-      }
+  const handleLogout = async () => {
+    try {
+      await authClient.signOut()
+      router.push('/')
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Logout failed:', error)
+      window.location.href = '/'
     }
-
-    checkAndLogout()
   }
 
   // return

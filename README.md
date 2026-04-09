@@ -36,18 +36,18 @@ Follow these instructions to run the project locally:
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   yarn install
    ```
 
 3. **Run the development server:**
    ```bash
-   npm run dev
+   yarn dev
    ```
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 4. **Run End-to-End tests:**
    ```bash
-   npx playwright test
+   yarn playwright test
    ```
 
 ---
@@ -70,5 +70,3 @@ This project is open-source and available under the MIT License (https://opensou
 <img width="1547" height="848" alt="Screenshot 2026-03-16 at 13 34 28" src="https://github.com/user-attachments/assets/5e7e6fb0-7025-4882-bff2-3677685ea49b" />
 <img width="1547" height="848" alt="Screenshot 2026-03-16 at 13 34 54" src="https://github.com/user-attachments/assets/90233228-0272-4533-b8a4-792b05562097" />
 <img width="1547" height="848" alt="Screenshot 2026-03-16 at 13 34 09" src="https://github.com/user-attachments/assets/4464d4f9-4e76-4b29-8712-d0f2653a1897" />
-
-
