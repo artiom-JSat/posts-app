@@ -43,7 +43,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
     const { data: res, error } = await authClient.signIn.email({ email, password })
 
     if (res) {
-      router.push('/posts')
+      router.replace('/posts')
     } else {
       const errorMessage = t(`errors.${error}`)
 
