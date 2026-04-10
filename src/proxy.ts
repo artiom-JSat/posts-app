@@ -5,42 +5,33 @@ import { authServer } from '@/pkg/auth/server'
 import { routing } from '@/pkg/locale'
 
 // middleware
+const i18nMiddleware = createMiddleware(routing)
+
 export default async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   if (pathname.startsWith('/api/')) {
     return NextResponse.next()
   }
+  const response = i18nMiddleware(req)
 
-  const i18nRes = createMiddleware(routing)(req)
+  const isAuthPage = pathname.match(/\/(login|register)$/)
+  const isProtectedPage = pathname.includes('/posts')
 
-  const country =
-    req.headers.get('cf-ipcountry') ||
-    req.headers.get('cloudfront-viewer-country') ||
-    req.headers.get('X-Country') ||
-    req.cookies.get('country')?.value ||
-    'N/A'
-
-  i18nRes.headers.set('x-country', country)
-
-  if (pathname.includes('/posts')) {
+  if (isAuthPage || isProtectedPage) {
     const session = await authServer.getCacheSession()
+    const locale = req.nextUrl.locale || 'en'
 
-    if (!session.user) {
-      return NextResponse.redirect(new URL('/login', req.url))
+    if (isAuthPage && session.user) {
+      return NextResponse.redirect(new URL(`/${locale}/posts`, req.url))
     }
-  }
-
-  if (pathname.includes('/login') || pathname.includes('/register')) {
-    const session = await authServer.getCacheSession()
-
-    if (session.user) {
-      return NextResponse.redirect(new URL('/posts', req.url))
+    if (isProtectedPage && !session.user) {
+      return NextResponse.redirect(new URL(`/${locale}/login`, req.url))
     }
   }
 
   // return
-  return i18nRes
+  return response
 }
 
 // config
