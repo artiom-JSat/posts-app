@@ -13,6 +13,7 @@ export const getPosts = async ({
       _limit: limit,
     },
     next: { revalidate: 3600 },
+    cache: 'force-cache',
   })
 
   if (!response.ok) {
