@@ -3,33 +3,10 @@ import { type FC } from 'react'
 
 import { cn } from '@/pkg/theme/lib/utils'
 
+import { gallerySections } from './gallery.constant'
+
 // interface
 interface IProps {}
-
-// constants
-const gallerySections = [
-  {
-    images: [
-      {
-        src: 'https://picsum.photos/seed/main-hero/1200/800',
-        alt: 'Explore the Unexplored',
-      },
-    ],
-  },
-  {
-    type: 'grid',
-    images: [
-      {
-        src: 'https://picsum.photos/seed/gallery-1/600/800',
-        alt: 'Thoughts and Ideas',
-      },
-      {
-        src: 'https://picsum.photos/seed/gallery-2/600/800',
-        alt: 'Digital Journey',
-      },
-    ],
-  },
-]
 
 // component
 const GalleryComponent: FC<Readonly<IProps>> = () => {

@@ -1,4 +1,4 @@
-import { keepPreviousData, queryOptions } from '@tanstack/react-query'
+import { queryOptions } from '@tanstack/react-query'
 
 import { getPostById, getPosts } from '@/entities/api/posts/posts.api'
 
@@ -10,7 +10,6 @@ export const postsQueries = {
     queryOptions({
       queryKey: [...postsQueries.lists(), { page, limit }],
       queryFn: () => getPosts({ page, limit }),
-      placeholderData: keepPreviousData,
     }),
   details: () => [...postsQueries.all, 'detail'] as const,
   detail: (id: string) =>
